@@ -1,0 +1,9 @@
+.vscode/**
+**/*.ts
+test/**
+**/*.map
+.gitignore
+tsconfig.json
+src/**
+tasks/**
+pgsqltoolsservice/**

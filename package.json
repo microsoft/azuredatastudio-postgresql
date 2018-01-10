@@ -1,0 +1,208 @@
+{
+  "name": "pgsql",
+  "version": "0.1.0",
+  "publisher": "Microsoft",
+  "aiKey": "AIF-5574968e-856d-40d2-af67-c89a14e76412",
+  "engines": {
+    "vscode": "^1.9.0"
+  },
+  "activationEvents": [
+    "*"
+  ],
+  "main": "./out/src/extension",
+  "extensionDependencies": [
+    "vscode.sql"
+  ],
+  "categories": [
+    "Data Provider"
+  ],
+  "scripts": {
+    "compile": "gulp build",
+    "package": "gulp package:online",
+    "postinstall": "node ./node_modules/vscode/bin/install"
+  },
+  "contributes": {
+    "languages": [
+      {
+        "id": "sql",
+        "extensions": [
+          ".sql"
+        ],
+        "aliases": [
+          "SQL"
+        ],
+        "configuration": "./syntaxes/sql.configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "sql",
+        "scopeName": "source.sql",
+        "path": "./syntaxes/SQL.plist"
+      }
+    ],
+    "outputChannels": [
+      "PGSQL"
+    ],
+    "snippets": [
+      {
+        "language": "sql",
+        "path": "./snippets/pgsql.json"
+      }
+    ],
+    "configuration": {
+      "type": "object",
+      "title": "PGSQL configuration",
+      "properties": {
+        "pgsql.logDebugInfo": {
+          "type": "boolean",
+          "default": false,
+          "description": "[Optional] Log debug output to the VS Code console (Help -> Toggle Developer Tools)"
+        },
+        "pgsql.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "[Optional] Enable PostgreSQL support (currently in development)"
+        },
+        "pgsql.debugSourcePath": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "default": null,
+          "description": "[Optional] Path to the source directory of the PostgreSQL Tools Service, for debugging"
+        },
+        "pgsql.useDebugSource": {
+          "type": "boolean",
+          "default": false,
+          "description": "[Optional] Enable running the PGSQL extension via the path set in pgsql.debugSourcePath"
+        },
+        "pgsql.enableStartupDebugging": {
+          "type": "boolean",
+          "default": false,
+          "description": "[Optional] Whether to make the PostgreSQL Tools Service wait for a debugger to attach when starting"
+        },
+        "pgsql.debugServerPort": {
+          "type": "number",
+          "default": 3000,
+          "description": "[Optional] The port to run the PostgreSQL Tools Service remote debugger on (default 3000)"
+        },
+        "pgsql.defaultDatabase": {
+          "type": "string",
+          "default": "postgres",
+          "description": "The default database to use when creating a new PostgreSQL connection"
+        },
+        "pgsql.format.keywordCase": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "[Optional] Changes how keywords are formatted. Allowed values are 'upper', 'lower' and 'capitalize'.",
+          "default": null,
+          "enum": [
+            null,
+            "upper",
+            "lower",
+            "capitalize"
+          ]
+        },
+        "pgsql.format.identifierCase": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "[Optional] Changes how identifiers are formatted. Allowed values are 'upper', 'lower' and 'capitalize'.",
+          "default": null,
+          "enum": [
+            null,
+            "upper",
+            "lower",
+            "capitalize"
+          ]
+        },
+        "pgsql.format.stripComments": {
+          "type": "boolean",
+          "default": false,
+          "description": "[Optional] If true comments are removed from the statements"
+        },
+        "pgsql.format.reindent": {
+          "type": "boolean",
+          "default": true,
+          "description": "[Optional] If true the indentations of the statements are changed."
+        }
+      }
+    }
+  },
+  "devDependencies": {
+    "@types/node": "^8.0.53",
+    "chai": "^3.5.0",
+    "coveralls": "^2.11.15",
+    "decache": "^4.1.0",
+    "del": "^2.2.1",
+    "gulp": "github:gulpjs/gulp#4.0",
+    "gulp-clean-css": "^2.0.13",
+    "gulp-concat": "^2.6.0",
+    "gulp-filter": "^5.0.0",
+    "gulp-install": "^0.6.0",
+    "gulp-istanbul-report": "0.0.1",
+    "gulp-json-editor": "^2.2.1",
+    "gulp-remote-src": "0.4.1",
+    "gulp-rename": "^1.2.2",
+    "gulp-shell": "^0.5.2",
+    "gulp-sourcemaps": "^1.6.0",
+    "gulp-tslint": "^6.0.2",
+    "gulp-typescript": "^3.1.4",
+    "gulp-uglify": "^2.0.0",
+    "istanbul": "^0.4.5",
+    "jasmine-core": "~2.4.1",
+    "karma": "^1.3.0",
+    "karma-chrome-launcher": "^2.0.0",
+    "karma-coverage": "^1.1.1",
+    "karma-htmlfile-reporter": "^0.3.4",
+    "karma-jasmine": "^1.0.2",
+    "karma-jasmine-html-reporter": "^0.2.2",
+    "karma-junit-reporter": "^1.1.0",
+    "karma-remap-istanbul": "^0.2.1",
+    "pm-mocha-jenkins-reporter": "^0.2.6",
+    "remap-istanbul": "^0.6.4",
+    "systemjs-builder": "^0.15.32",
+    "tslint": "^3.14.0",
+    "typemoq": "^1.7.0",
+    "typescript": "2.3.4",
+    "uglify-js": "mishoo/UglifyJS2#harmony-v2.8.22",
+    "vscode": "1.0.1",
+    "vscode-nls-dev": "https://github.com/Raymondd/vscode-nls-dev/releases/download/2.0.2/build.tar.gz",
+    "xmldom": "^0.1.27",
+    "yargs": "https://registry.npmjs.org/yargs/-/yargs-3.32.0.tgz"
+  },
+  "dependencies": {
+    "applicationinsights": "^0.15.6",
+    "body-parser": "^1.15.2",
+    "comment-json": "^1.1.3",
+    "copy-paste": "^1.3.0",
+    "data": "^0.6.1",
+    "dataprotocol-client": "^2.6.3",
+    "decompress": "^4.0.0",
+    "ejs": "^2.4.2",
+    "error-ex": "^1.3.0",
+    "express": "^4.13.3",
+    "figures": "^1.4.0",
+    "fs-extra": "^4.0.2",
+    "fs-extra-promise": "^0.3.1",
+    "getmac": "1.2.1",
+    "http-proxy-agent": "^1.0.0",
+    "https-proxy-agent": "^1.0.0",
+    "jsonc-parser": "^1.0.0",
+    "opener": "1.4.2",
+    "plist": "^2.1.0",
+    "pretty-data": "^0.40.0",
+    "request": "^2.73.0",
+    "semver": "https://registry.npmjs.org/semver/-/semver-5.0.3.tgz",
+    "tmp": "^0.0.28",
+    "underscore": "^1.8.3",
+    "vscode-extension-telemetry": "^0.0.5",
+    "vscode-languageclient": "^2.5.0",
+    "vscode-nls": "^2.0.2",
+    "ws": "^1.1.1"
+  }
+}
