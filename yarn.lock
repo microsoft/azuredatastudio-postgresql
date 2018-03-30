@@ -130,13 +130,9 @@ append-buffer@^1.0.2:
   dependencies:
     buffer-equal "^1.0.0"
 
-applicationinsights@1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/applicationinsights/-/applicationinsights-1.0.1.tgz#53446b830fe8d5d619eee2a278b31d3d25030927"
-  dependencies:
-    diagnostic-channel "0.2.0"
-    diagnostic-channel-publishers "0.2.1"
-    zone.js "0.7.6"
+applicationinsights@0.15.6:
+  version "0.15.6"
+  resolved "https://registry.yarnpkg.com/applicationinsights/-/applicationinsights-0.15.6.tgz#201a0682c0704fe4bdd9a92d0b2cbe34d2ae5972"
 
 applicationinsights@^0.15.6:
   version "0.15.19"
@@ -5666,11 +5662,12 @@ void-elements@^2.0.0:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/void-elements/-/void-elements-2.0.1.tgz#c066afb582bb1cb4128d60ea92392e94d5e9dbec"
 
-vscode-extension-telemetry@^0.0.15:
-  version "0.0.15"
-  resolved "https://registry.yarnpkg.com/vscode-extension-telemetry/-/vscode-extension-telemetry-0.0.15.tgz#685c32f3b67e8fb85ba689c1d7f88ff90ff87856"
+vscode-extension-telemetry@^0.0.5:
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/vscode-extension-telemetry/-/vscode-extension-telemetry-0.0.5.tgz#21e2abb4cbce3326e469ddbb322123b3702f3f85"
   dependencies:
-    applicationinsights "1.0.1"
+    applicationinsights "0.15.6"
+    winreg "0.0.13"
 
 vscode-jsonrpc@3.5.0, vscode-jsonrpc@^3.5.0:
   version "3.5.0"
@@ -5751,6 +5748,10 @@ window-size@0.1.0:
 window-size@^0.1.4:
   version "0.1.4"
   resolved "https://registry.yarnpkg.com/window-size/-/window-size-0.1.4.tgz#f8e1aa1ee5a53ec5bf151ffa09742a6ad7697876"
+
+winreg@0.0.13:
+  version "0.0.13"
+  resolved "https://registry.yarnpkg.com/winreg/-/winreg-0.0.13.tgz#76bfe02e1dd0c9c8275fb9fdf17a9f36846e3483"
 
 wordwrap@0.0.2, wordwrap@~0.0.2:
   version "0.0.2"
