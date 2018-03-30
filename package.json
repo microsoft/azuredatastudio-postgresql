@@ -1,27 +1,23 @@
 {
-  "name": "sqlops-pgsql",
+  "name": "pgsql",
   "version": "0.1.0",
   "publisher": "Microsoft",
-  "description": "PostgreSQL extension for SQL Operations Studio",
   "aiKey": "AIF-5574968e-856d-40d2-af67-c89a14e76412",
-  "icon": "images/extension-icon.png",
-  "engines": {
-    "vscode": "^1.9.0"
-  },
   "activationEvents": [
     "*"
   ],
-  "main": "./out/src/extension",
+  "engines": {
+    "vscode": "*",
+    "sqlops": "*"
+  },
+  "main": "./out/src/main",
   "extensionDependencies": [
     "vscode.sql"
-  ],
-  "categories": [
-    "Data Provider"
   ],
   "scripts": {
     "compile": "gulp build",
     "package": "gulp package:online",
-    "postinstall": "node ./node_modules/vscode/bin/install"
+    "postinstall": "node ./node_modules/vscode/bin/install && node ./node_modules/sqlops/bin/install"
   },
   "contributes": {
     "languages": [
@@ -32,15 +28,7 @@
         ],
         "aliases": [
           "SQL"
-        ],
-        "configuration": "./syntaxes/sql.configuration.json"
-      }
-    ],
-    "grammars": [
-      {
-        "language": "sql",
-        "scopeName": "source.sql",
-        "path": "./syntaxes/SQL.plist"
+        ]
       }
     ],
     "outputChannels": [
@@ -133,7 +121,496 @@
           "description": "[Optional] If true the indentations of the statements are changed."
         }
       }
+    },
+    "connectionProvider": {
+      "providerId": "PGSQL",
+      "displayName": "PostgreSQL",
+      "connectionOptions": [
+        {
+          "specialValueType": "serverName",
+          "isIdentity": true,
+          "name": "server",
+          "displayName": "Server",
+          "description": "Name of the SQL Server instance",
+          "groupName": "Source",
+          "valueType": "string",
+          "defaultValue": null,
+          "objectType": null,
+          "categoryValues": null,
+          "isRequired": true,
+          "isArray": false
+        },
+        {
+          "specialValueType": "databaseName",
+          "isIdentity": true,
+          "name": "database",
+          "displayName": "Database",
+          "description": "The name of the initial catalog or database int the data source",
+          "groupName": "Source",
+          "valueType": "string",
+          "defaultValue": null,
+          "objectType": null,
+          "categoryValues": null,
+          "isRequired": false,
+          "isArray": false
+        },
+        {
+          "specialValueType": "authType",
+          "isIdentity": true,
+          "name": "authenticationType",
+          "displayName": "Authentication type",
+          "description": "Specifies the method of authenticating with SQL Server",
+          "groupName": "Security",
+          "valueType": "category",
+          "defaultValue": null,
+          "objectType": null,
+          "categoryValues": [
+            {
+              "displayName": "SQL Login",
+              "name": "SqlLogin"
+            },
+            {
+              "displayName": "Windows Authentication",
+              "name": "Integrated"
+            }
+          ],
+          "isRequired": true,
+          "isArray": false
+        },
+        {
+          "specialValueType": "userName",
+          "isIdentity": true,
+          "name": "user",
+          "displayName": "User name",
+          "description": "Indicates the user ID to be used when connecting to the data source",
+          "groupName": "Security",
+          "valueType": "string",
+          "defaultValue": null,
+          "objectType": null,
+          "categoryValues": null,
+          "isRequired": true,
+          "isArray": false
+        },
+        {
+          "specialValueType": "password",
+          "isIdentity": true,
+          "name": "password",
+          "displayName": "Password",
+          "description": "Indicates the password to be used when connecting to the data source",
+          "groupName": "Security",
+          "valueType": "password",
+          "defaultValue": null,
+          "objectType": null,
+          "categoryValues": null,
+          "isRequired": true,
+          "isArray": false
+        },
+        {
+          "specialValueType": null,
+          "isIdentity": false,
+          "name": "applicationIntent",
+          "displayName": "Application intent",
+          "description": "Declares the application workload type when connecting to a server",
+          "groupName": "Initialization",
+          "valueType": "category",
+          "defaultValue": null,
+          "objectType": null,
+          "categoryValues": [
+            {
+              "displayName": "ReadWrite",
+              "name": "ReadWrite"
+            },
+            {
+              "displayName": "ReadOnly",
+              "name": "ReadOnly"
+            }
+          ],
+          "isRequired": false,
+          "isArray": false
+        },
+        {
+          "specialValueType": null,
+          "isIdentity": false,
+          "name": "asynchronousProcessing",
+          "displayName": "Asynchronous processing enabled",
+          "description": "When true, enables usage of the Asynchronous functionality in the .Net Framework Data Provider",
+          "groupName": "Initialization",
+          "valueType": "boolean",
+          "defaultValue": null,
+          "objectType": null,
+          "categoryValues": null,
+          "isRequired": false,
+          "isArray": false
+        },
+        {
+          "specialValueType": null,
+          "isIdentity": false,
+          "name": "connectTimeout",
+          "displayName": "Connect timeout",
+          "description": "The length of time (in seconds) to wait for a connection to the server before terminating the attempt and generating an error",
+          "groupName": "Initialization",
+          "valueType": "number",
+          "defaultValue": "15",
+          "objectType": null,
+          "categoryValues": null,
+          "isRequired": false,
+          "isArray": false
+        },
+        {
+          "specialValueType": null,
+          "isIdentity": false,
+          "name": "currentLanguage",
+          "displayName": "Current language",
+          "description": "The SQL Server language record name",
+          "groupName": "Initialization",
+          "valueType": "string",
+          "defaultValue": null,
+          "objectType": null,
+          "categoryValues": null,
+          "isRequired": false,
+          "isArray": false
+        },
+        {
+          "specialValueType": null,
+          "isIdentity": false,
+          "name": "columnEncryptionSetting",
+          "displayName": "Column encryption setting",
+          "description": "Default column encryption setting for all the commands on the connection",
+          "groupName": "Security",
+          "valueType": "category",
+          "defaultValue": null,
+          "objectType": null,
+          "categoryValues": [
+            {
+              "displayName": null,
+              "name": "Disabled"
+            },
+            {
+              "displayName": null,
+              "name": "Enabled"
+            }
+          ],
+          "isRequired": false,
+          "isArray": false
+        },
+        {
+          "specialValueType": null,
+          "isIdentity": false,
+          "name": "encrypt",
+          "displayName": "Encrypt",
+          "description": "When true, SQL Server uses SSL encryption for all data sent between the client and server if the servers has a certificate installed",
+          "groupName": "Security",
+          "valueType": "boolean",
+          "defaultValue": null,
+          "objectType": null,
+          "categoryValues": null,
+          "isRequired": false,
+          "isArray": false
+        },
+        {
+          "specialValueType": null,
+          "isIdentity": false,
+          "name": "persistSecurityInfo",
+          "displayName": "Persist security info",
+          "description": "When false, security-sensitive information, such as the password, is not returned as part of the connection",
+          "groupName": "Security",
+          "valueType": "boolean",
+          "defaultValue": null,
+          "objectType": null,
+          "categoryValues": null,
+          "isRequired": false,
+          "isArray": false
+        },
+        {
+          "specialValueType": null,
+          "isIdentity": false,
+          "name": "trustServerCertificate",
+          "displayName": "Trust server certificate",
+          "description": "When true (and encrypt=true), SQL Server uses SSL encryption for all data sent between the client and server without validating the server certificate",
+          "groupName": "Security",
+          "valueType": "boolean",
+          "defaultValue": null,
+          "objectType": null,
+          "categoryValues": null,
+          "isRequired": false,
+          "isArray": false
+        },
+        {
+          "specialValueType": null,
+          "isIdentity": false,
+          "name": "attachedDBFileName",
+          "displayName": "Attached DB file name",
+          "description": "The name of the primary file, including the full path name, of an attachable database",
+          "groupName": "Source",
+          "valueType": "string",
+          "defaultValue": null,
+          "objectType": null,
+          "categoryValues": null,
+          "isRequired": false,
+          "isArray": false
+        },
+        {
+          "specialValueType": null,
+          "isIdentity": false,
+          "name": "contextConnection",
+          "displayName": "Context connection",
+          "description": "When true, indicates the connection should be from the SQL server context. Available only when running in the SQL Server process",
+          "groupName": "Source",
+          "valueType": "boolean",
+          "defaultValue": null,
+          "objectType": null,
+          "categoryValues": null,
+          "isRequired": false,
+          "isArray": false
+        },
+        {
+          "specialValueType": null,
+          "isIdentity": false,
+          "name": "port",
+          "displayName": "Port",
+          "description": null,
+          "groupName": null,
+          "valueType": "number",
+          "defaultValue": null,
+          "objectType": null,
+          "categoryValues": null,
+          "isRequired": false,
+          "isArray": false
+        },
+        {
+          "specialValueType": null,
+          "isIdentity": false,
+          "name": "connectRetryCount",
+          "displayName": "Connect retry count",
+          "description": "Number of attempts to restore connection",
+          "groupName": "Connection Resiliency",
+          "valueType": "number",
+          "defaultValue": "1",
+          "objectType": null,
+          "categoryValues": null,
+          "isRequired": false,
+          "isArray": false
+        },
+        {
+          "specialValueType": null,
+          "isIdentity": false,
+          "name": "connectRetryInterval",
+          "displayName": "Connect retry interval",
+          "description": "Delay between attempts to restore connection",
+          "groupName": "Connection Resiliency",
+          "valueType": "number",
+          "defaultValue": "10",
+          "objectType": null,
+          "categoryValues": null,
+          "isRequired": false,
+          "isArray": false
+        },
+        {
+          "specialValueType": "appName",
+          "isIdentity": false,
+          "name": "applicationName",
+          "displayName": "Application name",
+          "description": "The name of the application",
+          "groupName": "Context",
+          "valueType": "string",
+          "defaultValue": null,
+          "objectType": null,
+          "categoryValues": null,
+          "isRequired": false,
+          "isArray": false
+        },
+        {
+          "specialValueType": null,
+          "isIdentity": false,
+          "name": "workstationId",
+          "displayName": "Workstation Id",
+          "description": "The name of the workstation connecting to SQL Server",
+          "groupName": "Context",
+          "valueType": "string",
+          "defaultValue": null,
+          "objectType": null,
+          "categoryValues": null,
+          "isRequired": false,
+          "isArray": false
+        },
+        {
+          "specialValueType": null,
+          "isIdentity": false,
+          "name": "pooling",
+          "displayName": "Pooling",
+          "description": "When true, the connection object is drawn from the appropriate pool, or if necessary, is created and added to the appropriate pool",
+          "groupName": "Pooling",
+          "valueType": "boolean",
+          "defaultValue": null,
+          "objectType": null,
+          "categoryValues": null,
+          "isRequired": false,
+          "isArray": false
+        },
+        {
+          "specialValueType": null,
+          "isIdentity": false,
+          "name": "maxPoolSize",
+          "displayName": "Max pool size",
+          "description": "The maximum number of connections allowed in the pool",
+          "groupName": "Pooling",
+          "valueType": "number",
+          "defaultValue": null,
+          "objectType": null,
+          "categoryValues": null,
+          "isRequired": false,
+          "isArray": false
+        },
+        {
+          "specialValueType": null,
+          "isIdentity": false,
+          "name": "minPoolSize",
+          "displayName": "Min pool size",
+          "description": "The minimum number of connections allowed in the pool",
+          "groupName": "Pooling",
+          "valueType": "number",
+          "defaultValue": null,
+          "objectType": null,
+          "categoryValues": null,
+          "isRequired": false,
+          "isArray": false
+        },
+        {
+          "specialValueType": null,
+          "isIdentity": false,
+          "name": "loadBalanceTimeout",
+          "displayName": "Load balance timeout",
+          "description": "The minimum amount of time (in seconds) for this connection to live in the pool before being destroyed",
+          "groupName": "Pooling",
+          "valueType": "number",
+          "defaultValue": null,
+          "objectType": null,
+          "categoryValues": null,
+          "isRequired": false,
+          "isArray": false
+        },
+        {
+          "specialValueType": null,
+          "isIdentity": false,
+          "name": "replication",
+          "displayName": "Replication",
+          "description": "Used by SQL Server in Replication",
+          "groupName": "Replication",
+          "valueType": "boolean",
+          "defaultValue": null,
+          "objectType": null,
+          "categoryValues": null,
+          "isRequired": false,
+          "isArray": false
+        },
+        {
+          "specialValueType": null,
+          "isIdentity": false,
+          "name": "attachDbFilename",
+          "displayName": "Attach DB filename",
+          "description": null,
+          "groupName": null,
+          "valueType": "string",
+          "defaultValue": null,
+          "objectType": null,
+          "categoryValues": null,
+          "isRequired": false,
+          "isArray": false
+        },
+        {
+          "specialValueType": null,
+          "isIdentity": false,
+          "name": "failoverPartner",
+          "displayName": "Failover partner",
+          "description": "The name or network address of the instance of SQL Server that acts as a failover partner",
+          "groupName": " Source",
+          "valueType": "string",
+          "defaultValue": null,
+          "objectType": null,
+          "categoryValues": null,
+          "isRequired": false,
+          "isArray": false
+        },
+        {
+          "specialValueType": null,
+          "isIdentity": false,
+          "name": "multiSubnetFailover",
+          "displayName": "Multi subnet failover",
+          "description": null,
+          "groupName": null,
+          "valueType": "boolean",
+          "defaultValue": null,
+          "objectType": null,
+          "categoryValues": null,
+          "isRequired": false,
+          "isArray": false
+        },
+        {
+          "specialValueType": null,
+          "isIdentity": false,
+          "name": "multipleActiveResultSets",
+          "displayName": "Multiple active result sets",
+          "description": "When true, multiple result sets can be returned and read from one connection",
+          "groupName": "Advanced",
+          "valueType": "boolean",
+          "defaultValue": null,
+          "objectType": null,
+          "categoryValues": null,
+          "isRequired": false,
+          "isArray": false
+        },
+        {
+          "specialValueType": null,
+          "isIdentity": false,
+          "name": "packetSize",
+          "displayName": "Packet size",
+          "description": "Size in bytes of the network packets used to communicate with an instance of SQL Server",
+          "groupName": "Advanced",
+          "valueType": "number",
+          "defaultValue": null,
+          "objectType": null,
+          "categoryValues": null,
+          "isRequired": false,
+          "isArray": false
+        },
+        {
+          "specialValueType": null,
+          "isIdentity": false,
+          "name": "typeSystemVersion",
+          "displayName": "Type system version",
+          "description": "Indicates which server type system then provider will expose through the DataReader",
+          "groupName": "Advanced",
+          "valueType": "string",
+          "defaultValue": null,
+          "objectType": null,
+          "categoryValues": null,
+          "isRequired": false,
+          "isArray": false
+        }
+      ]
     }
+  },
+  "dependencies": {
+    "applicationinsights": "^0.15.6",
+    "crypto": "^1.0.1",
+    "dataprotocol-client": "github:microsoft/sqlops-dataprotocolclient#0.1.5",
+    "decompress": "4.2.0 ",
+    "diagnostic-channel": "0.2.0",
+    "diagnostic-channel-publishers": "0.2.1",
+    "eventemitter2": "5.0.1 ",
+    "http-proxy-agent": "2.1.0 ",
+    "https-proxy-agent": "2.2.1 ",
+    "mkdirp": "0.5.1 ",
+    "opener": "^1.4.3",
+    "service-downloader": "github:anthonydresser/service-downloader#0.1.2",
+    "sqlops": "github:anthonydresser/sqlops-extension-sqlops",
+    "tmp": "0.0.33 ",
+    "vscode-extension-telemetry": "^0.0.15",
+    "vscode-jsonrpc": "3.5.0",
+    "vscode-languageclient": "3.5.0",
+    "vscode-languageserver-protocol": "3.5.0",
+    "vscode-languageserver-types": "3.5.0",
+    "zone.js": "0.7.6"
   },
   "devDependencies": {
     "@types/node": "^8.0.53",
@@ -142,13 +619,14 @@
     "decache": "^4.1.0",
     "del": "^2.2.1",
     "gulp": "github:gulpjs/gulp#4.0",
+    "gulp-chmod": "2.0.0",
     "gulp-clean-css": "^2.0.13",
     "gulp-concat": "^2.6.0",
     "gulp-filter": "^5.0.0",
     "gulp-install": "^0.6.0",
     "gulp-istanbul-report": "0.0.1",
     "gulp-json-editor": "^2.2.1",
-    "gulp-remote-src": "0.4.1",
+    "gulp-remote-src": "0.4.3",
     "gulp-rename": "^1.2.2",
     "gulp-shell": "^0.5.2",
     "gulp-sourcemaps": "^1.6.0",
@@ -170,41 +648,25 @@
     "systemjs-builder": "^0.15.32",
     "tslint": "^3.14.0",
     "typemoq": "^1.7.0",
-    "typescript": "2.3.4",
+    "typescript": "^2.8.1",
     "uglify-js": "mishoo/UglifyJS2#harmony-v2.8.22",
     "vscode": "1.0.1",
     "vscode-nls-dev": "https://github.com/Raymondd/vscode-nls-dev/releases/download/2.0.2/build.tar.gz",
     "xmldom": "^0.1.27",
-    "yargs": "https://registry.npmjs.org/yargs/-/yargs-3.32.0.tgz"
+    "yargs": "https://registry.npmjs.org/yargs/-/yargs-3.32.0.tgz",
+    "glob": "7.1.2",
+    "gulp-gunzip": "1.0.0",
+    "gulp-untar": "0.0.6",
+    "gulp-vinyl-zip": "2.1.0",
+    "mocha": "4.1.0",
+    "request": "2.85.0",
+    "source-map-support": "0.5.4",
+    "url-parse": "1.2.0"
   },
-  "dependencies": {
-    "applicationinsights": "^0.15.6",
-    "body-parser": "^1.15.2",
-    "comment-json": "^1.1.3",
-    "copy-paste": "^1.3.0",
-    "data": "^0.6.1",
-    "dataprotocol-client": "^2.6.5",
-    "decompress": "^4.0.0",
-    "ejs": "^2.4.2",
-    "error-ex": "^1.3.0",
-    "express": "^4.13.3",
-    "figures": "^1.4.0",
-    "fs-extra": "^4.0.2",
-    "fs-extra-promise": "^0.3.1",
-    "getmac": "1.2.1",
-    "http-proxy-agent": "^1.0.0",
-    "https-proxy-agent": "^1.0.0",
-    "jsonc-parser": "^1.0.0",
-    "opener": "1.4.2",
-    "plist": "^2.1.0",
-    "pretty-data": "^0.40.0",
-    "request": "^2.73.0",
-    "semver": "https://registry.npmjs.org/semver/-/semver-5.0.3.tgz",
-    "tmp": "^0.0.28",
-    "underscore": "^1.8.3",
-    "vscode-extension-telemetry": "^0.0.5",
-    "vscode-languageclient": "^2.5.0",
-    "vscode-nls": "^2.0.2",
-    "ws": "^1.1.1"
+  "resolutions": {
+    "vscode-jsonrpc": "3.5.0",
+    "vscode-languageclient": "3.5.0",
+    "vscode-languageserver-protocol": "3.5.0",
+    "vscode-languageserver-types": "3.5.0"
   }
 }
