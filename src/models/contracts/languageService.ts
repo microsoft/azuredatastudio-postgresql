@@ -1,4 +1,4 @@
-import {NotificationType, ServerOptions} from 'dataprotocol-client';
+import {NotificationType, ServerOptions} from 'vscode-languageclient';
 import {ITelemetryEventProperties, ITelemetryEventMeasures} from '../telemetry';
 import {Runtime} from '../platform';
 
@@ -8,7 +8,7 @@ import {Runtime} from '../platform';
  * Event sent when the language service send a telemetry event
  */
 export namespace TelemetryNotification {
-    export const type: NotificationType<TelemetryParams> = { get method(): string { return 'telemetry/sqlevent'; } };
+    export const type = new NotificationType<TelemetryParams, void>('telemetry/sqlevent');
 }
 
 /**
@@ -30,7 +30,7 @@ export class TelemetryParams {
  * Event sent when the language service send a status change event
  */
 export namespace StatusChangedNotification {
-    export const type: NotificationType<StatusChangeParams> = { get method(): string { return 'textDocument/statusChanged'; } };
+    export const type = new NotificationType<StatusChangeParams, void>('textDocument/statusChanged');
 }
 
 /**
