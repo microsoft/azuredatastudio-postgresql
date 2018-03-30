@@ -99,7 +99,7 @@ gulp.task('ext:copy-js', () => {
 gulp.task('ext:appinsights-version', () => {
     return gulp.src("./node_modules/vscode-extension-telemetry/package.json")
     .pipe(jeditor(function(json) {
-        json.dependencies.applicationinsights = "0.15.19";
+        json.dependencies.applicationinsights = "0.15.6";
         return json; // must return JSON object.
     }))
      .pipe(gulp.dest("./node_modules/vscode-extension-telemetry", {'overwrite':true}));

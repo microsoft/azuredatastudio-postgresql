@@ -6,7 +6,8 @@
   "aiKey": "AIF-5574968e-856d-40d2-af67-c89a14e76412",
   "icon": "images/extension-icon.png",
   "engines": {
-    "vscode": "^1.9.0"
+    "vscode": "*",
+    "sqlops": "*"
   },
   "activationEvents": [
     "*"
@@ -21,7 +22,7 @@
   "scripts": {
     "compile": "gulp build",
     "package": "gulp package:online",
-    "postinstall": "node ./node_modules/vscode/bin/install"
+    "postinstall": "node ./node_modules/vscode/bin/install && node ./node_modules/sqlops/bin/install"
   },
   "contributes": {
     "languages": [
@@ -133,6 +134,278 @@
           "description": "[Optional] If true the indentations of the statements are changed."
         }
       }
+    },
+    "dashboard": {
+      "provider": "PGSQL",
+      "flavors": [
+        {
+          "flavor": "on_prem",
+          "condition": {
+            "field": "isCloud",
+            "operator": "!=",
+            "value": true
+          },
+          "databaseProperties": [
+            {
+              "displayName": "Recovery Model",
+              "value": "recoveryModel"
+            },
+            {
+              "displayName": "Last Database Backup",
+              "value": "lastBackupDate",
+              "ignore": [
+                "1/1/0001 12:00:00 AM"
+              ]
+            },
+            {
+              "displayName": "Last Log Backup",
+              "value": "lastLogBackupDate",
+              "ignore": [
+                "1/1/0001 12:00:00 AM"
+              ]
+            },
+            {
+              "displayName": "Compatibility Level",
+              "value": "compatibilityLevel"
+            },
+            {
+              "displayName": "Owner",
+              "value": "owner"
+            }
+          ],
+          "serverProperties": [
+            {
+              "displayName": "Version",
+              "value": "serverVersion"
+            },
+            {
+              "displayName": "Edition",
+              "value": "serverEdition"
+            },
+            {
+              "displayName": "Computer Name",
+              "value": "machineName"
+            },
+            {
+              "displayName": "OS Version",
+              "value": "osVersion"
+            }
+          ]
+        },
+        {
+          "flavor": "cloud",
+          "condition": {
+            "field": "isCloud",
+            "operator": "==",
+            "value": true
+          },
+          "databaseProperties": [
+            {
+              "displayName": "Edition",
+              "value": "azureEdition"
+            },
+            {
+              "displayName": "Pricing Tier",
+              "value": "serviceLevelObjective"
+            },
+            {
+              "displayName": "Compatibility Level",
+              "value": "compatibilityLevel"
+            },
+            {
+              "displayName": "Owner",
+              "value": "owner"
+            }
+          ],
+          "serverProperties": [
+            {
+              "displayName": "Version",
+              "value": "serverVersion"
+            },
+            {
+              "displayName": "Type",
+              "value": "serverEdition"
+            }
+          ]
+        }
+      ]
+    },
+    "connectionProvider": {
+      "protocolVersion": "1.0",
+      "providerName": "PGSQL",
+      "providerId": "PGSQL",
+      "displayName": "PostgresSQL",
+      "connectionOptions": [
+        {
+          "name": "host",
+          "displayName": "Server name",
+          "description": "Name of the PostgreSQL instance",
+          "valueType": "string",
+          "specialValueType": "serverName",
+          "isIdentity": true,
+          "isRequired": true,
+          "groupName": "Source"
+
+        },
+        {
+          "name": "dbname",
+          "displayName": "Database name",
+          "description": "The name of the initial catalog or database int the data source",
+          "valueType": "string",
+          "specialValueType": "databaseName",
+          "isIdentity": true,
+          "isRequired": false,
+          "groupName": "Source",
+          "defaultValue": "postgres"
+        },
+        {
+          "name": "user",
+          "displayName": "User name",
+          "description": "Indicates the user ID to be used when connecting to the data source",
+          "valueType": "string",
+          "specialValueType": "userName",
+          "isIdentity": true,
+          "isRequired": true,
+          "groupName": "Security"
+        },
+        {
+          "name": "password",
+          "displayName": "Password",
+          "description": "Indicates the password to be used when connecting to the data source",
+          "valueType": "password",
+          "specialValueType": "password",
+          "isIdentity": true,
+          "isRequired": true,
+          "groupName": "Security"
+        },
+        {
+          "name": "hostaddr",
+          "displayName": "Host IP address",
+          "description": "IP address of the server",
+          "valueType": "string",
+          "groupName": "Server"
+        },
+        {
+          "name": "port",
+          "displayName": "Port",
+          "description": "Port number for the server",
+          "valueType": "string",
+          "groupName": "Server"
+        },
+        {
+          "name": "connectTimeout",
+          "displayName": "Connect timeout",
+          "description": "Seconds to wait before timing out when connecting",
+          "valueType": "number",
+          "groupName": "Client",
+          "defaultValue": "15"
+        },
+        {
+          "name": "clientEncoding",
+          "displayName": "Client encoding",
+          "description": "The client encoding for the connection",
+          "valueType": "string",
+          "groupName": "Client"
+        },
+        {
+          "name": "options",
+          "displayName": "Command-line options",
+          "description": "Command-line options to send to the server when the connection starts",
+          "valueType": "string",
+          "groupName": "Server"
+        },
+        {
+          "name": "applicationName",
+          "displayName": "Application name",
+          "description": "Value for the 'application_name' configuration parameter",
+          "valueType": "string",
+          "groupName": "Client",
+          "specialValueType": "appName"
+        },
+        {
+          "name": "sslmode",
+          "displayName": "SSL mode",
+          "description": "The SSL mode to use when connecting",
+          "valueType": "category",
+          "groupName": "SSL",
+          "categoryValues": [
+            {
+              "displayName": "Disable",
+              "name": "disable"
+            },
+            {
+              "displayName": "Allow",
+              "name": "allow"
+            },
+            {
+              "displayName": "Prefer",
+              "name": "prefer"
+            },
+            {
+              "displayName": "Require",
+              "name": "require"
+            },
+            {
+              "displayName": "Verify-CA",
+              "name": "verify-ca"
+            },
+            {
+              "displayName": "Verify-Full",
+              "name": "verify-full"
+            }
+          ],
+          "defaultValue": "prefer"
+        },
+        {
+          "name": "sslcompression",
+          "displayName": "Use SSL compression",
+          "description": "Whether to compress SSL connections",
+          "valueType": "boolean",
+          "groupName": "SSL"
+        },
+        {
+          "name": "sslcert",
+          "displayName": "SSL certificate filename",
+          "description": "The filename of the SSL certificate to use",
+          "valueType": "string",
+          "groupName": "SSL"
+        },
+        {
+          "name": "sslkey",
+          "displayName": "SSL key filename",
+          "description": "The filename of the key to use for the SSL certificate",
+          "valueType": "string",
+          "groupName": "SSL"
+        },
+        {
+          "name": "sslrootcert",
+          "displayName": "SSL root certificate filename",
+          "description": "The filename of the SSL root CA certificate to use",
+          "valueType": "string",
+          "groupName": "SSL"
+        },
+        {
+          "name": "sslcrl",
+          "displayName": "SSL CRL filename",
+          "description": "The filename of the SSL certificate revocation list to use",
+          "valueType": "string",
+          "groupName": "SSL"
+        },
+        {
+          "name": "requirepeer",
+          "displayName": "Require peer",
+          "description": "The required username of the server process",
+          "valueType": "string",
+          "groupName": "Server"
+        },
+        {
+          "name": "service",
+          "displayName": "Service name",
+          "description": "The service name in pg_service.conf to use for connection parameters",
+          "valueType": "string",
+          "groupName": "Client"
+        }
+      ]
     }
   },
   "devDependencies": {
@@ -167,10 +440,11 @@
     "karma-remap-istanbul": "^0.2.1",
     "pm-mocha-jenkins-reporter": "^0.2.6",
     "remap-istanbul": "^0.6.4",
+    "sqlops": "github:anthonydresser/sqlops-extension-sqlops",
     "systemjs-builder": "^0.15.32",
     "tslint": "^3.14.0",
     "typemoq": "^1.7.0",
-    "typescript": "2.3.4",
+    "typescript": "2.4.2",
     "uglify-js": "mishoo/UglifyJS2#harmony-v2.8.22",
     "vscode": "1.0.1",
     "vscode-nls-dev": "https://github.com/Raymondd/vscode-nls-dev/releases/download/2.0.2/build.tar.gz",
@@ -183,7 +457,7 @@
     "comment-json": "^1.1.3",
     "copy-paste": "^1.3.0",
     "data": "^0.6.1",
-    "dataprotocol-client": "^2.6.5",
+    "dataprotocol-client": "github:microsoft/sqlops-dataprotocolclient#0.1.5",
     "decompress": "^4.0.0",
     "ejs": "^2.4.2",
     "error-ex": "^1.3.0",
@@ -203,7 +477,10 @@
     "tmp": "^0.0.28",
     "underscore": "^1.8.3",
     "vscode-extension-telemetry": "^0.0.5",
-    "vscode-languageclient": "^2.5.0",
+    "vscode-jsonrpc": "3.5.0",
+    "vscode-languageclient": "3.5.0",
+    "vscode-languageserver-protocol": "3.5.0",
+    "vscode-languageserver-types": "3.5.0",
     "vscode-nls": "^2.0.2",
     "ws": "^1.1.1"
   }

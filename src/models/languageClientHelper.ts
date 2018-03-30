@@ -3,7 +3,7 @@ import SqlToolsServiceClient from '../languageservice/serviceClient';
 import * as Utils from './utils';
 import {ILanguageClientHelper} from './contracts/languageService';
 import * as SharedConstants from './sharedConstants';
-import {ServerOptions, TransportKind} from 'dataprotocol-client';
+import {ServerOptions, TransportKind} from 'vscode-languageclient';
 import {workspace} from 'vscode';
 import { Constants } from './constants';
 const path = require('path');

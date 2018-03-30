@@ -5,9 +5,10 @@
 'use strict';
 
 import { ExtensionContext, workspace, window, OutputChannel, languages } from 'vscode';
+import * as SqlopsClient from 'dataprotocol-client';
 import { LanguageClient, LanguageClientOptions, ServerOptions,
     TransportKind, RequestType, NotificationType, NotificationHandler,
-    ErrorAction, CloseAction } from 'dataprotocol-client';
+    ErrorAction, CloseAction } from 'vscode-languageclient';
 
 import VscodeWrapper from '../controllers/vscodeWrapper';
 import Telemetry from '../models/telemetry';
@@ -136,14 +137,14 @@ export default class SqlToolsServiceClient {
     }
 
     // VS Code Language Client
-    private _client: LanguageClient = undefined;
+    private _client: SqlopsClient.SqlOpsDataClient = undefined;
 
     // getter method for the Language Client
-    private get client(): LanguageClient {
+    private get client(): SqlopsClient.SqlOpsDataClient {
         return this._client;
     }
 
-    private set client(client: LanguageClient) {
+    private set client(client: SqlopsClient.SqlOpsDataClient) {
         this._client = client;
     }
 
@@ -312,9 +313,9 @@ export default class SqlToolsServiceClient {
          }
     }
 
-    public createClient(context: ExtensionContext, runtimeId: Runtime, languageClientHelper: ILanguageClientHelper, executableFiles: string[]): Promise<LanguageClient> {
-        return new Promise<LanguageClient>( (resolve, reject) => {
-            let client: LanguageClient;
+    public createClient(context: ExtensionContext, runtimeId: Runtime, languageClientHelper: ILanguageClientHelper, executableFiles: string[]): Promise<SqlopsClient.SqlOpsDataClient> {
+        return new Promise<SqlopsClient.SqlOpsDataClient>( (resolve, reject) => {
+            let client: SqlopsClient.SqlOpsDataClient;
             this._server.findServerPath(this.installDirectory, executableFiles).then(serverPath => {
                 if (serverPath === undefined) {
                     reject(new Error(SqlToolsServiceClient._constants.invalidServiceFilePath));
@@ -324,7 +325,7 @@ export default class SqlToolsServiceClient {
                         languageClientHelper.createServerOptions(serverPath, runtimeId) : this.createServerOptions(serverPath);
 
                         // Options to control the language client
-                    let clientOptions: LanguageClientOptions = <any>{
+                    let clientOptions: SqlopsClient.ClientOptions = <any>{
                         documentSelector: [SqlToolsServiceClient._constants.languageId],
                         providerId: '',
                         synchronize: {
@@ -334,7 +335,7 @@ export default class SqlToolsServiceClient {
                     };
                     this._serviceStatus.showServiceLoading();
                     // cache the client instance for later use
-                    client = new LanguageClient(SqlToolsServiceClient._constants.serviceName, serverOptions, clientOptions);
+                    client = new SqlopsClient.SqlOpsDataClient(SqlToolsServiceClient._constants.serviceName, serverOptions, clientOptions);
 
                     if (context !== undefined) {
                         // Create the language client and start the client.
@@ -380,9 +381,9 @@ export default class SqlToolsServiceClient {
         return serverOptions;
     }
 
-    private createLanguageClient(serverOptions: ServerOptions): LanguageClient {
+    private createLanguageClient(serverOptions: ServerOptions): SqlopsClient.SqlOpsDataClient {
         // Options to control the language client
-        let clientOptions: LanguageClientOptions = <any>{
+        let clientOptions: SqlopsClient.ClientOptions = <any>{
             documentSelector: [SqlToolsServiceClient._constants.languageId],
             providerId: SqlToolsServiceClient._constants.providerId,
             synchronize: {
@@ -392,7 +393,7 @@ export default class SqlToolsServiceClient {
         };
         this._serviceStatus.showServiceLoading();
         // cache the client instance for later use
-        let client = new LanguageClient(SqlToolsServiceClient._constants.serviceName, serverOptions, clientOptions);
+        let client = new SqlopsClient.SqlOpsDataClient(SqlToolsServiceClient._constants.serviceName, serverOptions, clientOptions);
         client.onReady().then( () => {
             this.checkServiceCompatibility();
             this._serviceStatus.showServiceLoaded();
@@ -424,28 +425,28 @@ export default class SqlToolsServiceClient {
      * @param params The params to pass with the request
      * @returns A thenable object for when the request receives a response
      */
-    public sendRequest<P, R, E>(type: RequestType<P, R, E>, params?: P, client: LanguageClient = undefined): Thenable<R> {
-        if (client === undefined) {
-            client = this._client;
-        }
-        if (client !== undefined) {
-            return client.sendRequest(type, params);
-        }
-    }
+	public sendRequest<P, R, E, RO>(type: RequestType<P, R, E, RO>, params?: P, client: SqlopsClient.SqlOpsDataClient = undefined): Thenable<R> {
+		if (client === undefined) {
+			client = this._client;
+		}
+		if (client !== undefined) {
+			return client.sendRequest(type, params);
+		}
+	}
 
     /**
      * Register a handler for a notification type
      * @param type The notification type to register the handler for
      * @param handler The handler to register
      */
-    public onNotification<P>(type: NotificationType<P>, handler: NotificationHandler<P>, client: LanguageClient = undefined): void {
-        if (client === undefined) {
-            client = this._client;
-        }
-        if (client !== undefined) {
-             return client.onNotification(type, handler);
-        }
-    }
+    public onNotification<P, RO>(type: NotificationType<P, RO>, handler: NotificationHandler<P>, client: SqlopsClient.SqlOpsDataClient = undefined): void {
+		if (client === undefined) {
+			client = this._client;
+		}
+		if (client !== undefined) {
+			return client.onNotification(type, handler);
+		}
+	}
 
     public checkServiceCompatibility(): Promise<boolean> {
         return new Promise<boolean>((resolve, reject) => {
