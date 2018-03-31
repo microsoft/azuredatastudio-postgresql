@@ -71,7 +71,6 @@ export async function activate(context: vscode.ExtensionContext) {
 		statusView.show();
 		statusView.text = 'Starting pgsql service';
 		languageClient.start();
-		Languageclient = languageClient;
 	}, e => {
 		Telemetry.sendTelemetryEvent('ServiceInitializingFailed');
 		vscode.window.showErrorMessage('Failed to start Pgsql tools service');
