@@ -11,7 +11,7 @@ export enum BuiltInCommands {
 }
 
 export enum ContextKeys {
-	ISCLOUD = 'mssql:iscloud'
+	ISCLOUD = 'pgsql:iscloud'
 }
 
 const isCloudEditions = [

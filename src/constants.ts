@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 'use strict';
 
-export const serviceName = 'Pgtoolsservice';
+export const serviceName = 'pgSQLToolsService';
 export const providerId = 'PGSQL';
 export const serviceCrashMessage = 'SQL Tools Service component exited unexpectedly. Please restart SQL Operations Studio.';
 export const serviceCrashButton = 'View Known Issues';

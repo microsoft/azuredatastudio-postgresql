@@ -1,8 +1,10 @@
 {
-  "name": "pgsql",
+  "name": "sqlops-pgsql",
   "version": "0.1.0",
   "publisher": "Microsoft",
+  "description": "PostgreSQL extension for SQL Operations Studio",
   "aiKey": "AIF-5574968e-856d-40d2-af67-c89a14e76412",
+  "icon": "images/extension-icon.png",
   "activationEvents": [
     "*"
   ],
@@ -123,469 +125,178 @@
       }
     },
     "connectionProvider": {
+      "protocolVersion": "1.0",
+      "providerName": "PGSQL",
       "providerId": "PGSQL",
-      "displayName": "PostgreSQL",
+      "displayName": "PostgresSQL",
       "connectionOptions": [
         {
+          "name": "host",
+          "displayName": "Server name",
+          "description": "Name of the PostgreSQL instance",
+          "valueType": "string",
           "specialValueType": "serverName",
           "isIdentity": true,
-          "name": "server",
-          "displayName": "Server",
-          "description": "Name of the SQL Server instance",
-          "groupName": "Source",
-          "valueType": "string",
-          "defaultValue": null,
-          "objectType": null,
-          "categoryValues": null,
           "isRequired": true,
-          "isArray": false
+          "groupName": "Source"
         },
         {
+          "name": "dbname",
+          "displayName": "Database name",
+          "description": "The name of the initial catalog or database int the data source",
+          "valueType": "string",
           "specialValueType": "databaseName",
           "isIdentity": true,
-          "name": "database",
-          "displayName": "Database",
-          "description": "The name of the initial catalog or database int the data source",
-          "groupName": "Source",
-          "valueType": "string",
-          "defaultValue": null,
-          "objectType": null,
-          "categoryValues": null,
           "isRequired": false,
-          "isArray": false
+          "groupName": "Source",
+          "defaultValue": "postgres"
         },
         {
-          "specialValueType": "authType",
-          "isIdentity": true,
-          "name": "authenticationType",
-          "displayName": "Authentication type",
-          "description": "Specifies the method of authenticating with SQL Server",
-          "groupName": "Security",
-          "valueType": "category",
-          "defaultValue": null,
-          "objectType": null,
-          "categoryValues": [
-            {
-              "displayName": "SQL Login",
-              "name": "SqlLogin"
-            },
-            {
-              "displayName": "Windows Authentication",
-              "name": "Integrated"
-            }
-          ],
-          "isRequired": true,
-          "isArray": false
-        },
-        {
-          "specialValueType": "userName",
-          "isIdentity": true,
           "name": "user",
           "displayName": "User name",
           "description": "Indicates the user ID to be used when connecting to the data source",
-          "groupName": "Security",
           "valueType": "string",
-          "defaultValue": null,
-          "objectType": null,
-          "categoryValues": null,
+          "specialValueType": "userName",
+          "isIdentity": true,
           "isRequired": true,
-          "isArray": false
+          "groupName": "Security"
         },
         {
-          "specialValueType": "password",
-          "isIdentity": true,
           "name": "password",
           "displayName": "Password",
           "description": "Indicates the password to be used when connecting to the data source",
-          "groupName": "Security",
           "valueType": "password",
-          "defaultValue": null,
-          "objectType": null,
-          "categoryValues": null,
+          "specialValueType": "password",
+          "isIdentity": true,
           "isRequired": true,
-          "isArray": false
+          "groupName": "Security"
         },
         {
-          "specialValueType": null,
-          "isIdentity": false,
-          "name": "applicationIntent",
-          "displayName": "Application intent",
-          "description": "Declares the application workload type when connecting to a server",
-          "groupName": "Initialization",
-          "valueType": "category",
-          "defaultValue": null,
-          "objectType": null,
-          "categoryValues": [
-            {
-              "displayName": "ReadWrite",
-              "name": "ReadWrite"
-            },
-            {
-              "displayName": "ReadOnly",
-              "name": "ReadOnly"
-            }
-          ],
-          "isRequired": false,
-          "isArray": false
-        },
-        {
-          "specialValueType": null,
-          "isIdentity": false,
-          "name": "asynchronousProcessing",
-          "displayName": "Asynchronous processing enabled",
-          "description": "When true, enables usage of the Asynchronous functionality in the .Net Framework Data Provider",
-          "groupName": "Initialization",
-          "valueType": "boolean",
-          "defaultValue": null,
-          "objectType": null,
-          "categoryValues": null,
-          "isRequired": false,
-          "isArray": false
-        },
-        {
-          "specialValueType": null,
-          "isIdentity": false,
-          "name": "connectTimeout",
-          "displayName": "Connect timeout",
-          "description": "The length of time (in seconds) to wait for a connection to the server before terminating the attempt and generating an error",
-          "groupName": "Initialization",
-          "valueType": "number",
-          "defaultValue": "15",
-          "objectType": null,
-          "categoryValues": null,
-          "isRequired": false,
-          "isArray": false
-        },
-        {
-          "specialValueType": null,
-          "isIdentity": false,
-          "name": "currentLanguage",
-          "displayName": "Current language",
-          "description": "The SQL Server language record name",
-          "groupName": "Initialization",
+          "name": "hostaddr",
+          "displayName": "Host IP address",
+          "description": "IP address of the server",
           "valueType": "string",
-          "defaultValue": null,
-          "objectType": null,
-          "categoryValues": null,
-          "isRequired": false,
-          "isArray": false
+          "groupName": "Server"
         },
         {
-          "specialValueType": null,
-          "isIdentity": false,
-          "name": "columnEncryptionSetting",
-          "displayName": "Column encryption setting",
-          "description": "Default column encryption setting for all the commands on the connection",
-          "groupName": "Security",
-          "valueType": "category",
-          "defaultValue": null,
-          "objectType": null,
-          "categoryValues": [
-            {
-              "displayName": null,
-              "name": "Disabled"
-            },
-            {
-              "displayName": null,
-              "name": "Enabled"
-            }
-          ],
-          "isRequired": false,
-          "isArray": false
-        },
-        {
-          "specialValueType": null,
-          "isIdentity": false,
-          "name": "encrypt",
-          "displayName": "Encrypt",
-          "description": "When true, SQL Server uses SSL encryption for all data sent between the client and server if the servers has a certificate installed",
-          "groupName": "Security",
-          "valueType": "boolean",
-          "defaultValue": null,
-          "objectType": null,
-          "categoryValues": null,
-          "isRequired": false,
-          "isArray": false
-        },
-        {
-          "specialValueType": null,
-          "isIdentity": false,
-          "name": "persistSecurityInfo",
-          "displayName": "Persist security info",
-          "description": "When false, security-sensitive information, such as the password, is not returned as part of the connection",
-          "groupName": "Security",
-          "valueType": "boolean",
-          "defaultValue": null,
-          "objectType": null,
-          "categoryValues": null,
-          "isRequired": false,
-          "isArray": false
-        },
-        {
-          "specialValueType": null,
-          "isIdentity": false,
-          "name": "trustServerCertificate",
-          "displayName": "Trust server certificate",
-          "description": "When true (and encrypt=true), SQL Server uses SSL encryption for all data sent between the client and server without validating the server certificate",
-          "groupName": "Security",
-          "valueType": "boolean",
-          "defaultValue": null,
-          "objectType": null,
-          "categoryValues": null,
-          "isRequired": false,
-          "isArray": false
-        },
-        {
-          "specialValueType": null,
-          "isIdentity": false,
-          "name": "attachedDBFileName",
-          "displayName": "Attached DB file name",
-          "description": "The name of the primary file, including the full path name, of an attachable database",
-          "groupName": "Source",
-          "valueType": "string",
-          "defaultValue": null,
-          "objectType": null,
-          "categoryValues": null,
-          "isRequired": false,
-          "isArray": false
-        },
-        {
-          "specialValueType": null,
-          "isIdentity": false,
-          "name": "contextConnection",
-          "displayName": "Context connection",
-          "description": "When true, indicates the connection should be from the SQL server context. Available only when running in the SQL Server process",
-          "groupName": "Source",
-          "valueType": "boolean",
-          "defaultValue": null,
-          "objectType": null,
-          "categoryValues": null,
-          "isRequired": false,
-          "isArray": false
-        },
-        {
-          "specialValueType": null,
-          "isIdentity": false,
           "name": "port",
           "displayName": "Port",
-          "description": null,
-          "groupName": null,
-          "valueType": "number",
-          "defaultValue": null,
-          "objectType": null,
-          "categoryValues": null,
-          "isRequired": false,
-          "isArray": false
+          "description": "Port number for the server",
+          "valueType": "string",
+          "groupName": "Server"
         },
         {
-          "specialValueType": null,
-          "isIdentity": false,
-          "name": "connectRetryCount",
-          "displayName": "Connect retry count",
-          "description": "Number of attempts to restore connection",
-          "groupName": "Connection Resiliency",
+          "name": "connectTimeout",
+          "displayName": "Connect timeout",
+          "description": "Seconds to wait before timing out when connecting",
           "valueType": "number",
-          "defaultValue": "1",
-          "objectType": null,
-          "categoryValues": null,
-          "isRequired": false,
-          "isArray": false
+          "groupName": "Client",
+          "defaultValue": "15"
         },
         {
-          "specialValueType": null,
-          "isIdentity": false,
-          "name": "connectRetryInterval",
-          "displayName": "Connect retry interval",
-          "description": "Delay between attempts to restore connection",
-          "groupName": "Connection Resiliency",
-          "valueType": "number",
-          "defaultValue": "10",
-          "objectType": null,
-          "categoryValues": null,
-          "isRequired": false,
-          "isArray": false
+          "name": "clientEncoding",
+          "displayName": "Client encoding",
+          "description": "The client encoding for the connection",
+          "valueType": "string",
+          "groupName": "Client"
         },
         {
-          "specialValueType": "appName",
-          "isIdentity": false,
+          "name": "options",
+          "displayName": "Command-line options",
+          "description": "Command-line options to send to the server when the connection starts",
+          "valueType": "string",
+          "groupName": "Server"
+        },
+        {
           "name": "applicationName",
           "displayName": "Application name",
-          "description": "The name of the application",
-          "groupName": "Context",
+          "description": "Value for the 'application_name' configuration parameter",
           "valueType": "string",
-          "defaultValue": null,
-          "objectType": null,
-          "categoryValues": null,
-          "isRequired": false,
-          "isArray": false
+          "groupName": "Client",
+          "specialValueType": "appName"
         },
         {
-          "specialValueType": null,
-          "isIdentity": false,
-          "name": "workstationId",
-          "displayName": "Workstation Id",
-          "description": "The name of the workstation connecting to SQL Server",
-          "groupName": "Context",
-          "valueType": "string",
-          "defaultValue": null,
-          "objectType": null,
-          "categoryValues": null,
-          "isRequired": false,
-          "isArray": false
+          "name": "sslmode",
+          "displayName": "SSL mode",
+          "description": "The SSL mode to use when connecting",
+          "valueType": "category",
+          "groupName": "SSL",
+          "categoryValues": [
+            {
+              "displayName": "Disable",
+              "name": "disable"
+            },
+            {
+              "displayName": "Allow",
+              "name": "allow"
+            },
+            {
+              "displayName": "Prefer",
+              "name": "prefer"
+            },
+            {
+              "displayName": "Require",
+              "name": "require"
+            },
+            {
+              "displayName": "Verify-CA",
+              "name": "verify-ca"
+            },
+            {
+              "displayName": "Verify-Full",
+              "name": "verify-full"
+            }
+          ],
+          "defaultValue": "prefer"
         },
         {
-          "specialValueType": null,
-          "isIdentity": false,
-          "name": "pooling",
-          "displayName": "Pooling",
-          "description": "When true, the connection object is drawn from the appropriate pool, or if necessary, is created and added to the appropriate pool",
-          "groupName": "Pooling",
+          "name": "sslcompression",
+          "displayName": "Use SSL compression",
+          "description": "Whether to compress SSL connections",
           "valueType": "boolean",
-          "defaultValue": null,
-          "objectType": null,
-          "categoryValues": null,
-          "isRequired": false,
-          "isArray": false
+          "groupName": "SSL"
         },
         {
-          "specialValueType": null,
-          "isIdentity": false,
-          "name": "maxPoolSize",
-          "displayName": "Max pool size",
-          "description": "The maximum number of connections allowed in the pool",
-          "groupName": "Pooling",
-          "valueType": "number",
-          "defaultValue": null,
-          "objectType": null,
-          "categoryValues": null,
-          "isRequired": false,
-          "isArray": false
-        },
-        {
-          "specialValueType": null,
-          "isIdentity": false,
-          "name": "minPoolSize",
-          "displayName": "Min pool size",
-          "description": "The minimum number of connections allowed in the pool",
-          "groupName": "Pooling",
-          "valueType": "number",
-          "defaultValue": null,
-          "objectType": null,
-          "categoryValues": null,
-          "isRequired": false,
-          "isArray": false
-        },
-        {
-          "specialValueType": null,
-          "isIdentity": false,
-          "name": "loadBalanceTimeout",
-          "displayName": "Load balance timeout",
-          "description": "The minimum amount of time (in seconds) for this connection to live in the pool before being destroyed",
-          "groupName": "Pooling",
-          "valueType": "number",
-          "defaultValue": null,
-          "objectType": null,
-          "categoryValues": null,
-          "isRequired": false,
-          "isArray": false
-        },
-        {
-          "specialValueType": null,
-          "isIdentity": false,
-          "name": "replication",
-          "displayName": "Replication",
-          "description": "Used by SQL Server in Replication",
-          "groupName": "Replication",
-          "valueType": "boolean",
-          "defaultValue": null,
-          "objectType": null,
-          "categoryValues": null,
-          "isRequired": false,
-          "isArray": false
-        },
-        {
-          "specialValueType": null,
-          "isIdentity": false,
-          "name": "attachDbFilename",
-          "displayName": "Attach DB filename",
-          "description": null,
-          "groupName": null,
+          "name": "sslcert",
+          "displayName": "SSL certificate filename",
+          "description": "The filename of the SSL certificate to use",
           "valueType": "string",
-          "defaultValue": null,
-          "objectType": null,
-          "categoryValues": null,
-          "isRequired": false,
-          "isArray": false
+          "groupName": "SSL"
         },
         {
-          "specialValueType": null,
-          "isIdentity": false,
-          "name": "failoverPartner",
-          "displayName": "Failover partner",
-          "description": "The name or network address of the instance of SQL Server that acts as a failover partner",
-          "groupName": " Source",
+          "name": "sslkey",
+          "displayName": "SSL key filename",
+          "description": "The filename of the key to use for the SSL certificate",
           "valueType": "string",
-          "defaultValue": null,
-          "objectType": null,
-          "categoryValues": null,
-          "isRequired": false,
-          "isArray": false
+          "groupName": "SSL"
         },
         {
-          "specialValueType": null,
-          "isIdentity": false,
-          "name": "multiSubnetFailover",
-          "displayName": "Multi subnet failover",
-          "description": null,
-          "groupName": null,
-          "valueType": "boolean",
-          "defaultValue": null,
-          "objectType": null,
-          "categoryValues": null,
-          "isRequired": false,
-          "isArray": false
-        },
-        {
-          "specialValueType": null,
-          "isIdentity": false,
-          "name": "multipleActiveResultSets",
-          "displayName": "Multiple active result sets",
-          "description": "When true, multiple result sets can be returned and read from one connection",
-          "groupName": "Advanced",
-          "valueType": "boolean",
-          "defaultValue": null,
-          "objectType": null,
-          "categoryValues": null,
-          "isRequired": false,
-          "isArray": false
-        },
-        {
-          "specialValueType": null,
-          "isIdentity": false,
-          "name": "packetSize",
-          "displayName": "Packet size",
-          "description": "Size in bytes of the network packets used to communicate with an instance of SQL Server",
-          "groupName": "Advanced",
-          "valueType": "number",
-          "defaultValue": null,
-          "objectType": null,
-          "categoryValues": null,
-          "isRequired": false,
-          "isArray": false
-        },
-        {
-          "specialValueType": null,
-          "isIdentity": false,
-          "name": "typeSystemVersion",
-          "displayName": "Type system version",
-          "description": "Indicates which server type system then provider will expose through the DataReader",
-          "groupName": "Advanced",
+          "name": "sslrootcert",
+          "displayName": "SSL root certificate filename",
+          "description": "The filename of the SSL root CA certificate to use",
           "valueType": "string",
-          "defaultValue": null,
-          "objectType": null,
-          "categoryValues": null,
-          "isRequired": false,
-          "isArray": false
+          "groupName": "SSL"
+        },
+        {
+          "name": "sslcrl",
+          "displayName": "SSL CRL filename",
+          "description": "The filename of the SSL certificate revocation list to use",
+          "valueType": "string",
+          "groupName": "SSL"
+        },
+        {
+          "name": "requirepeer",
+          "displayName": "Require peer",
+          "description": "The required username of the server process",
+          "valueType": "string",
+          "groupName": "Server"
+        },
+        {
+          "name": "service",
+          "displayName": "Service name",
+          "description": "The service name in pg_service.conf to use for connection parameters",
+          "valueType": "string",
+          "groupName": "Client"
         }
       ]
     }
