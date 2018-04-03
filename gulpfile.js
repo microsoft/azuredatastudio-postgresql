@@ -50,7 +50,7 @@ gulp.task('ext:compile-src', (done) => {
                 .pipe(srcmap.write('.', {
                    sourceRoot: function(file){ return file.cwd + '/src'; }
                 }))
-                .pipe(gulp.dest('out/src/'));
+                .pipe(gulp.dest('out/'));
 });
 
 gulp.task('ext:compile-tests', (done) => {
@@ -84,14 +84,14 @@ gulp.task('ext:copy-config', () => {
     env = env == undefined ? "dev" : env;
     return gulp.src(config.paths.project.root + '/src/config.json')
             .pipe(rename('config.json'))
-            .pipe(gulp.dest(config.paths.project.root + '/out/src'));
+            .pipe(gulp.dest(config.paths.project.root + '/out/'));
 });
 
 gulp.task('ext:copy-js', () => {
     return gulp.src([
             config.paths.project.root + '/src/**/*.js',
             '!' + config.paths.project.root + '/src/views/htmlcontent/**/*'])
-        .pipe(gulp.dest(config.paths.project.root + '/out/src'))
+        .pipe(gulp.dest(config.paths.project.root + '/out/'))
 });
 
 // The version of applicationinsights the extension needs is 0.15.19 but the version vscode-telemetry dependns on is 0.15.6
