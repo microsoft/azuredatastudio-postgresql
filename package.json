@@ -314,7 +314,7 @@
     "mkdirp": "0.5.1 ",
     "opener": "^1.4.3",
     "service-downloader": "github:anthonydresser/service-downloader#0.1.2",
-    "sqlops": "github:anthonydresser/sqlops-extension-sqlops",
+    "sqlops": "github:anthonydresser/sqlops-extension-sqlops#1.1.11",
     "tmp": "0.0.33 ",
     "vscode-extension-telemetry": "^0.0.5",
     "vscode-jsonrpc": "3.5.0",

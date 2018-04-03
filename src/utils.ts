@@ -8,6 +8,8 @@ import * as path from 'path';
 import * as crypto from 'crypto';
 import * as os from 'os';
 
+var baseConfig = require('./config.json');
+
 // The function is a duplicate of \src\paths.js. IT would be better to import path.js but it doesn't
 // work for now because the extension is running in different process.
 export function getAppDataPath() {
@@ -100,4 +102,52 @@ export function verifyPlatform(): Thenable<boolean> {
 	} else {
 		return Promise.resolve(true);
 	}
+}
+
+export function getServiceInstallConfig() {
+    let config = JSON.parse(JSON.stringify(baseConfig));
+    config.installDirectory = path.join(__dirname, config.installDirectory);
+
+    return config;
+}
+
+export function getResolvedServiceInstallationPath(runtime: Runtime): string{
+	let config = getServiceInstallConfig();
+	let dir = config.installDirectory;
+	dir = dir.replace('{#version#}', config.version);
+	dir = dir.replace('{#platform#}', getRuntimeDisplayName(runtime));
+
+	return dir;
+}
+
+export function getRuntimeDisplayName(runtime: Runtime): string {
+	switch (runtime) {
+		case Runtime.Windows_64:
+			return 'Windows';
+		case Runtime.Windows_86:
+			return 'Windows';
+		case Runtime.OSX:
+			return 'OSX';
+		case Runtime.Linux_64:
+			return 'Linux';
+		default:
+			return 'Unknown';
+	}
+}
+
+export enum Runtime {
+	Unknown = <any>'Unknown',
+	Windows_86 = <any>'Windows_86',
+	Windows_64 = <any>'Windows_64',
+	OSX = <any>'OSX',
+	CentOS_7 = <any>'CentOS_7',
+	Debian_8 = <any>'Debian_8',
+	Fedora_23 = <any>'Fedora_23',
+	OpenSUSE_13_2 = <any>'OpenSUSE_13_2',
+	SLES_12_2 = <any>'SLES_12_2',
+	RHEL_7 = <any>'RHEL_7',
+	Ubuntu_14 = <any>'Ubuntu_14',
+	Ubuntu_16 = <any>'Ubuntu_16',
+	Linux_64 = <any>'Linux_64',
+	Linux_86 = <any>'Linux-86'
 }

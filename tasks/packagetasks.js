@@ -6,13 +6,21 @@ var os = require('os');
 var del = require('del');
 var path = require('path');
 var serviceDownloader = require('service-downloader');
-var baseConfig = require('../out/config.json');
+
 
 function getServiceInstallConfig() {
-    let config = JSON.parse(JSON.stringify(baseConfig));
-    config.installDirectory = path.join(__dirname, config.installDirectory);
+    return require('../out/utils').getServiceInstallConfig();
+}
 
-    return config;
+function getResolvedServiceInstallationPath(runtime) {
+    return require('../out/utils').getResolvedServiceInstallationPath(runtime);
+}
+
+async function installService(runtime) {
+    const config = getServiceInstallConfig();
+    const serverdownloader = new serviceDownloader.ServiceDownloadProvider(config);
+
+    return serverdownloader.installService(runtime)
 }
 
 async function getOrDownloadServer() {
@@ -21,7 +29,6 @@ async function getOrDownloadServer() {
 
     return serverdownloader.getOrDownloadServer()
 }
-
 
 gulp.task('ext:install-service', () => {
     return getOrDownloadServer();
@@ -44,8 +51,9 @@ function doPackageSync(packageName) {
 function cleanServiceInstallFolder() {
     return new Promise((resolve, reject) => {
        const config = getServiceInstallConfig();
-        console.log('Deleting Service Install folder: ' + config.installDirectory);
-        del(config.installDirectory + '/*').then(() => {
+       let root = path.join(__dirname, '../out/' + 'pgsqltoolsservice');
+        console.log('Deleting Service Install folder: ' + root);
+        del(root + '/*').then(() => {
             resolve();
         }).catch((error) => {
             reject(error)
@@ -53,8 +61,8 @@ function cleanServiceInstallFolder() {
     });
 }
 
-function doOfflinePackage(runtimeId, platform, packageName) {
-    return getOrDownloadServer().then(() => {
+function doOfflinePackage(runtimeId, runtime, packageName) {
+    return installService(runtime).then(() => {
        return doPackageSync(packageName + '-' + runtimeId + '.vsix');
     });
 }

@@ -4922,9 +4922,9 @@ sprintf-js@~1.0.2:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/sprintf-js/-/sprintf-js-1.0.3.tgz#04e6926f662895354f3dd015203633b857297e2c"
 
-"sqlops@github:anthonydresser/sqlops-extension-sqlops":
+"sqlops@github:anthonydresser/sqlops-extension-sqlops#1.1.11":
   version "1.1.11"
-  resolved "https://codeload.github.com/anthonydresser/sqlops-extension-sqlops/tar.gz/dac501bbaa03a25239c060c6371dfdcf06707599"
+  resolved "https://codeload.github.com/anthonydresser/sqlops-extension-sqlops/tar.gz/06c604d7f6ab9642a678d86a1b93412da37b01cc"
   dependencies:
     glob "^7.1.2"
     gulp-chmod "^2.0.0"
