@@ -6,6 +6,6 @@
 
 export const serviceName = 'pgSQLToolsService';
 export const providerId = 'PGSQL';
-export const serviceCrashMessage = 'SQL Tools Service component exited unexpectedly. Please restart SQL Operations Studio.';
+export const serviceCrashMessage = 'PG SQL Tools Service component exited unexpectedly. Please restart SQL Operations Studio.';
 export const serviceCrashButton = 'View Known Issues';
-export const serviceCrashLink = 'https://github.com/Microsoft/vscode-mssql/wiki/SqlToolsService-Known-Issues';
+export const serviceCrashLink = 'https://github.com/microsoft/pgtoolsservice/issues?q=is%3Aopen+is%3Aissue+label%3Aknown-issues';
