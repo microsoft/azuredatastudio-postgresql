@@ -90,7 +90,7 @@ function generateServerOptions(executablePath: string): ServerOptions {
 	if (config) {
 		// Override the server path with the local debug path if enabled
 
-		let useLocalSource = config["configUseDebugSource"];
+		let useLocalSource = config["useDebugSource"];
 		if (useLocalSource) {
 			let localSourcePath = config["debugSourcePath"];
 			let filePath = path.join(localSourcePath, "pgsqltoolsservice/pgtoolsservice_main.py");
