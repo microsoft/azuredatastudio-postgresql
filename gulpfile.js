@@ -98,10 +98,6 @@ gulp.task('ext:copy-js', () => {
 // so we need to manually overwrite the version in package.json inside vscode-extension-telemetry module.
 gulp.task('ext:appinsights-version', () => {
     return gulp.src("./node_modules/vscode-extension-telemetry/package.json")
-    .pipe(jeditor(function(json) {
-        json.dependencies.applicationinsights = "0.15.19";
-        return json; // must return JSON object.
-    }))
      .pipe(gulp.dest("./node_modules/vscode-extension-telemetry", {'overwrite':true}));
 });
 
