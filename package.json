@@ -138,7 +138,11 @@
           "specialValueType": "serverName",
           "isIdentity": true,
           "isRequired": true,
-          "groupName": "Source"
+          "groupName": "Source",
+          "defaultValue": null,
+          "objectType": null,
+          "categoryValues": null,
+          "isArray": false
         },
         {
           "name": "dbname",
@@ -302,9 +306,9 @@
     }
   },
   "dependencies": {
-    "applicationinsights": "^0.15.6",
+    "applicationinsights": "1.0.1",
     "crypto": "^1.0.1",
-    "dataprotocol-client": "github:microsoft/sqlops-dataprotocolclient#0.1.5",
+    "dataprotocol-client": "github:Microsoft/sqlops-dataprotocolclient#0.2.8",
     "decompress": "4.2.0 ",
     "diagnostic-channel": "0.2.0",
     "diagnostic-channel-publishers": "0.2.1",
@@ -313,10 +317,10 @@
     "https-proxy-agent": "2.2.1 ",
     "mkdirp": "0.5.1 ",
     "opener": "^1.4.3",
-    "service-downloader": "github:anthonydresser/service-downloader#0.1.2",
-    "sqlops": "github:anthonydresser/sqlops-extension-sqlops#1.1.11",
+    "service-downloader": "github:anthonydresser/service-downloader#0.1.5",
+    "sqlops": "github:anthonydresser/sqlops-extension-sqlops",
     "tmp": "0.0.33 ",
-    "vscode-extension-telemetry": "^0.0.5",
+    "vscode-extension-telemetry": "0.0.18",
     "vscode-jsonrpc": "3.5.0",
     "vscode-languageclient": "3.5.0",
     "vscode-languageserver-protocol": "3.5.0",
