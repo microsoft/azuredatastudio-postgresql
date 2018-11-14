@@ -1,6 +1,6 @@
-# pgsql for SQL Operations Studio
+# pgsql for Azure Data Studio
 
-Welcome to **pgsql** for SQL Operations Studio! An extension for developing PostgreSQL everywhere with a rich set of functionalities, including:
+Welcome to **pgsql** for Azure Data Studio! An extension for developing PostgreSQL everywhere with a rich set of functionalities, including:
 
 * Connect to PostgreSQL, Azure databases for PosgreSQL.
 * Create and manage connection profiles and most recently used connections.
