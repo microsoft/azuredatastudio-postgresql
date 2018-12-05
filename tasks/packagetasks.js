@@ -84,7 +84,6 @@ gulp.task('package:offline', () => {
 
     var packages = [];
     packages.push({rid: 'win-x64', runtime: 'Windows_64'});
-    packages.push({rid: 'win-x86', runtime: 'Windows_86'});
     packages.push({rid: 'osx', runtime: 'OSX'});
     packages.push({rid: 'linux-x64', runtime: 'Linux_64'});
 
