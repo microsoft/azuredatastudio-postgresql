@@ -198,14 +198,16 @@
           "displayName": "Host IP address",
           "description": "IP address of the server",
           "valueType": "string",
-          "groupName": "Server"
+          "groupName": "Server",
+          "defaultValue":  null
         },
         {
           "name": "port",
           "displayName": "Port",
           "description": "Port number for the server",
-          "valueType": "string",
-          "groupName": "Server"
+          "valueType": "number",
+          "groupName": "Server",
+          "defaultValue":  null
         },
         {
           "name": "connectTimeout",
@@ -220,14 +222,16 @@
           "displayName": "Client encoding",
           "description": "The client encoding for the connection",
           "valueType": "string",
-          "groupName": "Client"
+          "groupName": "Client",
+          "defaultValue":  null
         },
         {
           "name": "options",
           "displayName": "Command-line options",
           "description": "Command-line options to send to the server when the connection starts",
           "valueType": "string",
-          "groupName": "Server"
+          "groupName": "Server",
+          "defaultValue":  null
         },
         {
           "name": "applicationName",
@@ -283,42 +287,48 @@
           "displayName": "SSL certificate filename",
           "description": "The filename of the SSL certificate to use",
           "valueType": "string",
-          "groupName": "SSL"
+          "groupName": "SSL",
+          "defaultValue":  null
         },
         {
           "name": "sslkey",
           "displayName": "SSL key filename",
           "description": "The filename of the key to use for the SSL certificate",
           "valueType": "string",
-          "groupName": "SSL"
+          "groupName": "SSL",
+          "defaultValue":  null
         },
         {
           "name": "sslrootcert",
           "displayName": "SSL root certificate filename",
           "description": "The filename of the SSL root CA certificate to use",
           "valueType": "string",
-          "groupName": "SSL"
+          "groupName": "SSL",
+          "defaultValue":  null
         },
         {
           "name": "sslcrl",
           "displayName": "SSL CRL filename",
           "description": "The filename of the SSL certificate revocation list to use",
           "valueType": "string",
-          "groupName": "SSL"
+          "groupName": "SSL",
+          "defaultValue":  null
         },
         {
           "name": "requirepeer",
           "displayName": "Require peer",
           "description": "The required username of the server process",
           "valueType": "string",
-          "groupName": "Server"
+          "groupName": "Server",
+          "defaultValue":  null
         },
         {
           "name": "service",
           "displayName": "Service name",
           "description": "The service name in pg_service.conf to use for connection parameters",
           "valueType": "string",
-          "groupName": "Client"
+          "groupName": "Client",
+          "defaultValue": null
         }
       ]
     }
