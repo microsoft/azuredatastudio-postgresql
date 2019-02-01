@@ -1067,11 +1067,11 @@ data-uri-to-buffer@0.0.4:
   version "0.0.4"
   resolved "https://registry.yarnpkg.com/data-uri-to-buffer/-/data-uri-to-buffer-0.0.4.tgz#46e13ab9da8e309745c8d01ce547213ebdb2fe3f"
 
-"dataprotocol-client@github:microsoft/sqlops-dataprotocolclient#0.1.5":
-  version "0.1.5"
-  resolved "https://codeload.github.com/microsoft/sqlops-dataprotocolclient/tar.gz/21b0bacfc759689a6c280408528c6029a21b1abf"
+"dataprotocol-client@github:microsoft/sqlops-dataprotocolclient#0.2.10":
+  version "0.2.10"
+  resolved "https://codeload.github.com/microsoft/sqlops-dataprotocolclient/tar.gz/4de3f7caf0eba54159911b977ddb4f5d7c0a9ca8"
   dependencies:
-    vscode-languageclient "3.5.0"
+    vscode-languageclient "3.5.1"
 
 dateformat@^1.0.11, dateformat@^1.0.6, dateformat@^1.0.7-1.2.3:
   version "1.0.12"
