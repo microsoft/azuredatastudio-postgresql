@@ -38,6 +38,7 @@ function doPackageSync(packageName) {
     var vsceArgs = [];
     vsceArgs.push('vsce');
     vsceArgs.push('package'); // package command
+    vsceArgs.push('--yarn'); // use yarn instead of npm list
 
     if (packageName !== undefined) {
         vsceArgs.push('-o');
