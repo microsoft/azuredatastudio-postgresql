@@ -199,7 +199,7 @@
           "description": "IP address of the server",
           "valueType": "string",
           "groupName": "Server",
-          "defaultValue":  null
+          "defaultValue": null
         },
         {
           "name": "port",
@@ -207,7 +207,7 @@
           "description": "Port number for the server",
           "valueType": "number",
           "groupName": "Server",
-          "defaultValue":  null
+          "defaultValue": null
         },
         {
           "name": "connectTimeout",
@@ -223,7 +223,7 @@
           "description": "The client encoding for the connection",
           "valueType": "string",
           "groupName": "Client",
-          "defaultValue":  null
+          "defaultValue": null
         },
         {
           "name": "options",
@@ -231,7 +231,7 @@
           "description": "Command-line options to send to the server when the connection starts",
           "valueType": "string",
           "groupName": "Server",
-          "defaultValue":  null
+          "defaultValue": null
         },
         {
           "name": "applicationName",
@@ -288,7 +288,7 @@
           "description": "The filename of the SSL certificate to use",
           "valueType": "string",
           "groupName": "SSL",
-          "defaultValue":  null
+          "defaultValue": null
         },
         {
           "name": "sslkey",
@@ -296,7 +296,7 @@
           "description": "The filename of the key to use for the SSL certificate",
           "valueType": "string",
           "groupName": "SSL",
-          "defaultValue":  null
+          "defaultValue": null
         },
         {
           "name": "sslrootcert",
@@ -304,7 +304,7 @@
           "description": "The filename of the SSL root CA certificate to use",
           "valueType": "string",
           "groupName": "SSL",
-          "defaultValue":  null
+          "defaultValue": null
         },
         {
           "name": "sslcrl",
@@ -312,7 +312,7 @@
           "description": "The filename of the SSL certificate revocation list to use",
           "valueType": "string",
           "groupName": "SSL",
-          "defaultValue":  null
+          "defaultValue": null
         },
         {
           "name": "requirepeer",
@@ -320,7 +320,7 @@
           "description": "The required username of the server process",
           "valueType": "string",
           "groupName": "Server",
-          "defaultValue":  null
+          "defaultValue": null
         },
         {
           "name": "service",
@@ -345,6 +345,7 @@
     "https-proxy-agent": "2.2.1 ",
     "mkdirp": "0.5.1 ",
     "opener": "^1.4.3",
+    "readable-stream": "2.3.0",
     "service-downloader": "github:anthonydresser/service-downloader#0.1.5",
     "sqlops": "github:anthonydresser/sqlops-extension-sqlops",
     "tmp": "0.0.33 ",
@@ -361,11 +362,13 @@
     "coveralls": "^2.11.15",
     "decache": "^4.1.0",
     "del": "^2.2.1",
+    "glob": "7.1.2",
     "gulp": "github:gulpjs/gulp#4.0",
     "gulp-chmod": "2.0.0",
     "gulp-clean-css": "^2.0.13",
     "gulp-concat": "^2.6.0",
     "gulp-filter": "^5.0.0",
+    "gulp-gunzip": "1.0.0",
     "gulp-install": "^0.6.0",
     "gulp-istanbul-report": "0.0.1",
     "gulp-json-editor": "^2.2.1",
@@ -376,6 +379,8 @@
     "gulp-tslint": "^6.0.2",
     "gulp-typescript": "^3.1.4",
     "gulp-uglify": "^2.0.0",
+    "gulp-untar": "0.0.6",
+    "gulp-vinyl-zip": "2.1.0",
     "istanbul": "^0.4.5",
     "jasmine-core": "~2.4.1",
     "karma": "^1.3.0",
@@ -386,25 +391,21 @@
     "karma-jasmine-html-reporter": "^0.2.2",
     "karma-junit-reporter": "^1.1.0",
     "karma-remap-istanbul": "^0.2.1",
+    "mocha": "4.1.0",
     "pm-mocha-jenkins-reporter": "^0.2.6",
     "remap-istanbul": "^0.6.4",
+    "request": "2.85.0",
+    "source-map-support": "0.5.4",
     "systemjs-builder": "^0.15.32",
     "tslint": "^3.14.0",
     "typemoq": "^1.7.0",
     "typescript": "^2.8.1",
     "uglify-js": "mishoo/UglifyJS2#harmony-v2.8.22",
+    "url-parse": "1.2.0",
     "vscode": "1.0.1",
     "vscode-nls-dev": "https://github.com/Raymondd/vscode-nls-dev/releases/download/2.0.2/build.tar.gz",
     "xmldom": "^0.1.27",
-    "yargs": "https://registry.npmjs.org/yargs/-/yargs-3.32.0.tgz",
-    "glob": "7.1.2",
-    "gulp-gunzip": "1.0.0",
-    "gulp-untar": "0.0.6",
-    "gulp-vinyl-zip": "2.1.0",
-    "mocha": "4.1.0",
-    "request": "2.85.0",
-    "source-map-support": "0.5.4",
-    "url-parse": "1.2.0"
+    "yargs": "https://registry.npmjs.org/yargs/-/yargs-3.32.0.tgz"
   },
   "resolutions": {
     "vscode-jsonrpc": "3.5.0",
