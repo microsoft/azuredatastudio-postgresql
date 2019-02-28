@@ -42,7 +42,7 @@ export class Telemetry {
 	private static reporter: TelemetryReporter;
 	private static userId: string;
 	private static platformInformation: PlatformInformation;
-	private static disabled: boolean;
+	private static disabled: boolean = true; // Disable the telemetry for public preview
 
 	// Get the unique ID for the current user of the extension
 	public static getUserId(): Promise<string> {
