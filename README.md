@@ -10,7 +10,7 @@ Connect, query, and manage PostgreSQL databases with Azure Data Studio, a modern
 * Go to Definition and Peek Definition for examining the DDL of objects
 * Source control integration with Git
 * Customize dashboards and insight widgets using SQL 
-* Server groups for categorizing connections
+* Server groups for organizing connections
 * Customizable keyboard shortcuts, multi-tab support, color theme options
 
 See our [quickstart](https://docs.microsoft.com/sql/azure-data-studio/quickstart-postgresql) for a step by step guide to getting started with PostgreSQL in Azure Data Studio.
