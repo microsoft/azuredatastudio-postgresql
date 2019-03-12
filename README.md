@@ -13,7 +13,7 @@ Connect, query, and manage PostgreSQL databases with Azure Data Studio, a modern
 * Server groups for categorizing connections
 * Customizable keyboard shortcuts, multi-tab support, color theme options
 
-See our quickstart for a step by step guide to getting started with PostgreSQL in Azure Data Studio.
+See our [quickstart](https://docs.microsoft.com/sql/azure-data-studio/quickstart-postgresql) for a step by step guide to getting started with PostgreSQL in Azure Data Studio.
 
 ## Offline Installation
 The extension will download and install a required PgSqlToolsService package during activation. For machines with no Internet access, you can still use the extension by choosing the
