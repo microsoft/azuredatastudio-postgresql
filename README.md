@@ -1,15 +1,19 @@
-# pgsql for Azure Data Studio
+# PostgreSQL extension for Azure Data Studio (preview)
 
-Welcome to **pgsql** for Azure Data Studio! An extension for developing PostgreSQL everywhere with a rich set of functionalities, including:
+Connect, query, and manage PostgreSQL databases with Azure Data Studio, a modern data editor available for Linux, MacOS, and Windows. This (preview) extension enables you to interact with Postgres using features like:
 
-* Connect to PostgreSQL, Azure databases for PosgreSQL.
-* Create and manage connection profiles and most recently used connections.
-* Write scripts with IntelliSense, Go to Definition, snippets, syntax colorizations, error validations.
-* Object Explorer supporting schema browsing and contextual command execution
-* Execute your scripts and view results in a simple to use grid.
-* Save the result to json, csv or excel file format and view in the editor.
-* Visual Data Editor that enables direct row insertion, update and deletion into tables.
-* Scripting support to generate CREATE, SELECT and DROP statements for database objects
+* Connect to PostgreSQL anywhere
+* Searchable object explorer view for database objects
+* Query authoring and editing with Intellisense, syntax highlighting and code snippets
+* View query results and save to csv, JSON, or Excel
+* Integrated terminal for Bash, PowerShell, and cmd.exe
+* Go to Definition and Peek Definition for examining the DDL of objects
+* Source control integration with Git
+* Customize dashboards and insight widgets using SQL 
+* Server groups for categorizing connections
+* Customizable keyboard shortcuts, multi-tab support, color theme options
+
+See our quickstart for a step by step guide to getting started with PostgreSQL in Azure Data Studio.
 
 ## Offline Installation
 The extension will download and install a required PgSqlToolsService package during activation. For machines with no Internet access, you can still use the extension by choosing the
