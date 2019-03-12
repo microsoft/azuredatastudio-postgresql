@@ -20,7 +20,7 @@ The extension will download and install a required PgSqlToolsService package dur
 `Install from VSIX...` option in the Extension view and installing a bundled release from our [Releases](https://github.com/Microsoft/sqlops-pgsql/releases) page.
 
 ## Support
-Support for this extension is provided on our [GitHub Issue Tracker]. You can submit a [bug report], a [feature suggestion] or participate in [discussions].
+Support for this extension is provided on our [GitHub Issue Tracker]. You can submit a [bug report], a [feature suggestion] or participate in discussions.
 
 ## Contributing to the Extension
 See the [developer documentation] for details on how to contribute to this extension.
