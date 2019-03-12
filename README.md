@@ -13,7 +13,7 @@ Connect, query, and manage PostgreSQL databases with Azure Data Studio, a modern
 * Server groups for organizing connections
 * Customizable keyboard shortcuts, multi-tab support, color theme options
 
-See our [quickstart](https://docs.microsoft.com/sql/azure-data-studio/quickstart-postgresql) for a step by step guide to getting started with PostgreSQL in Azure Data Studio.
+See our [quickstart] for a step by step guide to getting started with PostgreSQL in Azure Data Studio.
 
 ## Offline Installation
 The extension will download and install a required PgSqlToolsService package during activation. For machines with no Internet access, you can still use the extension by choosing the
@@ -34,13 +34,14 @@ The [Microsoft Enterprise and Developer Privacy Statement] describes the privacy
 ## License
 This extension is [licensed under the MIT License]. Please see the [third-party notices] file for additional copyright notices and license terms applicable to portions of the software.
 
-[GitHub Issue Tracker]:https://github.com/Microsoft/sqlops-pgsql/issues
-[bug report]:https://github.com/Microsoft/sqlops-pgsql/issues/new?labels=bug
-[feature suggestion]:https://github.com/Microsoft/sqlops-pgsql/issues/new?labels=feature-request
-[developer documentation]:https://github.com/Microsoft/sqlops-pgsql/wiki/contributing
+[quickstart]: https://docs.microsoft.com/sql/azure-data-studio/quickstart-postgresql
+[GitHub Issue Tracker]:https://github.com/Microsoft/azuredatastudio-postgresql/issues
+[bug report]:https://github.com/Microsoft/azuredatastudio-postgresql/issues/new?labels=bug
+[feature suggestion]:https://github.com/Microsoft/azuredatastudio-postgresql/issues/new?labels=feature-request
+[developer documentation]:https://github.com/Microsoft/azuredatastudio-postgresql/wiki/contributing
 [Microsoft Enterprise and Developer Privacy Statement]:https://go.microsoft.com/fwlink/?LinkId=786907&lang=en7
-[licensed under the MIT License]: https://github.com/Microsoft/sqlops-pgsql/blob/master/LICENSE.txt
-[third-party notices]: https://github.com/Microsoft/sqlops-pgsql/blob/master/ThirdPartyNotices.txt
+[licensed under the MIT License]: https://github.com/Microsoft/azuredatastudio-postgresql/blob/master/LICENSE.txt
+[third-party notices]: https://github.com/Microsoft/azuredatastudio-postgresql/blob/master/ThirdPartyNotices.txt
 [Microsoft Open Source Code of Conduct]:https://opensource.microsoft.com/codeofconduct/
 [Code of Conduct FAQ]:https://opensource.microsoft.com/codeofconduct/faq/
 [opencode@microsoft.com]:mailto:opencode@microsoft.com
