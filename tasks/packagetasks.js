@@ -86,7 +86,7 @@ gulp.task('package:offline', () => {
     var packages = [];
     packages.push({rid: 'win-x64', runtime: 'Windows_64'});
     packages.push({rid: 'osx', runtime: 'OSX'});
-    packages.push({rid: 'linux-x64', runtime: 'Linux_64'});
+    packages.push({rid: 'linux', runtime: 'Ubuntu_16'});
 
     var promise = Promise.resolve();
     cleanServiceInstallFolder().then(() => {

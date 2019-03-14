@@ -1,12 +1,12 @@
 {
-  "name": "azuredatastudio-pgsql",
+  "name": "postgresql",
   "version": "0.1.0",
   "publisher": "Microsoft",
   "description": "PostgreSQL extension for Azure Data Studio",
   "aiKey": "AIF-5574968e-856d-40d2-af67-c89a14e76412",
   "icon": "images/extension-icon.png",
   "repository": {
-    "url": "https://github.com/Microsoft/sqlops-pgsql"
+    "url": "https://github.com/Microsoft/azuredatastudio-postgresql"
   },
   "license": "MIT",
   "activationEvents": [
@@ -23,6 +23,7 @@
   "scripts": {
     "compile": "gulp build",
     "package": "gulp package:online",
+    "package-offline": "gulp package:offline",
     "postinstall": "node ./node_modules/vscode/bin/install && node ./node_modules/sqlops/bin/install"
   },
   "contributes": {
