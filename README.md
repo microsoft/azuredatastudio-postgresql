@@ -38,7 +38,7 @@ This extension is [licensed under the MIT License]. Please see the [third-party 
 [GitHub Issue Tracker]:https://github.com/Microsoft/azuredatastudio-postgresql/issues
 [bug report]:https://github.com/Microsoft/azuredatastudio-postgresql/issues/new?labels=bug
 [feature suggestion]:https://github.com/Microsoft/azuredatastudio-postgresql/issues/new?labels=feature-request
-[developer documentation]:https://github.com/Microsoft/azuredatastudio-postgresql/wiki/contributing
+[developer documentation]:https://github.com/Microsoft/azuredatastudio-postgresql/wiki/How-to-Contribute
 [Microsoft Enterprise and Developer Privacy Statement]:https://go.microsoft.com/fwlink/?LinkId=786907&lang=en7
 [licensed under the MIT License]: https://github.com/Microsoft/azuredatastudio-postgresql/blob/master/LICENSE.txt
 [third-party notices]: https://github.com/Microsoft/azuredatastudio-postgresql/blob/master/ThirdPartyNotices.txt
