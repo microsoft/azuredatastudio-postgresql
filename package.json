@@ -1,5 +1,6 @@
 {
-  "name": "postgresql",
+  "name": "azuredatastudio-postgresql",
+  "displayName": "PostgreSQL",
   "version": "0.1.0",
   "publisher": "Microsoft",
   "description": "PostgreSQL extension for Azure Data Studio",
