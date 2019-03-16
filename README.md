@@ -17,8 +17,6 @@ Connect, query, and manage PostgreSQL databases with Azure Data Studio, a modern
 See our [quickstart] for a step by step guide to getting started with PostgreSQL in Azure Data Studio.
 
 ## Offline Installation
-
-## Offline Installation
 The extension will download and install a required PostgreSQL Tools Service package during activation. For machines with no Internet access, you can still use the extension by choosing the
 `Install from VSIX...` option in the Extension view and installing a bundled release from our [Releases](https://github.com/Microsoft/azuredatastudio-postgresql/releases) page.
 Each operating system has a .vsix file with the required service included. Pick the file for your OS, download and install to get started.
