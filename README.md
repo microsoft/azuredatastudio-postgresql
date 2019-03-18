@@ -37,7 +37,7 @@ The [Microsoft Enterprise and Developer Privacy Statement] describes the privacy
 ## License
 This extension is [licensed under the MIT License]. Please see the [third-party notices] file for additional copyright notices and license terms applicable to portions of the software.
 
-[quickstart]: https://docs.microsoft.com/sql/azure-data-studio/quickstart-postgresql
+[quickstart]: https://docs.microsoft.com/sql/azure-data-studio/quickstart-postgres
 [GitHub Issue Tracker]:https://github.com/Microsoft/azuredatastudio-postgresql/issues
 [bug report]:https://github.com/Microsoft/azuredatastudio-postgresql/issues/new?labels=bug
 [feature suggestion]:https://github.com/Microsoft/azuredatastudio-postgresql/issues/new?labels=feature-request
