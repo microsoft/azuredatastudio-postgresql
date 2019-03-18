@@ -1,11 +1,11 @@
 # PostgreSQL extension for Azure Data Studio (preview)
 
-Connect, query, and manage PostgreSQL databases with Azure Data Studio, a modern data editor available for Linux, MacOS, and Windows. This (preview) extension enables you to interact with Postgres using Azure Data Studio features like:
+Connect, query, and manage Postgres databases with Azure Data Studio, a modern data editor available for Linux, MacOS, and Windows. This (preview) extension enables you to interact with Postgres using Azure Data Studio features like:
 
-* Connect to PostgreSQL anywhere
+* Connect to Postgres anywhere
 * Searchable object explorer view for database objects
 * Query authoring and editing with Intellisense, syntax highlighting and code snippets
-* View query results and save to csv, JSON, or Excel
+* View query results and save to csv, JSON, xml, or Excel
 * Integrated terminal for Bash, PowerShell, and cmd.exe
 * Go to Definition and Peek Definition for examining the DDL of objects
 * Source control integration with Git
