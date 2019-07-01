@@ -122,10 +122,10 @@ function generateServerOptions(executablePath: string): ServerOptions {
 function generateHandleServerProviderEvent() {
 	let dots = 0;
 	return (e: string, ...args: any[]) => {
-		outputChannel.show();
-		statusView.show();
 		switch (e) {
 			case Events.INSTALL_START:
+				outputChannel.show(true);
+				statusView.show();
 				outputChannel.appendLine(`Installing ${Constants.serviceName} service to ${args[0]}`);
 				statusView.text = 'Installing Service';
 				break;
