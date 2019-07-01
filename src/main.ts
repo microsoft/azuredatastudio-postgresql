@@ -147,6 +147,9 @@ function generateHandleServerProviderEvent() {
 			case Events.DOWNLOAD_END:
 				outputChannel.appendLine('Done!');
 				break;
+			default:
+				console.error(`Unknown event from Server Provider ${e}`);
+				break;
 		}
 	};
 }
