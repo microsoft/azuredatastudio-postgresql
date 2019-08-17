@@ -9,7 +9,7 @@ Connect, query, and manage Postgres databases with Azure Data Studio, a modern d
 * Integrated terminal for Bash, PowerShell, and cmd.exe
 * Go to Definition and Peek Definition for examining the DDL of objects
 * Source control integration with Git
-* Customize dashboards and insight widgets using SQL 
+* Customize dashboards and insight widgets using SQL
 * Server groups for organizing connections
 * Customizable keyboard shortcuts, multi-tab support, color theme options
 * Backup and Restore
@@ -21,6 +21,26 @@ The extension will download and install a required PostgreSQL Tools Service pack
 `Install from VSIX...` option in the Extension view and installing a bundled release from our [Releases](https://github.com/Microsoft/azuredatastudio-postgresql/releases) page.
 Each operating system has a .vsix file with the required service included. Pick the file for your OS, download and install to get started.
 We recommend you choose a full release and ignore any alpha or beta releases as these are our daily builds used in testing.
+
+## Building from Source
+
+You can build your own version of the extension like this:
+
+```sh
+yarn run compile
+yarn run package
+```
+
+And then install the resulting .vsix package in Azure Data Studio.
+
+In case you are also making changes to [pgsqltoolsservice](https://github.com/microsoft/pgtoolsservice), you will need to make the following modifications to settings.json to use a local copy:
+
+```json
+{
+  "pgsql.useDebugSource": true,
+  "pgsql.debugSourcePath": "/path/to/pgtoolsservice",
+}
+```
 
 ## Support
 Support for this extension is provided on our [GitHub Issue Tracker]. You can submit a [bug report], a [feature suggestion] or participate in discussions.
