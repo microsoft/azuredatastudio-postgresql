@@ -8,7 +8,7 @@ import * as path from 'path';
 import * as crypto from 'crypto';
 import * as os from 'os';
 
-var baseConfig = require('./config.json');
+let baseConfig = require('./config.json');
 
 // The function is a duplicate of \src\paths.js. IT would be better to import path.js but it doesn't
 // work for now because the extension is running in different process.
@@ -37,6 +37,8 @@ export interface IPackageInfo {
 	name: string;
 	version: string;
 	aiKey: string;
+	requiredDotNetCoreSDK: string;
+	projectTemplateNupkg: string;
 }
 
 export function getPackageInfo(packageJson: any): IPackageInfo {
@@ -44,7 +46,9 @@ export function getPackageInfo(packageJson: any): IPackageInfo {
 		return {
 			name: packageJson.name,
 			version: packageJson.version,
-			aiKey: packageJson.aiKey
+			aiKey: packageJson.aiKey,
+			requiredDotNetCoreSDK: packageJson.requiredDotNetCoreSDK,
+			projectTemplateNupkg: packageJson.projectTemplateNupkg
 		};
 	}
 }

@@ -333,6 +333,46 @@
           "defaultValue": null
         }
       ]
+    },
+    "commands": [
+      {
+        "command": "build.all.pgproj",
+        "title": "Build all PostgreSQL projects",
+        "category": "PostgreSQLProject"
+      },
+      {
+        "command": "build.current.pgproj",
+        "title": "Build PostgreSQL project",
+        "category": "PostgreSQLProject"
+      },
+      {
+        "command": "add.new.pgproj",
+        "title": "Add New PostgreSQL project"
+      }
+    ],
+    "menus": {
+      "commandPalette": [
+        {
+          "command": "build.current.pgproj",
+          "when": "resourceExtname == .pgproj"
+        }
+      ],
+      "explorer/context": [
+        {
+          "command": "build.current.pgproj",
+          "when": "resourceExtname == .pgproj"
+        },
+        {
+          "command": "add.new.pgproj",
+          "when": "explorerResourceIsFolder"
+        }
+      ],
+      "editor/context": [
+        {
+          "command": "build.current.pgproj",
+          "when": "resourceExtname == .pgproj"
+        }
+      ]
     }
   },
   "dependencies": {
@@ -356,7 +396,8 @@
     "vscode-languageclient": "3.5.0",
     "vscode-languageserver-protocol": "3.5.0",
     "vscode-languageserver-types": "3.5.0",
-    "zone.js": "0.7.6"
+    "zone.js": "0.7.6",
+    "which": "^1.3.1"
   },
   "devDependencies": {
     "@types/node": "^8.0.53",
@@ -414,5 +455,7 @@
     "vscode-languageclient": "3.5.0",
     "vscode-languageserver-protocol": "3.5.0",
     "vscode-languageserver-types": "3.5.0"
-  }
+  },
+  "requiredDotNetCoreSDK": "2.1.0",
+	"projectTemplateNupkg": "resources/Microsoft.DataTools.PostgreSql.ProjectTemplate.1.0.0.nupkg"
 }

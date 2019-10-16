@@ -87,6 +87,11 @@ gulp.task('ext:copy-config', () => {
             .pipe(gulp.dest(config.paths.project.root + '/out/'));
 });
 
+gulp.task('ext:copy-resources', () => {
+    return gulp.src(config.paths.project.root + '/resources/**/*')
+        .pipe(gulp.dest(config.paths.project.root + '/out/resources'));
+});
+
 gulp.task('ext:copy-js', () => {
     return gulp.src([
             config.paths.project.root + '/src/**/*.js',
@@ -110,7 +115,7 @@ gulp.task('ext:copy-appinsights', () => {
      .pipe(gulp.dest("./node_modules/vscode-extension-telemetry", {'overwrite':true}));
 });
 
-gulp.task('ext:copy', gulp.series('ext:copy-tests', 'ext:copy-js', 'ext:copy-config'));
+gulp.task('ext:copy', gulp.series('ext:copy-tests', 'ext:copy-js', 'ext:copy-config', 'ext:copy-resources'));
 
 gulp.task('ext:build', gulp.series('ext:compile', 'ext:copy'));
 
