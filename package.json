@@ -336,40 +336,41 @@
     },
     "commands": [
       {
-        "command": "build.all.pgproj",
+        "command": "pgproj.build.all",
         "title": "Build all PostgreSQL projects",
         "category": "PostgreSQLProject"
       },
       {
-        "command": "build.current.pgproj",
+        "command": "pgproj.build.current",
         "title": "Build PostgreSQL project",
         "category": "PostgreSQLProject"
       },
       {
-        "command": "add.new.pgproj",
-        "title": "Add New PostgreSQL project"
+        "command": "pgproj.add.new",
+        "title": "Add New PostgreSQL project",
+        "category": "PostgreSQLProject"
       }
     ],
     "menus": {
       "commandPalette": [
         {
-          "command": "build.current.pgproj",
+          "command": "pgproj.build.current",
           "when": "resourceExtname == .pgproj"
         }
       ],
       "explorer/context": [
         {
-          "command": "build.current.pgproj",
+          "command": "pgproj.build.current",
           "when": "resourceExtname == .pgproj"
         },
         {
-          "command": "add.new.pgproj",
+          "command": "pgproj.add.new",
           "when": "explorerResourceIsFolder"
         }
       ],
       "editor/context": [
         {
-          "command": "build.current.pgproj",
+          "command": "pgproj.build.current",
           "when": "resourceExtname == .pgproj"
         }
       ]
@@ -457,5 +458,5 @@
     "vscode-languageserver-types": "3.5.0"
   },
   "requiredDotNetCoreSDK": "2.1.0",
-	"projectTemplateNupkg": "resources/Microsoft.DataTools.PostgreSql.ProjectTemplate.1.0.0.nupkg"
+  "projectTemplateNugetId": "Microsoft.DataTools.PostgreSql.ProjectTemplate"
 }

@@ -9,6 +9,8 @@ import * as which from 'which';
 import * as cp from 'child_process';
 import * as semver from 'semver';
 import * as path from 'path';
+import * as Constants from './constants';
+import { CommandObserver } from './CommandObserver';
 
 export type DotNetInfo = {path: string, version: string};
 export type DotNetCommandResult = {code: number, msg: string};
@@ -34,7 +36,6 @@ function promptToInstallDotNetCoreSDK(msg: string): void {
  */
 export function findDotNetSdk(): Promise<DotNetInfo> {
     return new Promise((resolve, reject) => {
-
         if (dotnetInfo === undefined) {
             try {
                 let path = which.sync('dotnet');
@@ -50,13 +51,36 @@ export function findDotNetSdk(): Promise<DotNetInfo> {
                     }
                 );
             } catch (ex) {
-                promptToInstallDotNetCoreSDK('The .NET Core SDK was not found on your PATH.');
+                promptToInstallDotNetCoreSDK('The .NET Core SDK was not found.');
                 reject(ex);
             }
         } else {
             resolve(dotnetInfo);
         }
+    });
+}
 
+export function findProjectTemplate(dotNetSdk: DotNetInfo): Promise<boolean> {
+    return new Promise((resolve, reject) => {
+        let exists: boolean = true;
+        let cmd = 'dotnet';
+        let args = ['new', 'pgproject', '--dry-run'];
+        let dotnet = cp.spawn(cmd, args, { cwd: path.dirname(dotNetSdk.path), env: process.env });
+
+        function handleData(stream: NodeJS.ReadableStream) {
+            stream.on('data', function (chunk) {
+                if (chunk.toString().search(Constants.templateDoesNotExistMessage) !== -1) {
+                    exists = false;
+                }
+            });
+        }
+
+        handleData(dotnet.stdout);
+        handleData(dotnet.stderr);
+
+        dotnet.on('close', () => {
+            resolve(exists);
+        });
     });
 }
 
@@ -76,9 +100,8 @@ export function requireDotNetSdk(version?: string): Promise<DotNetInfo> {
     });
 }
 
-export function runDotNetCommand(dotNetSdk: DotNetInfo, args: string[]): Promise<DotNetCommandResult> {
-    let dotnetResult: DotNetCommandResult;
-    return new Promise<DotNetCommandResult>((resolve, reject) => {
+export function runDotNetCommand(dotNetSdk: DotNetInfo, args: string[], commandObserver: CommandObserver): Promise<void> {
+    return new Promise<void>((resolve, reject) => {
         let cmd = 'dotnet';
         const chunks = [] as any;
 
@@ -86,16 +109,15 @@ export function runDotNetCommand(dotNetSdk: DotNetInfo, args: string[]): Promise
 
         function handleData(stream: NodeJS.ReadableStream) {
             stream.on('data', function (chunk) {
-                chunks.push(chunk);
+                commandObserver.next(chunk.toString());
             });
         }
 
         handleData(dotnet.stdout);
         handleData(dotnet.stderr);
 
-        dotnet.on('close', (code) => {
-            dotnetResult = {code: code, msg: chunks.toString()}
-            resolve(dotnetResult);
+        dotnet.on('close', () => {
+            resolve();
         });
 
         dotnet.on('error', err => {

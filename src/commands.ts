@@ -5,89 +5,93 @@
 'use strict';
 
 import * as vscode from 'vscode';
-import { DotNetInfo, requireDotNetSdk, runDotNetCommand } from './dotnet';
+import * as Utils from './utils';
+import { DotNetInfo, requireDotNetSdk, runDotNetCommand, findProjectTemplate } from './dotnet';
+import { CommandObserver } from './CommandObserver';
 
-export default function registerCommands(dotNetSdkVersion: string): vscode.Disposable[] {
+export default function registerCommands(commandObserver: CommandObserver, packageInfo: Utils.IPackageInfo): vscode.Disposable[] {
+    let dotNetSdkVersion = packageInfo.requiredDotNetCoreSDK;
     return [
-        vscode.commands.registerCommand('build.all.pgproj', async () => {
-            requireDotNetSdk(dotNetSdkVersion).then(buildAllProjects);
-        }),
-        vscode.commands.registerCommand('build.current.pgproj', async (args) => {
+        vscode.commands.registerCommand('pgproj.build.all', async () => {
             requireDotNetSdk(dotNetSdkVersion).then(
                 dotnet => {
-                    buildCurrentProject(args, dotnet);
+                    buildAllProjects(dotnet, commandObserver);
             });
         }),
-        vscode.commands.registerCommand('add.new.pgproj', async (args) => {
+        vscode.commands.registerCommand('pgproj.build.current', async (args) => {
             requireDotNetSdk(dotNetSdkVersion).then(
                 dotnet => {
-                    addNewPostgreSQLProject(args, dotnet);
+                    buildCurrentProject(args, dotnet, commandObserver);
+            });
+        }),
+        vscode.commands.registerCommand('pgproj.add.new', async (args) => {
+            requireDotNetSdk(dotNetSdkVersion).then(
+                dotnet => {
+                    addNewPostgreSQLProject(args, dotnet, packageInfo.projectTemplateNugetId, commandObserver);
             });
         }),
     ];
 }
 
-function buildCurrentProject(args, dotNetSdk: DotNetInfo) {
+function buildCurrentProject(args, dotNetSdk: DotNetInfo, commandObserver: CommandObserver) {
     let project = '';
-    if (args === null) {
+    if (!args) {
         const activeEditor = vscode.window.activeTextEditor;
-        if (activeEditor !== undefined)
-        {
+        if (activeEditor !== undefined) {
             project = activeEditor.document.uri.fsPath;
         }
     } else {
         project = args.fsPath;
     }
 
-    dotnetBuild(dotNetSdk, project);
+    commandObserver.clear();
+    dotnetBuild(dotNetSdk, project, commandObserver);
 }
 
-async function buildAllProjects(dotNetSdk: DotNetInfo): Promise<void> {
+async function buildAllProjects(dotNetSdk: DotNetInfo, commandObserver: CommandObserver): Promise<void> {
     try {
         let projects = await vscode.workspace.findFiles('{**/*.pgproj}');
+        commandObserver.clear();
         for (let project of projects) {
-            dotnetBuild(dotNetSdk, project.fsPath);
+            dotnetBuild(dotNetSdk, project.fsPath, commandObserver);
         }
     } catch (err) {
         vscode.window.showInformationMessage(err);
     }
 }
 
-export function dotnetBuild(dotNetSdk: DotNetInfo, project: string): Promise<void> {
+function dotnetBuild(dotNetSdk: DotNetInfo, project: string, commandObserver: CommandObserver): Promise<void> {
     return new Promise<void>((_resolve, _reject) => {
         let args = ['build', project];
-
-        runDotNetCommand(dotNetSdk, args).then(result => {
-            if (result.code === 0)
-            {
-                vscode.window.showInformationMessage(result.msg);
-            } else {
-                vscode.window.showErrorMessage('Error: ${errorMessage}', result.msg);
-            }
-        }, e => {
-            vscode.window.showErrorMessage('Error: ${errorMessage}', e.message);
-        });
+        runDotNetCommand(dotNetSdk, args, commandObserver);
     });
 }
 
-function addNewPostgreSQLProject(args, dotNetSdk: DotNetInfo) {
+function addNewPostgreSQLProject(args, dotNetSdk: DotNetInfo, projectTemplateNugedId: string, commandObserver: CommandObserver) {
     let folder = args.fsPath;
-    dotnetNew(dotNetSdk, folder);
+    commandObserver.clear();
+    findProjectTemplate(dotNetSdk).then(exists => {
+        if (exists) {
+            dotnetNew(dotNetSdk, folder, commandObserver);
+        }
+        else {
+            installPostgreSQLProjectTemplate(dotNetSdk, projectTemplateNugedId, commandObserver).then(() => {
+                dotnetNew(dotNetSdk, folder, commandObserver);
+            })
+        }
+    })
 }
 
-export function dotnetNew(dotNetSdk: DotNetInfo, folder: string): Promise<void> {
+function installPostgreSQLProjectTemplate(dotNetSdk: DotNetInfo, templateNupkg: string, commandObserver: CommandObserver): Promise<void> {
+	return new Promise<void>((_resolve, _reject) => {
+        let args = ['new', '-i', templateNupkg];
+        runDotNetCommand(dotNetSdk, args, commandObserver);
+	});
+}
+
+function dotnetNew(dotNetSdk: DotNetInfo, folder: string, commandObserver: CommandObserver): Promise<void> {
     return new Promise<void>((_resolve, _reject) => {
         let args = ['new', 'pgproject', '-o', folder];
-
-        runDotNetCommand(dotNetSdk, args).then(result => {
-            if (result.code === 0)
-            {
-                vscode.window.showInformationMessage("The PostgreSQL Database project was created successfully");
-            } else {
-                vscode.window.showErrorMessage('Error: ${errorMessage}', result.msg);
-            }
-        }, e => {
-            vscode.window.showErrorMessage('Error: ${errorMessage}', e.message);
-        });
+        runDotNetCommand(dotNetSdk, args, commandObserver);
     });
 }

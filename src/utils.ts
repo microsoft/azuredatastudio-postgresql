@@ -38,7 +38,7 @@ export interface IPackageInfo {
 	version: string;
 	aiKey: string;
 	requiredDotNetCoreSDK: string;
-	projectTemplateNupkg: string;
+	projectTemplateNugetId: string;
 }
 
 export function getPackageInfo(packageJson: any): IPackageInfo {
@@ -48,7 +48,7 @@ export function getPackageInfo(packageJson: any): IPackageInfo {
 			version: packageJson.version,
 			aiKey: packageJson.aiKey,
 			requiredDotNetCoreSDK: packageJson.requiredDotNetCoreSDK,
-			projectTemplateNupkg: packageJson.projectTemplateNupkg
+			projectTemplateNugetId: packageJson.projectTemplateNugetId
 		};
 	}
 }

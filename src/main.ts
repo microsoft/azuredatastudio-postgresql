@@ -9,17 +9,18 @@ import * as path from 'path';
 import { SqlOpsDataClient, ClientOptions } from 'dataprotocol-client';
 import { IConfig, ServerProvider, Events } from 'service-downloader';
 import { ServerOptions, TransportKind } from 'vscode-languageclient';
-import { DotNetInfo, requireDotNetSdk, runDotNetCommand } from './dotnet';
 
 import registerCommands from './commands';
 import * as Constants from './constants';
 import ContextProvider from './contextProvider';
 import * as Utils from './utils';
 import { Telemetry, LanguageClientErrorHandler } from './telemetry';
+import { CommandObserver } from './CommandObserver';
 
 const baseConfig = require('./config.json');
 const packageJson = require('../package.json');
 const outputChannel = vscode.window.createOutputChannel(Constants.serviceName);
+const projectOutputChannel = vscode.window.createOutputChannel(Constants.projectOutputChannel);
 const statusView = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left);
 
 export async function activate(context: vscode.ExtensionContext) {
@@ -30,9 +31,6 @@ export async function activate(context: vscode.ExtensionContext) {
 		vscode.window.showErrorMessage('Unsupported platform');
 		return;
 	}
-
-	let packageInfo = Utils.getPackageInfo(packageJson);
-	let dotNetSdkVersion =  packageInfo.requiredDotNetCoreSDK;
 
 	let config: IConfig = JSON.parse(JSON.stringify(baseConfig));
 	config.installDirectory = path.join(__dirname, config.installDirectory);
@@ -51,13 +49,8 @@ export async function activate(context: vscode.ExtensionContext) {
 		documentSelector: ['sql'],
 		synchronize: {
 			configurationSection: 'pgsql'
-		}
+		},
 	};
-
-	let templateNupkg = context.asAbsolutePath(packageInfo.projectTemplateNupkg);
-	requireDotNetSdk(dotNetSdkVersion).then(dotnet => {
-		installPostgreSQLProjectTemplate(dotnet, templateNupkg)
-	});
 
 	const installationStart = Date.now();
 	serverdownloader.getOrDownloadServer().then(e => {
@@ -89,9 +82,12 @@ export async function activate(context: vscode.ExtensionContext) {
 	let contextProvider = new ContextProvider();
 	context.subscriptions.push(contextProvider);
 
-	for (let command of registerCommands(dotNetSdkVersion)) {
+	let packageInfo = Utils.getPackageInfo(packageJson);
+	var commandObserver = new CommandObserver(projectOutputChannel);
+
+	for (let command of registerCommands(commandObserver, packageInfo)) {
 		context.subscriptions.push(command);
-    }
+	}
 
 	context.subscriptions.push({ dispose: () => languageClient.stop() });
 }
@@ -167,18 +163,6 @@ function generateHandleServerProviderEvent() {
 				break;
 		}
 	};
-}
-
-function installPostgreSQLProjectTemplate(dotNetSdk: DotNetInfo, templateNupkg: string): Promise<void> {
-	return new Promise<void>((_resolve, _reject) => {
-		let args = ['new', '-i', templateNupkg];
-		runDotNetCommand(dotNetSdk, args).then(() => {
-			Telemetry.sendTelemetryEvent('Project template installed.');
-		}, e => {
-			Telemetry.sendTelemetryEvent('ProjectTemplateInstallationFailed, error: ${error}', e.message);
-			vscode.window.showErrorMessage('Failed to install project template');
-		});
-	});
 }
 
 // this method is called when your extension is deactivated
