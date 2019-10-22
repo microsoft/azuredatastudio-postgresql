@@ -30,13 +30,21 @@
   "contributes": {
     "languages": [
       {
-        "id": "sql",
+        "id": "pgsql",
         "extensions": [
           ".sql"
         ],
         "aliases": [
-          "SQL"
-        ]
+          "pgsql", "PL/pgSQL"
+        ],
+        "configuration": "./syntaxes/pgsql-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "pgsql",
+        "scopeName": "source.sql",
+        "path": "./syntaxes/pgsql.plist"
       }
     ],
     "outputChannels": [
