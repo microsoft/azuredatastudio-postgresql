@@ -4,6 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 'use strict';
 import * as vscode from 'vscode';
+import * as Constants from './constants';
 
 const regex = /^(,)?(((?<origin>([^\s].*))\((?<linedetails>(\d+|\d+,\d+|\d+,\d+,\d+,\d+))\))|()):\s(?<subcategory>(()|([^:]*? )))(?<category>(error|warning))(\s*(?<code>[^: ]*))?\s*:\s(?<text>.*)$/gm;
 
@@ -13,20 +14,31 @@ export class CommandObserver {
     private _diagnosticCollection: vscode.DiagnosticCollection = null;
     private _diagnosticMap = new Map<string, vscode.Diagnostic[]>();
 
-    public constructor(outputChannel: vscode.OutputChannel) {
-        this._outputChannel = outputChannel;
-        this._diagnosticCollection = vscode.languages.createDiagnosticCollection('build');
-    }
-
     public next(message:string) {
+        this.setOutputChannel();
         this._outputChannel.show(true);
         this._outputChannel.appendLine(message);
 
+        this.setDiagnosticCollection();
         this.parseDiagnostics(message);
         this._diagnosticMap.forEach((value, key) => {
             var uri = vscode.Uri.file(key);
             this._diagnosticCollection.set(uri, value);
         });
+    }
+
+    private setOutputChannel()
+    {
+        if (!this._outputChannel) {
+            this._outputChannel = vscode.window.createOutputChannel(Constants.projectOutputChannel);
+        }
+    }
+
+    private setDiagnosticCollection()
+    {
+        if (!this._diagnosticCollection) {
+            this._diagnosticCollection = vscode.languages.createDiagnosticCollection('build');
+        }
     }
 
     private parseDiagnostics(output: string)
@@ -64,8 +76,14 @@ export class CommandObserver {
 
     public clear()
     {
-        this._outputChannel.clear();
-        this._diagnosticMap.clear();
-        this._diagnosticCollection.clear();
+        if (this._outputChannel) {
+            this._outputChannel.clear();
+        }
+        if (this._diagnosticCollection) {
+            this._diagnosticCollection.clear();
+        }
+        if (this._diagnosticMap) {
+            this._diagnosticMap.clear();
+        }
     }
 }

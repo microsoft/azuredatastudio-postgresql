@@ -20,7 +20,6 @@ import { CommandObserver } from './CommandObserver';
 const baseConfig = require('./config.json');
 const packageJson = require('../package.json');
 const outputChannel = vscode.window.createOutputChannel(Constants.serviceName);
-const projectOutputChannel = vscode.window.createOutputChannel(Constants.projectOutputChannel);
 const statusView = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left);
 
 export async function activate(context: vscode.ExtensionContext) {
@@ -83,7 +82,7 @@ export async function activate(context: vscode.ExtensionContext) {
 	context.subscriptions.push(contextProvider);
 
 	let packageInfo = Utils.getPackageInfo(packageJson);
-	var commandObserver = new CommandObserver(projectOutputChannel);
+	var commandObserver = new CommandObserver();
 
 	for (let command of registerCommands(commandObserver, packageInfo)) {
 		context.subscriptions.push(command);

@@ -38,15 +38,17 @@ export function findDotNetSdk(): Promise<DotNetInfo> {
     return new Promise((resolve, reject) => {
         if (dotnetInfo === undefined) {
             try {
-                let path = which.sync('dotnet');
+                let dotnetPath = which.sync('dotnet');
                 cp.exec(
-                    `"${path}" --version`,
+                    'dotnet --version',
                     (error, stdout, stderr) => {
-                        if (error === null) {
-                            dotnetInfo = {path: path, version: stdout.trim()};
-                            resolve(dotnetInfo);
-                        } else {
+                        if (error) {
                             reject(error);
+                        } else if (stderr && stderr.length > 0) {
+                            reject(new Error(stderr));
+                        } else {
+                            dotnetInfo = {path: dotnetPath, version: stdout.trim()};
+                            resolve(dotnetInfo);
                         }
                     }
                 );
@@ -100,12 +102,18 @@ export function requireDotNetSdk(version?: string): Promise<DotNetInfo> {
     });
 }
 
-export function runDotNetCommand(dotNetSdk: DotNetInfo, args: string[], commandObserver: CommandObserver): Promise<void> {
-    return new Promise<void>((resolve, reject) => {
+export async function runDotNetCommand(dotNetSdk: DotNetInfo, args: string[], commandObserver: CommandObserver, cancelToken?: vscode.CancellationToken): Promise<void> {
+    return await new Promise<void>((resolve, reject) => {
         let cmd = 'dotnet';
-        const chunks = [] as any;
 
-        let dotnet = cp.spawn(cmd, args, { cwd: path.dirname(dotNetSdk.path), env: process.env });
+        let dotnet = cp.spawn(cmd, args, { env: process.env });
+
+        if (cancelToken) {
+            cancelToken.onCancellationRequested(() => {
+                dotnet.kill();
+                commandObserver.next(Constants.buildCancelMessage);
+            });
+        }
 
         function handleData(stream: NodeJS.ReadableStream) {
             stream.on('data', function (chunk) {
