@@ -14,6 +14,7 @@ import registerCommands from './commands';
 import * as Constants from './constants';
 import ContextProvider from './contextProvider';
 import * as Utils from './utils';
+import * as Helper from './commonHelper';
 import { Telemetry, LanguageClientErrorHandler } from './telemetry';
 import { CommandObserver } from './CommandObserver';
 
@@ -85,7 +86,7 @@ export async function activate(context: vscode.ExtensionContext) {
 
 	try {
 		var pgProjects = await vscode.workspace.findFiles('{**/*.pgproj}');
-		await Utils.checkProjectVersion(packageInfo.minSupportedPostgreSQLProjectSDK,
+		await Helper.checkProjectVersion(packageInfo.minSupportedPostgreSQLProjectSDK,
 			packageInfo.maxSupportedPostgreSQLProjectSDK,
 			pgProjects.map(p => p.fsPath),
 			commandObserver);

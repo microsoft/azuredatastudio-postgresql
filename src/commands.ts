@@ -7,6 +7,7 @@
 import * as vscode from 'vscode';
 import * as path from 'path';
 import * as Utils from './utils';
+import * as Helper from './commonHelper';
 import * as strings from './strings';
 import { DotNetInfo, requireDotNetSdk, runDotNetCommand, findProjectTemplate } from './dotnet';
 import { CommandObserver } from './CommandObserver';
@@ -91,7 +92,7 @@ async function buildAllProjects(dotNetSdk: DotNetInfo, commandObserver: CommandO
 
 async function validateProjectSDK(projects: string[], commandObserver: CommandObserver): Promise<boolean> {
     var packageInfo = Utils.getPackageInfo();
-    let unsupportedProjects = await Utils.checkProjectVersion(packageInfo.minSupportedPostgreSQLProjectSDK, packageInfo.maxSupportedPostgreSQLProjectSDK, projects, commandObserver);
+    let unsupportedProjects = await Helper.checkProjectVersion(packageInfo.minSupportedPostgreSQLProjectSDK, packageInfo.maxSupportedPostgreSQLProjectSDK, projects, commandObserver);
     if (unsupportedProjects && unsupportedProjects.length > 0) {
         unsupportedProjects.map(p => commandObserver.logToOutputChannel(strings.format(Constants.buildFailedUnsupportedSdkMessage, p)));
         return Promise.resolve(false);
