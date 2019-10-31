@@ -460,6 +460,6 @@
   },
   "requiredDotNetCoreSDK": "2.1.0",
   "projectTemplateNugetId": "Microsoft.DataTools.PostgreSql.ProjectTemplate",
-  "minSupportedPostgreSQLProjectSDK": "1.0.0.0",
-  "maxSupportedPostgreSQLProjectSDK": "1.0.0.0"
+  "minSupportedPostgreSQLProjectSDK": "0.1.0",
+  "maxSupportedPostgreSQLProjectSDK": "0.1.0"
 }
