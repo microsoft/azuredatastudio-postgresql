@@ -30,21 +30,13 @@
   "contributes": {
     "languages": [
       {
-        "id": "pgsql",
+        "id": "sql",
         "extensions": [
           ".sql"
         ],
         "aliases": [
-          "pgsql", "PL/pgSQL"
-        ],
-        "configuration": "./syntaxes/pgsql-configuration.json"
-      }
-    ],
-    "grammars": [
-      {
-        "language": "pgsql",
-        "scopeName": "source.sql",
-        "path": "./syntaxes/pgsql.plist"
+          "SQL"
+        ]
       }
     ],
     "outputChannels": [
@@ -411,6 +403,7 @@
   "devDependencies": {
     "@types/node": "^8.0.53",
     "chai": "^3.5.0",
+    "compare-versions": "^3.5.1",
     "coveralls": "^2.11.15",
     "decache": "^4.1.0",
     "del": "^2.2.1",
@@ -466,5 +459,7 @@
     "vscode-languageserver-types": "3.5.0"
   },
   "requiredDotNetCoreSDK": "2.1.0",
-  "projectTemplateNugetId": "Microsoft.DataTools.PostgreSql.ProjectTemplate"
+  "projectTemplateNugetId": "Microsoft.DataTools.PostgreSql.ProjectTemplate",
+  "minSupportedPostgreSQLProjectSDK": "1.0.0.0",
+  "maxSupportedPostgreSQLProjectSDK": "1.0.0.0"
 }

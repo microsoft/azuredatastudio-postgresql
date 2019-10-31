@@ -6,9 +6,19 @@
 
 import * as path from 'path';
 import * as crypto from 'crypto';
+import * as vscode from 'vscode';
 import * as os from 'os';
+import * as fs from 'fs';
+import * as strings from './strings';
+import * as Constants from './constants';
+import { CommandObserver } from './CommandObserver';
+const packageJson = require('../package.json');
 
+var compareVersions = require('compare-versions');
 let baseConfig = require('./config.json');
+const regex = /(?<="Microsoft.DataTools.Schema.Tasks.PostgreSql.Sdk\/)(.*?)(?=")/;
+
+var packageInfo: IPackageInfo = null;
 
 // The function is a duplicate of \src\paths.js. IT would be better to import path.js but it doesn't
 // work for now because the extension is running in different process.
@@ -39,18 +49,24 @@ export interface IPackageInfo {
 	aiKey: string;
 	requiredDotNetCoreSDK: string;
 	projectTemplateNugetId: string;
+	minSupportedPostgreSQLProjectSDK: string;
+	maxSupportedPostgreSQLProjectSDK: string
 }
 
-export function getPackageInfo(packageJson: any): IPackageInfo {
-	if (packageJson) {
+export function getPackageInfo(): IPackageInfo {
+	if (!packageInfo) {
 		return {
 			name: packageJson.name,
 			version: packageJson.version,
 			aiKey: packageJson.aiKey,
 			requiredDotNetCoreSDK: packageJson.requiredDotNetCoreSDK,
-			projectTemplateNugetId: packageJson.projectTemplateNugetId
+			projectTemplateNugetId: packageJson.projectTemplateNugetId,
+			minSupportedPostgreSQLProjectSDK: packageJson.minSupportedPostgreSQLProjectSDK,
+			maxSupportedPostgreSQLProjectSDK: packageJson.maxSupportedPostgreSQLProjectSDK
 		};
 	}
+
+	return packageInfo;
 }
 
 export function generateUserId(): Promise<string> {
@@ -137,6 +153,55 @@ export function getRuntimeDisplayName(runtime: Runtime): string {
 		default:
 			return 'Unknown';
 	}
+}
+
+export async function checkProjectVersion(minRequiredSDK: string, maxRequiredSDK: string, projects: string[], commandObserver: CommandObserver) : Promise<string[]> {
+	let unsupportedProjectsMap: string[] = [];
+    for (let project of projects) {
+        let projectFileText = fs.readFileSync(project, 'utf8');
+            let sdkVersion;
+            if ((sdkVersion = regex.exec(projectFileText)) !== null) {
+				if (!(compareVersions.compare(sdkVersion[0], minRequiredSDK, '>=') && compareVersions.compare(sdkVersion[0], maxRequiredSDK, '<='))) {
+                    unsupportedProjectsMap.push(project);
+                }
+            }
+    }
+
+    if (unsupportedProjectsMap.length > 0) {
+		promptToUpdateVersion(unsupportedProjectsMap, maxRequiredSDK, commandObserver);
+	}
+
+	return Promise.resolve(unsupportedProjectsMap);
+}
+
+function promptToUpdateVersion(unsupportedProjects: string[], maxRequiredSDK: string, commandObserver: CommandObserver) {
+    let msg = Constants.unsupportedPostgreSQLSdkMessage;
+    let installItem = 'Update Projects';
+    vscode.window
+        .showErrorMessage(msg, installItem)
+        .then(
+            (item) => {
+                if (item === installItem) {
+
+                    UpdateProjects(unsupportedProjects, maxRequiredSDK, commandObserver);
+                }
+            }
+        );
+}
+
+function UpdateProjects(unsupportedProjects: string[], maxRequiredSDK: string, commandObserver: CommandObserver) {
+    unsupportedProjects.forEach(project => {
+		let fileContent = fs.readFileSync(project, 'utf8');
+		commandObserver.logToOutputChannel(strings.format(Constants.updatingSdkMessage, project));
+        fileContent = fileContent.replace(regex, maxRequiredSDK);
+        fs.writeFile(project, fileContent, (err) => {
+            if (err) {
+                commandObserver.logToOutputChannel(strings.format(Constants.updatingSdkErrorMessage, project));
+            } else {
+				commandObserver.logToOutputChannel(strings.format(Constants.sdkUpdateCompleteMessage, project));
+			}
+        });
+    });
 }
 
 export enum Runtime {

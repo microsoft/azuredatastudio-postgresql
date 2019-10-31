@@ -111,7 +111,7 @@ export async function runDotNetCommand(dotNetSdk: DotNetInfo, args: string[], co
         if (cancelToken) {
             cancelToken.onCancellationRequested(() => {
                 dotnet.kill();
-                commandObserver.next(Constants.buildCancelMessage);
+                commandObserver.logToOutputChannel(Constants.buildCancelMessage);
             });
         }
 

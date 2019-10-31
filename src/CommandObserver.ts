@@ -3,6 +3,7 @@
  *  Licensed under the Source EULA. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 'use strict';
+
 import * as vscode from 'vscode';
 import * as Constants from './constants';
 
@@ -25,6 +26,12 @@ export class CommandObserver {
             var uri = vscode.Uri.file(key);
             this._diagnosticCollection.set(uri, value);
         });
+    }
+
+	public logToOutputChannel(message: string): void {
+        this.setOutputChannel();
+        this._outputChannel.show(true);
+		this._outputChannel.appendLine(message);
     }
 
     private setOutputChannel()
