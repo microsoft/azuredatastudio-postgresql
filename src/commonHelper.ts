@@ -9,8 +9,7 @@ import * as fs from 'fs';
 import * as strings from './strings';
 import * as Constants from './constants';
 import { CommandObserver } from './CommandObserver';
-
-var compareVersions = require('compare-versions');
+import * as compareVersions from 'compare-versions';
 const regex = /(?<="Microsoft.DataTools.Schema.Tasks.PostgreSql.Sdk\/)(.*?)(?=")/;
 
 export async function checkProjectVersion(minRequiredSDK: string, maxRequiredSDK: string, projects: string[], commandObserver: CommandObserver) : Promise<string[]> {
