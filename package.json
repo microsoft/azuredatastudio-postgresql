@@ -11,9 +11,7 @@
   },
   "license": "MIT",
   "activationEvents": [
-    "*",
-    "onCommand:pgproj.build.all",
-    "onCommand:pgproj.build.current"
+    "*"
   ],
   "engines": {
     "vscode": "*",
@@ -358,6 +356,10 @@
         {
           "command": "pgproj.build.current",
           "when": "resourceExtname == .pgproj"
+        },
+        {
+          "command": "pgproj.add.new",
+          "when": "false"
         }
       ],
       "explorer/context": [
