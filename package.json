@@ -135,6 +135,7 @@
       "providerName": "PGSQL",
       "providerId": "PGSQL",
       "displayName": "PostgreSQL",
+      "azureResource": 2,
       "connectionOptions": [
         {
           "specialValueType": "connectionName",
@@ -162,6 +163,29 @@
           "defaultValue": null,
           "objectType": null,
           "categoryValues": null,
+          "isArray": false
+        },
+        {
+          "specialValueType": "authType",
+          "isIdentity": true,
+          "name": "authenticationType",
+          "displayName": "Authentication type",
+          "description": "How to authenticate with server",
+          "groupName": "Security",
+          "valueType": "category",
+          "defaultValue": null,
+          "objectType": null,
+          "categoryValues": [
+            {
+              "displayName": "Password",
+              "name": "SqlLogin"
+            },
+            {
+              "displayName": "Azure Account",
+              "name": "AzureMFA"
+            }
+          ],
+          "isRequired": true,
           "isArray": false
         },
         {
