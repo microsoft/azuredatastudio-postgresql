@@ -181,7 +181,7 @@
               "name": "SqlLogin"
             },
             {
-              "displayName": "Azure Account",
+              "displayName": "Azure Active Directory",
               "name": "AzureMFAAndUser"
             }
           ],
