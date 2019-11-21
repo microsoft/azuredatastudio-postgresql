@@ -173,7 +173,7 @@
           "description": "How to authenticate with server",
           "groupName": "Security",
           "valueType": "category",
-          "defaultValue": null,
+          "defaultValue": "SqlLogin",
           "objectType": null,
           "categoryValues": [
             {
@@ -182,7 +182,7 @@
             },
             {
               "displayName": "Azure Account",
-              "name": "AzureMFA"
+              "name": "AzureMFAAndUser"
             }
           ],
           "isRequired": true,
