@@ -135,7 +135,7 @@
       "providerName": "PGSQL",
       "providerId": "PGSQL",
       "displayName": "PostgreSQL",
-      "azureResource": 2,
+      "azureResource": "OssRdbms",
       "connectionOptions": [
         {
           "specialValueType": "connectionName",
