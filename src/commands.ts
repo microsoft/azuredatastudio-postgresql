@@ -8,10 +8,12 @@ import * as vscode from 'vscode';
 import * as path from 'path';
 import * as Utils from './utils';
 import * as Helper from './commonHelper';
-import * as strings from './strings';
 import { DotNetInfo, requireDotNetSdk, runDotNetCommand, findProjectTemplate } from './dotnet';
-import { CommandObserver } from './CommandObserver';
+import { CommandObserver } from './commandObserver';
 import * as Constants from './constants';
+import * as nls from 'vscode-nls';
+
+const localize = nls.loadMessageBundle();
 
 export default function registerCommands(commandObserver: CommandObserver, packageInfo: Utils.IPackageInfo): vscode.Disposable[] {
     let dotNetSdkVersion = packageInfo.requiredDotNetCoreSDK;
@@ -60,51 +62,58 @@ async function buildCurrentProject(args, dotNetSdk: DotNetInfo, commandObserver:
         project = args.fsPath;
     }
 
-    commandObserver.clear();
-
-    let isValid = await validateProjectSDK([project], commandObserver);
-    if (!isValid) {
-        return;
-    }
-    await dotnetBuild(dotNetSdk, project, commandObserver, cancelToken);
+    await buildProjects(dotNetSdk, [project], commandObserver, cancelToken).then(() => {
+        commandObserver.buildInProgress = false;
+    });
 }
 
 async function buildAllProjects(dotNetSdk: DotNetInfo, commandObserver: CommandObserver, cancelToken: vscode.CancellationToken): Promise<void> {
+    let projects = await vscode.workspace.findFiles('{**/*.pgproj}');
+    await buildProjects(dotNetSdk, projects.map(p => p.fsPath), commandObserver, cancelToken);
+}
+
+async function buildProjects(dotNetSdk: DotNetInfo, projects: string[], commandObserver: CommandObserver, cancelToken: vscode.CancellationToken) {
+    commandObserver.clear();
+    let unsupportedProjects = await validateProjectSDK(projects, commandObserver);
+    if (unsupportedProjects.length > 0) {
+        projects = projects.filter(p => unsupportedProjects.indexOf(p) < 0);
+    }
+
+    if (commandObserver.buildInProgress) {
+        vscode.window.showErrorMessage(Constants.existingBuildInProgressMessage);
+        return;
+    }
+
     try {
-        let projects = await vscode.workspace.findFiles('{**/*.pgproj}');
-        commandObserver.clear();
-
-        let isValid = await validateProjectSDK(projects.map(p => p.fsPath), commandObserver);
-        if (!isValid) {
-            return;
-        }
-
+        commandObserver.buildInProgress = true;
         for (let project of projects) {
             if (cancelToken.isCancellationRequested) {
                 return;
             }
-            await dotnetBuild(dotNetSdk, project.fsPath, commandObserver, cancelToken);
+            await dotnetBuild(dotNetSdk, project, commandObserver, cancelToken);
         }
+        commandObserver.buildInProgress = false;
     } catch (err) {
         vscode.window.showErrorMessage(err);
+        commandObserver.buildInProgress = false;
     }
 }
 
-async function validateProjectSDK(projects: string[], commandObserver: CommandObserver): Promise<boolean> {
+async function validateProjectSDK(projects: string[], commandObserver: CommandObserver): Promise<string[]> {
     var packageInfo = Utils.getPackageInfo();
     let unsupportedProjects = await Helper.checkProjectVersion(packageInfo.minSupportedPostgreSQLProjectSDK, packageInfo.maxSupportedPostgreSQLProjectSDK, projects, commandObserver);
     if (unsupportedProjects && unsupportedProjects.length > 0) {
-        unsupportedProjects.map(p => commandObserver.logToOutputChannel(strings.format(Constants.buildFailedUnsupportedSdkMessage, p)));
-        return Promise.resolve(false);
+        unsupportedProjects.map(p =>
+            commandObserver.logToOutputChannel(localize('extension.projectUpdateFailedMessage', 'Failed to build project {0}.\nUpdate PostgreSQL SDK to latest version.\n', p)));
     }
-    return Promise.resolve(true);
+    return Promise.resolve(unsupportedProjects);
 }
 
 async function dotnetBuild(dotNetSdk: DotNetInfo, project: string, commandObserver: CommandObserver, cancelToken: vscode.CancellationToken): Promise<void> {
     let args = ['build', project];
-    commandObserver.logToOutputChannel(strings.format(Constants.buildStartedMessage, project));
+    commandObserver.logToOutputChannel(localize('extension.buildStartMessage', 'Build started: Project: {0}', project));
     await runDotNetCommand(dotNetSdk, args, commandObserver, cancelToken);
-    commandObserver.logToOutputChannel(strings.format(Constants.buildCompletedMessage, project));
+    commandObserver.logToOutputChannel(localize('extension.buildEndMessage', 'Done building project {0}\n', project));
 }
 
 async function addNewPostgreSQLProject(args: vscode.Uri, dotNetSdk: DotNetInfo, projectTemplateNugedId: string, commandObserver: CommandObserver) {
@@ -136,7 +145,7 @@ async function addNewPostgreSQLProject(args: vscode.Uri, dotNetSdk: DotNetInfo, 
             }
         });
 
-    if (projectName === undefined) {
+    if (!projectName) {
         return;
     }
 

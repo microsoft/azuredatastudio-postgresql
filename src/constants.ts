@@ -4,23 +4,25 @@
  *--------------------------------------------------------------------------------------------*/
 'use strict';
 
-export const serviceName = 'pgSQLToolsService';
-export const providerId = 'PGSQL';
-export const serviceCrashMessage = 'PG SQL Tools Service component exited unexpectedly. Please restart Azure Data Studio.';
-export const serviceCrashButton = 'View Known Issues';
-export const serviceCrashLink = 'https://github.com/microsoft/pgtoolsservice/issues?q=is%3Aopen+is%3Aissue+label%3Aknown-issues';
-export const projectOutputChannel = 'pgSQLProject';
-export const templateDoesNotExistMessage = 'No templates matched the input template name: pgproj.';
-export const projectNameSpecialCharsErrorMessage = 'Project names cannot contain any of the following characters: /?:&\\*"<>|#%;';
-export const projectNameInvalidErrorMessage = 'Project names cannot be \'.\' or \'..\'';
-export const projectNameInvalidCharErrorMessage = 'Project names cannot contain \'..\'';
-export const projectNameEmptyErrorMessage = 'Project names cannot be empty';
-export const buildCancelMessage = 'Build has been cancelled';
-export const buildProgressTitle = 'Building projects';
-export const unsupportedPostgreSQLSdkMessage = 'There are some projects that use unsupported version of PostgreSQL SDK.';
-export const buildFailedUnsupportedSdkMessage = 'Failed to build project {0}.\nUpdate PostgreSQL SDK to latest version.';
-export const buildStartedMessage = 'Build started: Project: {0}';
-export const buildCompletedMessage = 'Done building project {0}\n';
-export const updatingSdkMessage = 'Updating PostgreSQL SDK version for file {0}.';
-export const updatingSdkErrorMessage = 'Error updating SDK version for file {0}.';
-export const sdkUpdateCompleteMessage = 'Project file {0} has been updated.';
+import * as nls from 'vscode-nls';
+
+const localize = nls.loadMessageBundle();
+
+export const serviceName = localize('extension.serviceName', 'pgSQLToolsService');
+export const providerId = localize('extension.providerId', 'PGSQL');
+export const serviceCrashMessage = localize('extension.serviceCrashMessage', 'PG SQL Tools Service component exited unexpectedly. Please restart Azure Data Studio.');
+export const serviceCrashButton = localize('extension.serviceCrashButton', 'View Known Issues');
+export const serviceCrashLink = localize('extension.serviceCrashLink', 'https://github.com/microsoft/pgtoolsservice/issues?q=is%3Aopen+is%3Aissue+label%3Aknown-issues');
+export const projectOutputChannel = localize('extension.projectOutputChannel', 'pgSQLProject');
+export const templateDoesNotExistMessage = localize('extension.templateDoesNotExistMessage', 'No templates matched the input template name: pgproj.');
+export const projectNameSpecialCharsErrorMessage = localize('extension.projectNameSpecialCharsErrorMessage', 'Project names cannot contain any of the following characters: /?:&\\*"<>|#%;');
+export const projectNameInvalidErrorMessage = localize('extension.projectNameInvalidErrorMessage', 'Project names cannot be \'.\' or \'..\'');
+export const projectNameInvalidCharErrorMessage = localize('extension.projectNameInvalidCharErrorMessage', 'Project names cannot contain \'..\'');
+export const projectNameEmptyErrorMessage = localize('extension.projectNameEmptyErrorMessage', 'Project names cannot be empty');
+export const buildCancelMessage = localize('extension.buildCancelMessage', 'Build has been cancelled');
+export const buildProgressTitle = localize('extension.buildProgressTitle', 'Building projects');
+export const unsupportedPostgreSQLSdkMessage = localize('extension.unsupportedPostgreSQLSdkMessage', 'There are some projects that use unsupported version of PostgreSQL SDK.');
+export const existingBuildInProgressMessage = localize('extension.existingBuildInProgressMessage', 'There is a build already running, please cancel the build before starting a new one');
+export const updateProjectButtonText = localize('extension.updateProjectButtonText', 'Update Projects');
+export const dotNetCoreNotFoundMessage = localize('extension.dotNetCoreNotFoundMessage', 'The .NET Core SDK was not found.');
+export const installDotNetCoreButtonText = localize('extension.installDotNetCoreButtonText', 'Install .NET Core SDK...');

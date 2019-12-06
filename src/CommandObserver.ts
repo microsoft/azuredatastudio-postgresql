@@ -15,6 +15,16 @@ export class CommandObserver {
     private _diagnosticCollection: vscode.DiagnosticCollection = null;
     private _diagnosticMap = new Map<string, vscode.Diagnostic[]>();
 
+	private _buildInProgress: boolean = false;
+
+	public get buildInProgress(): boolean {
+		return this._buildInProgress;
+	}
+
+	public set buildInProgress(inProg: boolean) {
+		this._buildInProgress = inProg;
+    }
+
     public next(message:string) {
         this.setOutputChannel();
         this._outputChannel.show(true);

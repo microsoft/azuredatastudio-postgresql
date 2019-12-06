@@ -21,6 +21,8 @@ var nls = require('vscode-nls-dev');
 
 require('./tasks/packagetasks')
 
+const languages = [ /* for example { folderName: 'ru', id: 'ru' } */ ];
+
 gulp.task('ext:lint', () => {
     return gulp.src([
         config.paths.project.root + '/src/**/*.ts',
@@ -31,6 +33,12 @@ gulp.task('ext:lint', () => {
         formatter: "verbose"
     })))
     .pipe(tslint.report());
+});
+
+gulp.task('localization:process-package-json', function () {
+    return gulp.src(['package.nls.json'])
+        .pipe(nls.createAdditionalLanguageFiles(languages, 'i18n'))
+        .pipe(gulp.dest('.'));
 });
 
 gulp.task('ext:compile-src', (done) => {
@@ -46,7 +54,7 @@ gulp.task('ext:compile-src', (done) => {
                     }
                 })
                 .pipe(nls.rewriteLocalizeCalls())
-                .pipe(nls.createAdditionalLanguageFiles(nls.coreLanguages, config.paths.project.root + '/localization/i18n', undefined, false))
+                .pipe(nls.createAdditionalLanguageFiles(languages, 'i18n', 'out'))
                 .pipe(srcmap.write('.', {
                    sourceRoot: function(file){ return file.cwd + '/src'; }
                 }))
@@ -139,7 +147,7 @@ gulp.task('clean', function (done) {
     return del('out', done);
 });
 
-gulp.task('build', gulp.series('clean', 'ext:build', 'ext:appinsights-version'));
+gulp.task('build', gulp.series('clean', 'ext:build', 'localization:process-package-json', 'ext:appinsights-version'));
 
 gulp.task('watch', function(){
     return gulp.watch(config.paths.project.root + '/src/**/*', gulp.series('build'))

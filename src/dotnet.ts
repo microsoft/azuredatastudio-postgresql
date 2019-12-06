@@ -10,21 +10,23 @@ import * as cp from 'child_process';
 import * as semver from 'semver';
 import * as path from 'path';
 import * as Constants from './constants';
-import { CommandObserver } from './CommandObserver';
+import * as nls from 'vscode-nls';
+import { CommandObserver } from './commandObserver';
 
+const localize = nls.loadMessageBundle();
 export type DotNetInfo = {path: string, version: string};
 export type DotNetCommandResult = {code: number, msg: string};
 
 let dotnetInfo: DotNetInfo | undefined = undefined;
 
 function promptToInstallDotNetCoreSDK(msg: string): void {
-    let installItem = 'Install .NET Core SDK...';
+    let installItem = Constants.installDotNetCoreButtonText;
     vscode.window
         .showErrorMessage(msg, installItem)
         .then(
             (item) => {
                 if (item === installItem) {
-                    vscode.env.openExternal(vscode.Uri.parse('https://dotnet.microsoft.com/download'));
+                    vscode.env.openExternal(vscode.Uri.parse('https://go.microsoft.com/fwlink/?linkid=2112623'));
                 }
             }
         );
@@ -53,7 +55,7 @@ export function findDotNetSdk(): Promise<DotNetInfo> {
                     }
                 );
             } catch (ex) {
-                promptToInstallDotNetCoreSDK('The .NET Core SDK was not found.');
+                promptToInstallDotNetCoreSDK(Constants.dotNetCoreNotFoundMessage);
                 reject(ex);
             }
         } else {
@@ -92,7 +94,7 @@ export function requireDotNetSdk(version?: string): Promise<DotNetInfo> {
             .then(
                 dotnet => {
                     if (version !== undefined && semver.lt(dotnet.version, version)) {
-                        let msg = `The PostgreSQL extension requires .NET Core SDK version ${version} or later, but ${dotnet.version} was found.`;
+                        let msg = localize('extension.dotNetCoreMessage', 'The PostgreSQL extension requires .NET Core SDK version {0} or later, but {1} was found.', version, dotnet.version);
                         promptToInstallDotNetCoreSDK(msg);
                         reject(msg);
                     }

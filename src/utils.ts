@@ -47,7 +47,7 @@ export interface IPackageInfo {
 
 export function getPackageInfo(): IPackageInfo {
 	if (!packageInfo) {
-		return {
+		packageInfo = {
 			name: packageJson.name,
 			version: packageJson.version,
 			aiKey: packageJson.aiKey,

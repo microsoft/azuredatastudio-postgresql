@@ -9,6 +9,10 @@ import * as path from 'path';
 import { SqlOpsDataClient, ClientOptions } from 'dataprotocol-client';
 import { IConfig, ServerProvider, Events } from 'service-downloader';
 import { ServerOptions, TransportKind } from 'vscode-languageclient';
+import * as nls from 'vscode-nls';
+
+// this should precede local imports because they can trigger localization calls
+const localize = nls.config({ messageFormat: nls.MessageFormat.file })();
 
 import registerCommands from './commands';
 import * as Constants from './constants';
@@ -16,7 +20,7 @@ import ContextProvider from './contextProvider';
 import * as Utils from './utils';
 import * as Helper from './commonHelper';
 import { Telemetry, LanguageClientErrorHandler } from './telemetry';
-import { CommandObserver } from './CommandObserver';
+import { CommandObserver } from './commandObserver';
 
 const baseConfig = require('./config.json');
 const outputChannel = vscode.window.createOutputChannel(Constants.serviceName);
