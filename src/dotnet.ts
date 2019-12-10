@@ -20,16 +20,13 @@ export type DotNetCommandResult = {code: number, msg: string};
 let dotnetInfo: DotNetInfo | undefined = undefined;
 
 function promptToInstallDotNetCoreSDK(msg: string): void {
-    let installItem = Constants.installDotNetCoreButtonText;
-    vscode.window
-        .showErrorMessage(msg, installItem)
-        .then(
-            (item) => {
-                if (item === installItem) {
-                    vscode.env.openExternal(vscode.Uri.parse('https://go.microsoft.com/fwlink/?linkid=2112623'));
-                }
-            }
-        );
+	let installItem = localize('extension.installDotNetCoreButtonText', 'Install .NET Core SDK...');
+	vscode.window.showErrorMessage(msg, installItem)
+	.then((item) => {
+		if (item === installItem) {
+			vscode.env.openExternal(vscode.Uri.parse('https://go.microsoft.com/fwlink/?linkid=2112623'));
+		}
+	});
 }
 
 /**
@@ -37,101 +34,100 @@ function promptToInstallDotNetCoreSDK(msg: string): void {
  * if the SDK is not found.
  */
 export function findDotNetSdk(): Promise<DotNetInfo> {
-    return new Promise((resolve, reject) => {
-        if (dotnetInfo === undefined) {
-            try {
-                let dotnetPath = which.sync('dotnet');
-                cp.exec(
-                    'dotnet --version',
-                    (error, stdout, stderr) => {
-                        if (error) {
-                            reject(error);
-                        } else if (stderr && stderr.length > 0) {
-                            reject(new Error(stderr));
-                        } else {
-                            dotnetInfo = {path: dotnetPath, version: stdout.trim()};
-                            resolve(dotnetInfo);
-                        }
-                    }
-                );
-            } catch (ex) {
-                promptToInstallDotNetCoreSDK(Constants.dotNetCoreNotFoundMessage);
-                reject(ex);
-            }
-        } else {
-            resolve(dotnetInfo);
-        }
-    });
+	return new Promise((resolve, reject) => {
+		if (dotnetInfo === undefined) {
+			try {
+				let dotnetPath = which.sync('dotnet');
+				cp.exec(
+					'dotnet --version',
+					(error, stdout, stderr) => {
+						if (error) {
+							reject(error);
+						} else if (stderr && stderr.length > 0) {
+							reject(new Error(stderr));
+						} else {
+							dotnetInfo = {path: dotnetPath, version: stdout.trim()};
+							resolve(dotnetInfo);
+						}
+					}
+				);
+			} catch (ex) {
+				promptToInstallDotNetCoreSDK(localize('extension.dotNetCoreNotFoundMessage', 'The .NET Core SDK was not found.'));
+				reject(ex);
+			}
+		} else {
+			resolve(dotnetInfo);
+		}
+	});
 }
 
 export function findProjectTemplate(dotNetSdk: DotNetInfo): Promise<boolean> {
-    return new Promise((resolve, reject) => {
-        let exists: boolean = true;
-        let cmd = 'dotnet';
-        let args = ['new', 'pgproject', '--dry-run'];
-        let dotnet = cp.spawn(cmd, args, { cwd: path.dirname(dotNetSdk.path), env: process.env });
+	return new Promise((resolve, reject) => {
+		let exists: boolean = true;
+		let cmd = 'dotnet';
+		let args = ['new', 'pgproject', '--dry-run'];
+		let dotnet = cp.spawn(cmd, args, { cwd: path.dirname(dotNetSdk.path), env: process.env });
 
-        function handleData(stream: NodeJS.ReadableStream) {
-            stream.on('data', function (chunk) {
-                if (chunk.toString().search(Constants.templateDoesNotExistMessage) !== -1) {
-                    exists = false;
-                }
-            });
-        }
+		function handleData(stream: NodeJS.ReadableStream) {
+			stream.on('data', function (chunk) {
+				if (chunk.toString().search(Constants.templateDoesNotExistMessage) !== -1) {
+					exists = false;
+				}
+			});
+		}
 
-        handleData(dotnet.stdout);
-        handleData(dotnet.stderr);
+		handleData(dotnet.stdout);
+		handleData(dotnet.stderr);
 
-        dotnet.on('close', () => {
-            resolve(exists);
-        });
-    });
+		dotnet.on('close', () => {
+			resolve(exists);
+		});
+	});
 }
 
 export function requireDotNetSdk(version?: string): Promise<DotNetInfo> {
-    return new Promise((resolve, reject) => {
-        findDotNetSdk()
-            .then(
-                dotnet => {
-                    if (version !== undefined && semver.lt(dotnet.version, version)) {
-                        let msg = localize('extension.dotNetCoreMessage', 'The PostgreSQL extension requires .NET Core SDK version {0} or later, but {1} was found.', version, dotnet.version);
-                        promptToInstallDotNetCoreSDK(msg);
-                        reject(msg);
-                    }
-                    resolve(dotnet);
-                }
-            );
-    });
+	return new Promise((resolve, reject) => {
+		findDotNetSdk()
+			.then(
+				dotnet => {
+					if (version !== undefined && semver.lt(dotnet.version, version)) {
+						let msg = localize('extension.dotNetCoreMessage', 'The PostgreSQL extension requires .NET Core SDK version {0} or later, but {1} was found.', version, dotnet.version);
+						promptToInstallDotNetCoreSDK(msg);
+						reject(msg);
+					}
+					resolve(dotnet);
+				}
+			);
+	});
 }
 
 export async function runDotNetCommand(dotNetSdk: DotNetInfo, args: string[], commandObserver: CommandObserver, cancelToken?: vscode.CancellationToken): Promise<void> {
-    return await new Promise<void>((resolve, reject) => {
-        let cmd = 'dotnet';
+	return await new Promise<void>((resolve, reject) => {
+		let cmd = 'dotnet';
+		let dotnet = cp.spawn(cmd, args, { env: process.env });
 
-        let dotnet = cp.spawn(cmd, args, { env: process.env });
+		if (cancelToken) {
+			cancelToken.onCancellationRequested(() => {
+				dotnet.kill();
+				commandObserver.logToOutputChannel(localize('extension.buildCancelMessage', 'Build has been cancelled'));
+			});
+		}
 
-        if (cancelToken) {
-            cancelToken.onCancellationRequested(() => {
-                dotnet.kill();
-                commandObserver.logToOutputChannel(Constants.buildCancelMessage);
-            });
-        }
+		function handleData(stream: NodeJS.ReadableStream) {
+			stream.on('data', function (chunk) {
+				commandObserver.next(chunk.toString());
+			});
+		}
 
-        function handleData(stream: NodeJS.ReadableStream) {
-            stream.on('data', function (chunk) {
-                commandObserver.next(chunk.toString());
-            });
-        }
+		handleData(dotnet.stdout);
+		handleData(dotnet.stderr);
 
-        handleData(dotnet.stdout);
-        handleData(dotnet.stderr);
+		dotnet.on('close', () => {
+			resolve();
+		});
 
-        dotnet.on('close', () => {
-            resolve();
-        });
-
-        dotnet.on('error', err => {
-            reject(err);
-        });
-    });
+		dotnet.on('error', err => {
+			reject(err);
+		});
+	});
 }
