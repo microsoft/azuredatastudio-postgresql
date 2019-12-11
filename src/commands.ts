@@ -5,12 +5,12 @@
 'use strict';
 
 import * as vscode from 'vscode';
+import * as fs from 'fs';
 import * as path from 'path';
 import * as Utils from './utils';
 import * as Helper from './commonHelper';
 import { DotNetInfo, requireDotNetSdk, runDotNetCommand, findProjectTemplate } from './dotnet';
 import { CommandObserver } from './commandObserver';
-import * as Constants from './constants';
 import * as nls from 'vscode-nls';
 
 const localize = nls.loadMessageBundle();
@@ -42,6 +42,7 @@ export default function registerCommands(commandObserver: CommandObserver, packa
 					});
 				});
 		}),
+		vscode.commands.registerCommand('pgproj.create.table', (args) => createTable(args)),
 		vscode.commands.registerCommand('pgproj.add.new', async (args) => {
 			requireDotNetSdk(dotNetSdkVersion).then(
 				async dotnet => {
@@ -49,6 +50,68 @@ export default function registerCommands(commandObserver: CommandObserver, packa
 				})
 		}),
 	];
+}
+
+function createTable(args) {
+	promptAndSave(args, 'table');
+}
+
+function promptAndSave(args, templatetype: string) {
+	if (args == null) {
+		args = { _fsPath: vscode.workspace.rootPath }
+	}
+	let incomingpath: string = args._fsPath;
+	vscode.window.showInputBox({ ignoreFocusOut: true, prompt: localize('extension.filePrompt', 'Please enter filename'), value: 'new' + templatetype + '.sql' })
+		.then((newfilename) => {
+			if (typeof newfilename === 'undefined') {
+				return;
+			}
+			var newfilepath = incomingpath + path.sep + newfilename;
+			if (fs.existsSync(newfilepath)) {
+				vscode.window.showErrorMessage(localize('extension.fileExists', "File already exists"));
+				return;
+			}
+			newfilepath = correctExtension(newfilepath);
+			openTemplateAndSaveNewFile(templatetype, newfilepath);
+		});
+}
+
+function correctExtension(filename) {
+	if (path.extname(filename) !== '.sql') {
+		if (filename.endsWith('.')) {
+			filename = filename + 'sql';
+		} else {
+			filename = filename + '.sql';
+		}
+	}
+	return filename;
+}
+
+function openTemplateAndSaveNewFile(type: string, filepath: string) {
+	let templatefileName = type + '.tmpl';
+	vscode.workspace.openTextDocument(vscode.extensions.getExtension('Microsoft.azuredatastudio-postgresql').extensionPath + '/templates/' + templatefileName)
+		.then((doc: vscode.TextDocument) => {
+			let text = doc.getText();
+			var filename = path.basename(filepath, path.extname(filepath));
+			text = text.replace('${tablename}', filename);
+			let cursorPosition = findCursorInTemlpate(text);
+			text = text.replace('${cursor}', '');
+			fs.writeFileSync(filepath, text);
+			vscode.workspace.openTextDocument(filepath).then((doc) => {
+				vscode.window.showTextDocument(doc).then((editor) => {
+					let newselection = new vscode.Selection(cursorPosition, cursorPosition);
+					editor.selection = newselection;
+				});
+			});
+		});
+}
+
+function findCursorInTemlpate(text: string) {
+	let cursorPos = text.indexOf('${cursor}');
+	let preCursor = text.substr(0, cursorPos);
+	let lineNum = preCursor.match(/\n/gi).length;
+	let charNum = preCursor.substr(preCursor.lastIndexOf('\n')).length;
+	return new vscode.Position(lineNum, charNum);
 }
 
 async function buildCurrentProject(args, dotNetSdk: DotNetInfo, commandObserver: CommandObserver, cancelToken: vscode.CancellationToken) {
@@ -125,7 +188,7 @@ async function addNewPostgreSQLProject(args: vscode.Uri, dotNetSdk: DotNetInfo, 
 	let folder = args.fsPath;
 	var defaultProjectName = path.basename(folder);
 	var projectName = await vscode.window.showInputBox({
-		prompt: 'Project Name',
+		prompt: localize('extension.projectNamePrompt', 'Project Name'),
 		value: defaultProjectName,
 		validateInput: (value: string) => {
 			if (!value || value.trim().length === 0) {
@@ -173,6 +236,6 @@ function installPostgreSQLProjectTemplate(dotNetSdk: DotNetInfo, templateNupkg: 
 function dotnetNew(dotNetSdk: DotNetInfo, projectName:string, folder: string, commandObserver: CommandObserver): Promise<void> {
 	return new Promise<void>((_resolve, _reject) => {
 		let args = ['new', 'pgproject', '-n', projectName, '-o', folder];
-		runDotNetCommand(dotNetSdk, args, commandObserver, null);
+		runDotNetCommand(dotNetSdk, args, commandObserver, null).then(() => vscode.commands.executeCommand('setContext', 'hasPgProject', true));
 	});
 }

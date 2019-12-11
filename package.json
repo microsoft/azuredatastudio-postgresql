@@ -346,8 +346,13 @@
         "category": "PostgreSQLProject"
       },
       {
+        "command": "pgproj.create.table",
+        "title": "New PostgreSQL Table",
+        "category": "PostgreSQLProject"
+      },
+      {
         "command": "pgproj.add.new",
-        "title": "Add New PostgreSQL project",
+        "title": "New PostgreSQL Project",
         "category": "PostgreSQLProject"
       }
     ],
@@ -360,12 +365,20 @@
         {
           "command": "pgproj.add.new",
           "when": "false"
+        },
+        {
+          "command": "pgproj.create.table",
+          "when": "false"
         }
       ],
       "explorer/context": [
         {
           "command": "pgproj.build.current",
           "when": "resourceExtname == .pgproj"
+        },
+        {
+          "command": "pgproj.create.table",
+          "when": "explorerResourceIsFolder && hasPgProject"
         },
         {
           "command": "pgproj.add.new",
