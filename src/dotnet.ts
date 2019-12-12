@@ -8,8 +8,6 @@ import * as vscode from 'vscode';
 import * as which from 'which';
 import * as cp from 'child_process';
 import * as semver from 'semver';
-import * as path from 'path';
-import * as Constants from './constants';
 import * as nls from 'vscode-nls';
 import { CommandObserver } from './commandObserver';
 
@@ -58,30 +56,6 @@ export function findDotNetSdk(): Promise<DotNetInfo> {
 		} else {
 			resolve(dotnetInfo);
 		}
-	});
-}
-
-export function findProjectTemplate(dotNetSdk: DotNetInfo): Promise<boolean> {
-	return new Promise((resolve, reject) => {
-		let exists: boolean = true;
-		let cmd = 'dotnet';
-		let args = ['new', 'pgproject', '--dry-run'];
-		let dotnet = cp.spawn(cmd, args, { cwd: path.dirname(dotNetSdk.path), env: process.env });
-
-		function handleData(stream: NodeJS.ReadableStream) {
-			stream.on('data', function (chunk) {
-				if (chunk.toString().search(Constants.templateDoesNotExistMessage) !== -1) {
-					exists = false;
-				}
-			});
-		}
-
-		handleData(dotnet.stdout);
-		handleData(dotnet.stderr);
-
-		dotnet.on('close', () => {
-			resolve(exists);
-		});
 	});
 }
 

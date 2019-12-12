@@ -91,7 +91,6 @@ export async function activate(context: vscode.ExtensionContext) {
 	try {
 		var pgProjects = await vscode.workspace.findFiles('{**/*.pgproj}');
 		if (pgProjects.length > 0) {
-			vscode.commands.executeCommand('setContext', 'hasPgProject', true);
 			await Helper.checkProjectVersion(
 				packageInfo.minSupportedPostgreSQLProjectSDK,
 				packageInfo.maxSupportedPostgreSQLProjectSDK,

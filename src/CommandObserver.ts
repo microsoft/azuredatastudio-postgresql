@@ -9,7 +9,7 @@ import * as Constants from './constants';
 import { Telemetry } from './telemetry';
 
 const msbuildOutputRegex = /^(,)?(((?<origin>([^\s].*))):|())\s*(?<subcategory>(()|([^:]*? )))(?<category>(error|warning))(\s*(?<code>[^: ]*))?\s*:\s*(?<text>.*)$/gm;
-const lineRegex = /^(?<origin>([^\s].*))(\((?<linedetails>(\d+|\d+,\d+|\d+,\d+,\d+,\d+))\))$/;
+const lineRegex = /^(?<origin>([^\s].*))(\((?<linedetails>(\d+|\d+-\d+|\d+,\d+((-\d+)?)|\d+,\d+,\d+,\d+))\))$/;
 
 export class CommandObserver {
 	private _outputChannel: vscode.OutputChannel = null;
@@ -82,7 +82,6 @@ export class CommandObserver {
 				message: match.groups.text,
 				range: this.getRange(lineDetails),
 				severity: match.groups.category && match.groups.category === 'error' ?  vscode.DiagnosticSeverity.Error : vscode.DiagnosticSeverity.Warning,
-				source: 'dotnet'
 			};
 
 			if (this._diagnosticMap.has(file)) {
@@ -105,13 +104,12 @@ export class CommandObserver {
 		let endLineNumber = 0;
 		let endColumn = 0;
 		if (lineDetails) {
-			let array = lineDetails.split(',').map(Number);
+			let array = lineDetails.split(/[,-]/).map(p => Number(p));
 			lineNumber = array[0]-1 || 0;
 			column = array[1]-1 || 0;
 			endLineNumber = array[2]-1 || 0;
 			endColumn = array[3]-1 || 0;
 		}
-
 		return new vscode.Range(new vscode.Position(lineNumber, column), new vscode.Position(endLineNumber, endColumn));
 	}
 
