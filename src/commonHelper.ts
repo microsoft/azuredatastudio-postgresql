@@ -10,9 +10,10 @@ import * as Constants from './constants';
 import { CommandObserver } from './commandObserver';
 import * as compareVersions from 'compare-versions';
 import * as nls from 'vscode-nls';
+import * as xml2js from 'xml2js';
 
 const localize = nls.loadMessageBundle();
-const xml2js = require('xml2js');
+//const xml2js = require('xml2js');
 
 const sdkName: string = "Microsoft.DataTools.Schema.Tasks.PostgreSql.Sdk";
 const enum sdkReference {
