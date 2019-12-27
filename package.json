@@ -349,12 +349,21 @@
         "command": "pgproj.add.new",
         "title": "New PostgreSQL Project",
         "category": "PostgreSQLProject"
+      },
+      {
+        "command": "pgproj.deploy.current",
+        "title": "Deploy",
+        "category": "PostgreSQLProject"
       }
     ],
     "menus": {
       "commandPalette": [
         {
           "command": "pgproj.build.current",
+          "when": "resourceExtname == .pgproj"
+        },
+        {
+          "command": "pgproj.deploy.current",
           "when": "resourceExtname == .pgproj"
         },
         {
@@ -368,6 +377,10 @@
           "when": "resourceExtname == .pgproj"
         },
         {
+          "command": "pgproj.deploy.current",
+          "when": "resourceExtname == .pgproj"
+        },
+        {
           "command": "pgproj.add.new",
           "when": "explorerResourceIsFolder"
         }
@@ -375,6 +388,10 @@
       "editor/context": [
         {
           "command": "pgproj.build.current",
+          "when": "resourceExtname == .pgproj"
+        },
+        {
+          "command": "pgproj.deploy.current",
           "when": "resourceExtname == .pgproj"
         }
       ]

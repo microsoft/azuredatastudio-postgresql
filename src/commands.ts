@@ -5,10 +5,12 @@
 'use strict';
 
 import * as vscode from 'vscode';
+import * as azdata from 'azdata';
 import * as fs from 'fs';
 import * as path from 'path';
 import * as Utils from './utils';
-import * as Helper from './commonHelper';
+import * as Constants from './constants';
+import { buildStatus, BuildResult, checkProjectVersion } from './commonHelper';
 import { DotNetInfo, requireDotNetSdk, runDotNetCommand } from './dotnet';
 import { CommandObserver } from './commandObserver';
 import * as nls from 'vscode-nls';
@@ -42,10 +44,49 @@ export default function registerCommands(commandObserver: CommandObserver, packa
 					});
 				});
 		}),
+		vscode.commands.registerCommand('pgproj.deploy.current', async (args) => {
+			requireDotNetSdk(dotNetSdkVersion).then(
+				async dotnet => {
+					await deployCurrentProject(args, dotnet, commandObserver);
+				});
+		}),
 		vscode.commands.registerCommand('pgproj.add.new', async (args) => {
-			await addNewPostgreSQLProject(args, packageInfo.maxSupportedPostgreSQLProjectSDK, commandObserver);
+			await addNewPostgreSQLProject(args, packageInfo.maxSupportedPostgreSQLProjectSDK);
 		})
 	];
+}
+
+async function deployCurrentProject(args, dotNetSdk: DotNetInfo, commandObserver:  CommandObserver, cancelToken?: vscode.CancellationToken) {
+	let project = '';
+	if (!args) {
+		const activeEditor = vscode.window.activeTextEditor;
+		if (activeEditor !== undefined) {
+			project = activeEditor.document.uri.fsPath;
+		}
+	} else {
+		project = args.fsPath;
+	}
+
+	await buildProjects(dotNetSdk, [project], commandObserver, cancelToken).then(async result => {
+		if (result && !result.some(b => b.status === buildStatus.Failure || b.status === buildStatus.Skipped)) {
+			var projectName = path.basename(project, '.pgproj');
+			var buildFiles = await vscode.workspace.findFiles('{**/'+ projectName +'.sql}');
+			if (buildFiles && buildFiles.length > 0) {
+				var connection = await azdata.connection.openConnectionDialog([Constants.providerId]);
+				if (connection) {
+					var fileName = buildFiles[0];
+					vscode.workspace.openTextDocument(fileName).then(doc => {
+						vscode.window.showTextDocument(doc, vscode.ViewColumn.Active, false).then(() => {
+							let filePath = doc.uri.toString();
+							azdata.queryeditor.connect(filePath, connection.connectionId).then(() => azdata.queryeditor.runQuery(filePath, undefined, false));
+						});
+					});
+				}
+			}
+		} else {
+			vscode.window.showErrorMessage(localize('extension.deployBeginFailed', 'Deploy cannot begin until your project builds successfully.'));
+		}
+	})
 }
 
 async function buildCurrentProject(args, dotNetSdk: DotNetInfo, commandObserver: CommandObserver, cancelToken: vscode.CancellationToken) {
@@ -59,45 +100,60 @@ async function buildCurrentProject(args, dotNetSdk: DotNetInfo, commandObserver:
 		project = args.fsPath;
 	}
 
-	await buildProjects(dotNetSdk, [project], commandObserver, cancelToken).then(() => {
-		commandObserver.buildInProgress = false;
-	});
+	await buildProjects(dotNetSdk, [project], commandObserver, cancelToken);
 }
 
-async function buildAllProjects(dotNetSdk: DotNetInfo, commandObserver: CommandObserver, cancelToken: vscode.CancellationToken): Promise<void> {
+async function buildAllProjects(dotNetSdk: DotNetInfo, commandObserver: CommandObserver, cancelToken: vscode.CancellationToken) {
 	let projects = await vscode.workspace.findFiles('{**/*.pgproj}');
 	await buildProjects(dotNetSdk, projects.map(p => p.fsPath), commandObserver, cancelToken);
 }
 
-async function buildProjects(dotNetSdk: DotNetInfo, projects: string[], commandObserver: CommandObserver, cancelToken: vscode.CancellationToken) {
+async function buildProjects(dotNetSdk: DotNetInfo, projects: string[], commandObserver: CommandObserver, cancelToken: vscode.CancellationToken): Promise<BuildResult[]> {
+	var buildResult = new Array<BuildResult>();
 	if (commandObserver.buildInProgress) {
 		vscode.window.showErrorMessage(localize('extension.existingBuildInProgressMessage', 'There is a build already running, please cancel the build before starting a new one'));
-		return;
+		return Promise.resolve(buildResult);
 	}
-	commandObserver.buildInProgress = true;
+
 	try {
+		var successProjectCount = 0;
+		var failedProjectCount = 0;
+		commandObserver.buildInProgress = true;
 		commandObserver.resetOutputChannel();
+		vscode.workspace.saveAll();
 		let unsupportedProjects = await validateProjectSDK(projects, commandObserver);
 		if (unsupportedProjects.length > 0) {
 			projects = projects.filter(p => unsupportedProjects.indexOf(p) < 0);
+			unsupportedProjects.map(p => buildResult.push({ project: p, status: buildStatus.Skipped }));
 		}
+
 		for (let project of projects) {
-			if (cancelToken.isCancellationRequested) {
+			if (cancelToken && cancelToken.isCancellationRequested) {
 				return;
 			}
-			await dotnetBuild(dotNetSdk, project, commandObserver, cancelToken);
+			await dotnetBuild(dotNetSdk, project, commandObserver, cancelToken).then(() => {
+				successProjectCount++;
+				commandObserver.logToOutputChannel(localize('extension.buildEndMessage', 'Done building project {0}\n', project));
+				buildResult.push({ project: project, status: buildStatus.Success })
+			}, () => {
+				failedProjectCount++;
+				commandObserver.logToOutputChannel(localize('extension.buildFailMessage', 'Done building project {0} -- FAILED\n', project));
+				buildResult.push({ project: project, status: buildStatus.Failure })
+			});
 		}
+		commandObserver.logToOutputChannel(localize('extension.buildSummaryMessage', '======== Build: {0} succeeses or up-to-date, {1} failed, {2} skipped ========', successProjectCount, failedProjectCount, unsupportedProjects.length));
 	} catch (err) {
 		vscode.window.showErrorMessage(err);
 	}
 	finally {
 		commandObserver.buildInProgress = false;
 	}
+	return Promise.resolve(buildResult);
 }
 
 async function validateProjectSDK(projects: string[], commandObserver: CommandObserver): Promise<string[]> {
 	var packageInfo = Utils.getPackageInfo();
-	let unsupportedProjects = await Helper.checkProjectVersion(packageInfo.minSupportedPostgreSQLProjectSDK, packageInfo.maxSupportedPostgreSQLProjectSDK, projects, commandObserver);
+	let unsupportedProjects = await checkProjectVersion(packageInfo.minSupportedPostgreSQLProjectSDK, packageInfo.maxSupportedPostgreSQLProjectSDK, projects, commandObserver);
 	if (unsupportedProjects && unsupportedProjects.length > 0) {
 		unsupportedProjects.map(p =>
 			commandObserver.logToOutputChannel(localize(
@@ -115,10 +171,9 @@ async function dotnetBuild(dotNetSdk: DotNetInfo, project: string, commandObserv
 	let args = ['build', project];
 	commandObserver.logToOutputChannel(localize('extension.buildStartMessage', 'Build started: Project: {0}', project));
 	await runDotNetCommand(dotNetSdk, args, commandObserver, cancelToken);
-	commandObserver.logToOutputChannel(localize('extension.buildEndMessage', 'Done building project {0}\n', project));
 }
 
-async function addNewPostgreSQLProject(args: vscode.Uri, projectSDK: string, commandObserver: CommandObserver) {
+async function addNewPostgreSQLProject(args: vscode.Uri, projectSDK: string) {
 	let folder = args.fsPath;
 	var defaultProjectName = path.basename(folder);
 	var projectName = await vscode.window.showInputBox({
