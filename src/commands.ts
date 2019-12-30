@@ -133,11 +133,9 @@ async function buildProjects(dotNetSdk: DotNetInfo, projects: string[], commandO
 			}
 			await dotnetBuild(dotNetSdk, project, commandObserver, cancelToken).then(() => {
 				successProjectCount++;
-				commandObserver.logToOutputChannel(localize('extension.buildEndMessage', 'Done building project {0}\n', project));
 				buildResult.push({ project: project, status: buildStatus.Success })
 			}, () => {
 				failedProjectCount++;
-				commandObserver.logToOutputChannel(localize('extension.buildFailMessage', 'Done building project {0} -- FAILED\n', project));
 				buildResult.push({ project: project, status: buildStatus.Failure })
 			});
 		}
@@ -168,8 +166,7 @@ async function validateProjectSDK(projects: string[], commandObserver: CommandOb
 }
 
 async function dotnetBuild(dotNetSdk: DotNetInfo, project: string, commandObserver: CommandObserver, cancelToken: vscode.CancellationToken): Promise<void> {
-	let args = ['build', project];
-	commandObserver.logToOutputChannel(localize('extension.buildStartMessage', 'Build started: Project: {0}', project));
+	let args = ['build', project, '-v', 'n'];
 	await runDotNetCommand(dotNetSdk, args, commandObserver, cancelToken);
 }
 

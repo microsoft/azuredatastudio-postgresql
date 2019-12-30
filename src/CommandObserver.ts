@@ -8,7 +8,7 @@ import * as vscode from 'vscode';
 import * as Constants from './constants';
 import { Telemetry } from './telemetry';
 
-const msbuildOutputRegex = /^(,)?(((?<origin>([^\s].*))):|())\s*(?<subcategory>(()|([^:]*? )))(?<category>(error|warning))(\s*(?<code>[^: ]*))?\s*:\s*(?<text>.*)$/gm;
+const msbuildOutputRegex = /^\s*([\d]>)?(((?<origin>([^\s].*))):|())\s*(?<subcategory>(()|([^:]*? )))(?<category>(error|warning))(\s*(?<code>[^: ]*))?\s*:\s*(?<text>.*)$/gm;
 const lineRegex = /^(?<origin>([^\s].*))(\((?<linedetails>(\d+|\d+-\d+|\d+,\d+((-\d+)?)|\d+,\d+,\d+,\d+))\))$/;
 
 export class CommandObserver {
