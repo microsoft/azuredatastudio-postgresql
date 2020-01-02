@@ -11,6 +11,7 @@ import * as semver from 'semver';
 import * as nls from 'vscode-nls';
 import { CommandObserver } from './commandObserver';
 
+const outputFilePathRegex = /###(?<path>(.*))###/;
 const localize = nls.loadMessageBundle();
 export type DotNetInfo = {path: string, version: string};
 export type DotNetCommandResult = {code: number, msg: string};
@@ -75,7 +76,7 @@ export function requireDotNetSdk(version?: string): Promise<DotNetInfo> {
 	});
 }
 
-export async function runDotNetCommand(dotNetSdk: DotNetInfo, args: string[], commandObserver: CommandObserver, cancelToken?: vscode.CancellationToken): Promise<void> {
+export async function runDotNetBuildCommand(args: string[], commandObserver: CommandObserver, cancelToken?: vscode.CancellationToken): Promise<void> {
 	return await new Promise<void>((resolve, reject) => {
 		let cmd = 'dotnet';
 		let dotnet = cp.spawn(cmd, args, { env: process.env });
@@ -101,6 +102,37 @@ export async function runDotNetCommand(dotNetSdk: DotNetInfo, args: string[], co
 				reject();
 			}
 			resolve();
+		});
+
+		dotnet.on('error', err => {
+			reject(err);
+		});
+	});
+}
+
+export async function runDotNetGetOutputFilePath(args: string[]): Promise<string> {
+	return await new Promise<string>((resolve, reject) => {
+		let cmd = 'dotnet';
+		let dotnet = cp.spawn(cmd, args, { env: process.env });
+		let filePath: string;
+
+		function handleData(stream: NodeJS.ReadableStream) {
+			stream.on('data', function (chunk) {
+				const match = outputFilePathRegex.exec(chunk.toString());
+				if (match) {
+					filePath = match['groups'].path;
+				}
+			});
+		}
+
+		handleData(dotnet.stdout);
+		handleData(dotnet.stderr);
+
+		dotnet.on('close', (code) => {
+			if (code === 1) {
+				reject(filePath);
+			}
+			resolve(filePath);
 		});
 
 		dotnet.on('error', err => {
