@@ -21,6 +21,7 @@ import * as Utils from './utils';
 import * as Helper from './commonHelper';
 import { Telemetry, LanguageClientErrorHandler } from './telemetry';
 import { CommandObserver } from './commandObserver';
+import { NotificationType } from 'vscode-languageclient';
 
 const baseConfig = require('./config.json');
 const outputChannel = vscode.window.createOutputChannel(Constants.serviceName);
@@ -55,15 +56,15 @@ export async function activate(context: vscode.ExtensionContext) {
 		},
 	};
 
-	let e = "d:\\GitHub\\swjain\\azuredatastudio-postgresql\\out\\pgsqltoolsservice\\Windows\\v1.2.0\\pgsqltoolsservice\\pgtoolsservice_main.exe"
 	let commandObserver = new CommandObserver();
 	const installationStart = Date.now();
-
+	serverdownloader.getOrDownloadServer().then(e => {
 		vscode.window.showErrorMessage(e);
 		const installationComplete = Date.now();
 		let serverOptions = generateServerOptions(e);
 		languageClient = new SqlOpsDataClient(Constants.serviceName, serverOptions, clientOptions);
 		commandObserver._client = languageClient;
+		addDeployNotificationsHandler(commandObserver);
 		const processStart = Date.now();
 		languageClient.onReady().then(() => {
 			const processEnd = Date.now();
@@ -81,6 +82,10 @@ export async function activate(context: vscode.ExtensionContext) {
 		statusView.show();
 		statusView.text = 'Starting pgsql service';
 		languageClient.start();
+	}, _e => {
+		Telemetry.sendTelemetryEvent('ServiceInitializingFailed');
+		vscode.window.showErrorMessage('Failed to start Pgsql tools service');
+	});
 
 	let contextProvider = new ContextProvider();
 	context.subscriptions.push(contextProvider);
@@ -105,6 +110,28 @@ export async function activate(context: vscode.ExtensionContext) {
 	}
 
 	context.subscriptions.push({ dispose: () => languageClient.stop() });
+}
+
+function addDeployNotificationsHandler(commandObserver: CommandObserver) {
+    const queryCompleteType: NotificationType<string, any> = new NotificationType('query/deployComplete');
+	commandObserver._client.onNotification(queryCompleteType, (data: any) => {
+        if (!data.batchSummaries.some(s => s.hasError)) {
+            commandObserver.logToOutputChannel(localize('extension.DeployCompleted', 'Deployment completed successfully.'));
+        }
+    });
+
+    const queryMessageType: NotificationType<string, any> = new NotificationType('query/deployMessage');
+    commandObserver._client.onNotification(queryMessageType, (data: any) => {
+        var messageText = data.message.isError ? localize('extension.deployErrorMessage', "Error: {0}", data.message.message) : localize('extension.deployMessage', "{0}", data.message.message);
+        commandObserver.logToOutputChannel(messageText);
+    });
+
+    const queryBatchStartType: NotificationType<string, any> = new NotificationType('query/deployBatchStart');
+    commandObserver._client.onNotification(queryBatchStartType, (data: any) => {
+        if (data.batchSummary.selection) {
+            commandObserver.logToOutputChannel(localize('extension.runQueryBatchStartMessage', "\nStarted executing query at {0}", data.batchSummary.selection.startLine + 1));
+        }
+    });
 }
 
 function generateServerOptions(executablePath: string): ServerOptions {
