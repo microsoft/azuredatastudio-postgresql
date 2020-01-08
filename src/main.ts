@@ -55,11 +55,15 @@ export async function activate(context: vscode.ExtensionContext) {
 		},
 	};
 
+	let e = "d:\\GitHub\\swjain\\azuredatastudio-postgresql\\out\\pgsqltoolsservice\\Windows\\v1.2.0\\pgsqltoolsservice\\pgtoolsservice_main.exe"
+	let commandObserver = new CommandObserver();
 	const installationStart = Date.now();
-	serverdownloader.getOrDownloadServer().then(e => {
+
+		vscode.window.showErrorMessage(e);
 		const installationComplete = Date.now();
 		let serverOptions = generateServerOptions(e);
 		languageClient = new SqlOpsDataClient(Constants.serviceName, serverOptions, clientOptions);
+		commandObserver._client = languageClient;
 		const processStart = Date.now();
 		languageClient.onReady().then(() => {
 			const processEnd = Date.now();
@@ -77,16 +81,11 @@ export async function activate(context: vscode.ExtensionContext) {
 		statusView.show();
 		statusView.text = 'Starting pgsql service';
 		languageClient.start();
-	}, _e => {
-		Telemetry.sendTelemetryEvent('ServiceInitializingFailed');
-		vscode.window.showErrorMessage('Failed to start Pgsql tools service');
-	});
 
 	let contextProvider = new ContextProvider();
 	context.subscriptions.push(contextProvider);
 
 	let packageInfo = Utils.getPackageInfo();
-	let commandObserver = new CommandObserver();
 
 	try {
 		var pgProjects = await vscode.workspace.findFiles('{**/*.pgproj}');

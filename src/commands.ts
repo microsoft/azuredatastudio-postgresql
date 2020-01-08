@@ -15,6 +15,7 @@ import { buildStatus } from './commonHelper';
 import { requireDotNetSdk } from './dotnet';
 import { CommandObserver } from './commandObserver';
 import * as nls from 'vscode-nls';
+import { NotificationType } from 'vscode-languageclient';
 
 const localize = nls.loadMessageBundle();
 
@@ -87,26 +88,102 @@ async function deployCurrentProject(args, commandObserver: CommandObserver) {
 		project = args.fsPath;
 	}
 
-	await projectHelper.buildProjects([project], commandObserver).then(async result => {
-		if (result && !result.some(b => b.status === buildStatus.Failure || b.status === buildStatus.Skipped)) {
-			var filePath = await projectHelper.getOutputFilePath(project);
-			if (filePath && fs.existsSync(filePath)) {
-				var connection = await azdata.connection.openConnectionDialog([Constants.providerId]);
-				if (connection) {
-					vscode.workspace.openTextDocument(filePath).then(doc => {
-						vscode.window.showTextDocument(doc, vscode.ViewColumn.Active, false).then(() => {
-							let filePath = doc.uri.toString();
-							azdata.queryeditor.connect(filePath, connection.connectionId).then(() => azdata.queryeditor.runQuery(filePath, undefined, false));
+	try {
+		await projectHelper.buildProjects([project], commandObserver).then(async result => {
+			if (result && !result.some(b => b.status === buildStatus.Failure || b.status === buildStatus.Skipped)) {
+				await projectHelper.setOutputFilePath(project, commandObserver);
+				var filePath = commandObserver.outputFilePath;
+				if (filePath && fs.existsSync(filePath)) {
+					var connection = await azdata.connection.openConnectionDialog([Constants.providerId]);
+					if (connection) {
+						let projectFileText = fs.readFileSync(filePath, 'utf8');
+						azdata.queryeditor.connect(filePath, connection.connectionId).then(() => {
+							commandObserver.logToOutputChannel(localize('extension.deploymentStartedMessage', '\nDeployment started {0}.', new Date().toLocaleString()));
+							commandObserver._client.sendRequest("query/executeDeployString", {owner_uri: filePath, query:projectFileText})
+							.then(() => { }, err => {
+								commandObserver.logToOutputChannel(localize('extension.FailedDeploy', 'Deployment failed with error: {0}', err.message));
+							})
 						});
-					});
+
+						const queryCompleteType: NotificationType<string, any> = new NotificationType('query/deployComplete');
+						commandObserver._client.onNotification(queryCompleteType, (data: any) => {
+							if (!data.batchSummaries.some(s => s.hasError)) {
+								commandObserver.logToOutputChannel(localize('extension.DeployCompleted', 'Deployment completed successfully.'));
+							}
+						});
+
+						const queryMessageType: NotificationType<string, any> = new NotificationType('query/deployMessage');
+						commandObserver._client.onNotification(queryMessageType, (data: any) => {
+							var messageText = data.message.isError ? localize('extension.deployErrorMessage', "Error: {0}", data.message.message) : localize('extension.deployMessage', "{0}", data.message.message);
+							commandObserver.logToOutputChannel(messageText);
+						});
+
+						const queryBatchStartType: NotificationType<string, any> = new NotificationType('query/deployBatchStart');
+						commandObserver._client.onNotification(queryBatchStartType, (data: any) => {
+							if (data.batchSummary.selection) {
+								commandObserver.logToOutputChannel(localize('extension.runQueryBatchStartMessage', "\nStarted executing query at {0}", data.batchSummary.selection.startLine + 1));
+							}
+						});
+					}
+				} else {
+					vscode.window.showErrorMessage(localize('extension.GetOutputPathFailed', 'Unable to find output file path to deploy.'));
 				}
 			} else {
-				vscode.window.showErrorMessage(localize('extension.GetOutputPathFailed', 'Unable to find output file path to deploy.'));
+				vscode.window.showErrorMessage(localize('extension.deployBeginFailed', 'Deploy cannot begin until your project builds successfully.'));
 			}
-		} else {
-			vscode.window.showErrorMessage(localize('extension.deployBeginFailed', 'Deploy cannot begin until your project builds successfully.'));
+		})
+	} finally {
+		commandObserver.outputFilePath = "";
+		// var provider = azdata.dataprotocol.getProvider<azdata.QueryProvider>("PGSQL", azdata.DataProviderType.QueryProvider);
+		// commandObserver._client.
+		// provider.setQueryExecutionOptions()
+		// azdata.DataProviderType.QueryProvider.
+		// commandObserver._client.clientOptions.
+	}
+}
+
+
+function handleFailureRunQueryResult(error: any) {
+	if (error instanceof Error) {
+		error = error.message;
+	}
+	let message = localize('query.ExecutionFailedError', "Execution failed due to an unexpected error: {0}\t{1}", error);
+	this.handleMessage(<azdata.QueryExecuteMessageParams>{
+		ownerUri: this.uri,
+		message: {
+			isError: true,
+			message: message
 		}
-	})
+	});
+	this.handleQueryComplete(<azdata.QueryExecuteCompleteNotificationResult>{ ownerUri: this.uri });
+}
+
+function handleQueryComplete(result: azdata.QueryExecuteCompleteNotificationResult): void {
+	// this also isn't exact but its the best we can do
+	this._queryEndTime = new Date();
+
+	// Store the batch sets we got back as a source of "truth"
+	this._isExecuting = false;
+	this._hasCompleted = true;
+	this._batchSets = result.batchSummaries ? result.batchSummaries : [];
+
+	this._batchSets.map(batch => {
+		if (batch.selection) {
+			batch.selection.startLine += this._resultLineOffset;
+			batch.selection.startColumn += this._resultColumnOffset;
+			batch.selection.endLine += this._resultLineOffset;
+			batch.selection.endColumn += this._resultColumnOffset;
+		}
+	});
+
+
+	let message = {
+		message: localize('query.message.executionTime', "Total execution time: {0}"),
+		isError: false,
+		time: undefined
+	};
+	this._messages.push(message);
+	this._onMessage.fire(message);
 }
 
 async function addNewPostgreSQLProject(args: vscode.Uri, projectSDK: string) {

@@ -9,9 +9,10 @@ import * as fs from 'fs';
 import * as path from 'path';
 import * as Utils from './utils';
 import { buildStatus, BuildResult, checkProjectVersion } from './commonHelper';
-import { runDotNetBuildCommand, runDotNetGetOutputFilePath } from './dotnet';
+import { runDotNetCommand } from './dotnet';
 import { CommandObserver } from './commandObserver';
 import * as nls from 'vscode-nls';
+import { ChildProcess } from 'child_process';
 
 const localize = nls.loadMessageBundle();
 
@@ -74,7 +75,7 @@ async function validateProjectSDK(projects: string[], commandObserver: CommandOb
 
 async function dotnetBuild(project: string, commandObserver: CommandObserver, cancelToken: vscode.CancellationToken): Promise<void> {
 	let args = ['build', project, '-v', 'n'];
-	await runDotNetBuildCommand(args, commandObserver, cancelToken);
+	await runDotNetCommand(args, commandObserver, handleBuildCommandData, cancelToken, handleBuildCommandCancel);
 }
 
 export function getProjectPath(projectName: string, folder: string) {
@@ -94,7 +95,33 @@ export function createProjectFile(projectPath: string, projectSDK: string) {
 		});
 }
 
-export async function getOutputFilePath(project: string): Promise<string> {
+export async function setOutputFilePath(project: string, commandObserver: CommandObserver): Promise<void> {
 	let args = ['build', project, '-t:GetOutputFilePath'];
-	return await runDotNetGetOutputFilePath(args);
+	await runDotNetCommand(args, commandObserver, handleGetOutputFileCommandData);
+}
+
+const outputFilePathRegex = /###(?<path>(.*))###/;
+
+function handleGetOutputFileCommandData(stream: NodeJS.ReadableStream, commandObserver: CommandObserver) {
+	stream.on('data', function (chunk) {
+		const match = outputFilePathRegex.exec(chunk.toString());
+		if (match) {
+			commandObserver.outputFilePath = match['groups'].path;
+		}
+	});
+}
+
+function handleBuildCommandData(stream: NodeJS.ReadableStream, commandObserver: CommandObserver) {
+	stream.on('data', function (chunk) {
+		commandObserver.next(chunk.toString());
+	});
+}
+
+function handleBuildCommandCancel(buildProcess: ChildProcess, commandObserver: CommandObserver, cancelToken: vscode.CancellationToken) {
+	if (cancelToken) {
+		cancelToken.onCancellationRequested(() => {
+			buildProcess.kill();
+			commandObserver.logToOutputChannel(localize('extension.buildCancelMessage', 'Build has been cancelled'));
+		});
+	}
 }

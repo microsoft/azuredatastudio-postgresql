@@ -63,9 +63,7 @@ function cleanServiceInstallFolder() {
 }
 
 function doOfflinePackage(runtimeId, runtime, packageName) {
-    return installService(runtime).then(() => {
-       return doPackageSync(packageName + '-' + runtimeId + '.vsix');
-    });
+    return doPackageSync(packageName + '-' + runtimeId + '.vsix');
 }
 
 //Install vsce to be able to run this task: npm install -g vsce
@@ -85,18 +83,14 @@ gulp.task('package:offline', () => {
 
     var packages = [];
     packages.push({rid: 'win-x64', runtime: 'Windows_64'});
-    packages.push({rid: 'osx', runtime: 'OSX'});
-    packages.push({rid: 'linux', runtime: 'Ubuntu_16'});
+    // packages.push({rid: 'osx', runtime: 'OSX'});
+    // packages.push({rid: 'linux', runtime: 'Ubuntu_16'});
 
     var promise = Promise.resolve();
-    cleanServiceInstallFolder().then(() => {
-            packages.forEach(data => {
-              promise = promise.then(() => {
-                 return doOfflinePackage(data.rid, data.runtime, packageName).then(() => {
-                        return cleanServiceInstallFolder();
-                 });
-              });
-           });
+    packages.forEach(data => {
+        promise = promise.then(() => {
+            return doOfflinePackage(data.rid, data.runtime, packageName);
+        });
     });
 
     return promise;

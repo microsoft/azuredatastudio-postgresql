@@ -7,6 +7,7 @@
 import * as vscode from 'vscode';
 import * as Constants from './constants';
 import { Telemetry } from './telemetry';
+import { SqlOpsDataClient } from 'dataprotocol-client';
 
 const msbuildOutputRegex = /^\s*([\d]>)?(((?<origin>([^\s].*))):|())\s*(?<subcategory>(()|([^:]*? )))(?<category>(error|warning))(\s*(?<code>[^: ]*))?\s*:\s*(?<text>.*)$/gm;
 const lineRegex = /^(?<origin>([^\s].*))(\((?<linedetails>(\d+|\d+-\d+|\d+,\d+((-\d+)?)|\d+,\d+,\d+,\d+))\))$/;
@@ -16,6 +17,20 @@ export class CommandObserver {
 	private _diagnosticCollection: vscode.DiagnosticCollection = null;
 	private _diagnosticMap = new Map<string, vscode.Diagnostic[]>();
 	private _buildInProgress: boolean = false;
+	private _outputFilePath: string;
+	public _client: SqlOpsDataClient;
+
+	public CommandObserver(client: SqlOpsDataClient) {
+		this._client = client;
+	}
+
+	public get outputFilePath(): string {
+		return this._outputFilePath;
+	}
+
+	public set outputFilePath(filePath: string) {
+		this._outputFilePath = filePath;
+	}
 
 	public get buildInProgress(): boolean {
 		return this._buildInProgress;

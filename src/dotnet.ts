@@ -76,63 +76,23 @@ export function requireDotNetSdk(version?: string): Promise<DotNetInfo> {
 	});
 }
 
-export async function runDotNetBuildCommand(args: string[], commandObserver: CommandObserver, cancelToken?: vscode.CancellationToken): Promise<void> {
+export async function runDotNetCommand(args: string[], commandObserver: CommandObserver, handleData: ((...args: any[]) => void), cancelToken?: vscode.CancellationToken, handleCancel?: ((...args: any[]) => void)): Promise<void> {
 	return await new Promise<void>((resolve, reject) => {
 		let cmd = 'dotnet';
 		let dotnet = cp.spawn(cmd, args, { env: process.env });
 
-		if (cancelToken) {
-			cancelToken.onCancellationRequested(() => {
-				dotnet.kill();
-				commandObserver.logToOutputChannel(localize('extension.buildCancelMessage', 'Build has been cancelled'));
-			});
+		if (cancelToken && handleCancel) {
+			handleCancel(dotnet, commandObserver, cancelToken);
 		}
 
-		function handleData(stream: NodeJS.ReadableStream) {
-			stream.on('data', function (chunk) {
-				commandObserver.next(chunk.toString());
-			});
-		}
-
-		handleData(dotnet.stdout);
-		handleData(dotnet.stderr);
+		handleData(dotnet.stdout, commandObserver);
+		handleData(dotnet.stderr, commandObserver);
 
 		dotnet.on('close', (code) => {
 			if (code === 1) {
 				reject();
 			}
 			resolve();
-		});
-
-		dotnet.on('error', err => {
-			reject(err);
-		});
-	});
-}
-
-export async function runDotNetGetOutputFilePath(args: string[]): Promise<string> {
-	return await new Promise<string>((resolve, reject) => {
-		let cmd = 'dotnet';
-		let dotnet = cp.spawn(cmd, args, { env: process.env });
-		let filePath: string;
-
-		function handleData(stream: NodeJS.ReadableStream) {
-			stream.on('data', function (chunk) {
-				const match = outputFilePathRegex.exec(chunk.toString());
-				if (match) {
-					filePath = match['groups'].path;
-				}
-			});
-		}
-
-		handleData(dotnet.stdout);
-		handleData(dotnet.stderr);
-
-		dotnet.on('close', (code) => {
-			if (code === 1) {
-				reject(filePath);
-			}
-			resolve(filePath);
 		});
 
 		dotnet.on('error', err => {
