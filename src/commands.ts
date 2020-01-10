@@ -99,7 +99,7 @@ async function deployCurrentProject(args, commandObserver: CommandObserver, clie
 						let projectFileText = fs.readFileSync(filePath, 'utf8');
 						azdata.queryeditor.connect(filePath, connection.connectionId).then(() => {
 							commandObserver.logToOutputChannel(localize('extension.deploymentStartedMessage', '\nDeployment started {0}.', new Date().toLocaleString()));
-							client.sendRequest("query/executeDeployString", {owner_uri: filePath, query:projectFileText})
+							client.sendRequest("query/executeDeploy", {owner_uri: filePath, query:projectFileText})
 							.then(() => { }, err => {
 								commandObserver.logToOutputChannel(localize('extension.FailedDeploy', 'Deployment failed with error: {0}', err.message));
 							})
