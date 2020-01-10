@@ -15,10 +15,11 @@ import { buildStatus } from './commonHelper';
 import { requireDotNetSdk } from './dotnet';
 import { CommandObserver } from './commandObserver';
 import * as nls from 'vscode-nls';
+import { SqlOpsDataClient } from 'dataprotocol-client';
 
 const localize = nls.loadMessageBundle();
 
-export default function registerCommands(commandObserver: CommandObserver, packageInfo: Utils.IPackageInfo): vscode.Disposable[] {
+export default function registerCommands(commandObserver: CommandObserver, packageInfo: Utils.IPackageInfo, client: SqlOpsDataClient): vscode.Disposable[] {
 	let dotNetSdkVersion = packageInfo.requiredDotNetCoreSDK;
 	return [
 		vscode.commands.registerCommand('pgproj.build.all', async () => {
@@ -48,7 +49,7 @@ export default function registerCommands(commandObserver: CommandObserver, packa
 		vscode.commands.registerCommand('pgproj.deploy.current', async (args) => {
 			requireDotNetSdk(dotNetSdkVersion).then(
 				async () => {
-					await deployCurrentProject(args, commandObserver);
+					await deployCurrentProject(args, commandObserver, client);
 				});
 		}),
 		vscode.commands.registerCommand('pgproj.add.new', async (args) => {
@@ -76,7 +77,7 @@ async function buildCurrentProject(args, commandObserver: CommandObserver, cance
 	await projectHelper.buildProjects([project], commandObserver, cancelToken);
 }
 
-async function deployCurrentProject(args, commandObserver: CommandObserver) {
+async function deployCurrentProject(args, commandObserver: CommandObserver, client: SqlOpsDataClient) {
 	let project = '';
 	if (!args) {
 		const activeEditor = vscode.window.activeTextEditor;
@@ -98,7 +99,7 @@ async function deployCurrentProject(args, commandObserver: CommandObserver) {
 						let projectFileText = fs.readFileSync(filePath, 'utf8');
 						azdata.queryeditor.connect(filePath, connection.connectionId).then(() => {
 							commandObserver.logToOutputChannel(localize('extension.deploymentStartedMessage', '\nDeployment started {0}.', new Date().toLocaleString()));
-							commandObserver._client.sendRequest("query/executeDeployString", {owner_uri: filePath, query:projectFileText})
+							client.sendRequest("query/executeDeployString", {owner_uri: filePath, query:projectFileText})
 							.then(() => { }, err => {
 								commandObserver.logToOutputChannel(localize('extension.FailedDeploy', 'Deployment failed with error: {0}', err.message));
 							})

@@ -18,11 +18,6 @@ export class CommandObserver {
 	private _diagnosticMap = new Map<string, vscode.Diagnostic[]>();
 	private _buildInProgress: boolean = false;
 	private _outputFilePath: string;
-	public _client: SqlOpsDataClient;
-
-	public CommandObserver(client: SqlOpsDataClient) {
-		this._client = client;
-	}
 
 	public get outputFilePath(): string {
 		return this._outputFilePath;

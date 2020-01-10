@@ -56,28 +56,30 @@ export async function activate(context: vscode.ExtensionContext) {
 		},
 	};
 
+	let packageInfo = Utils.getPackageInfo();
 	let commandObserver = new CommandObserver();
 	const installationStart = Date.now();
 	serverdownloader.getOrDownloadServer().then(e => {
-		vscode.window.showErrorMessage(e);
 		const installationComplete = Date.now();
 		let serverOptions = generateServerOptions(e);
-		languageClient = new SqlOpsDataClient(Constants.serviceName, serverOptions, clientOptions);
-		commandObserver._client = languageClient;
-		addDeployNotificationsHandler(commandObserver);
-		const processStart = Date.now();
-		languageClient.onReady().then(() => {
-			const processEnd = Date.now();
-			statusView.text = 'Pgsql service started';
-			setTimeout(() => {
-				statusView.hide();
-			}, 1500);
-			Telemetry.sendTelemetryEvent('startup/LanguageClientStarted', {
-				installationTime: String(installationComplete - installationStart),
-				processStartupTime: String(processEnd - processStart),
-				totalTime: String(processEnd - installationStart),
-				beginningTimestamp: String(installationStart)
-			});
+        languageClient = new SqlOpsDataClient(Constants.serviceName, serverOptions, clientOptions);
+        for (let command of registerCommands(commandObserver, packageInfo, languageClient)) {
+            context.subscriptions.push(command);
+        }
+        const processStart = Date.now();
+        languageClient.onReady().then(() => {
+            const processEnd = Date.now();
+            statusView.text = 'Pgsql service started';
+            setTimeout(() => {
+                statusView.hide();
+            }, 1500);
+            Telemetry.sendTelemetryEvent('startup/LanguageClientStarted', {
+                installationTime: String(installationComplete - installationStart),
+                processStartupTime: String(processEnd - processStart),
+                totalTime: String(processEnd - installationStart),
+                beginningTimestamp: String(installationStart)
+            });
+            addDeployNotificationsHandler(languageClient, commandObserver);
 		});
 		statusView.show();
 		statusView.text = 'Starting pgsql service';
@@ -89,8 +91,6 @@ export async function activate(context: vscode.ExtensionContext) {
 
 	let contextProvider = new ContextProvider();
 	context.subscriptions.push(contextProvider);
-
-	let packageInfo = Utils.getPackageInfo();
 
 	try {
 		var pgProjects = await vscode.workspace.findFiles('{**/*.pgproj}');
@@ -105,29 +105,25 @@ export async function activate(context: vscode.ExtensionContext) {
 		outputChannel.appendLine(`Failed to verify project SDK, error: ${err}`);
 	}
 
-	for (let command of registerCommands(commandObserver, packageInfo)) {
-		context.subscriptions.push(command);
-	}
-
 	context.subscriptions.push({ dispose: () => languageClient.stop() });
 }
 
-function addDeployNotificationsHandler(commandObserver: CommandObserver) {
+function addDeployNotificationsHandler(client: SqlOpsDataClient, commandObserver: CommandObserver) {
     const queryCompleteType: NotificationType<string, any> = new NotificationType('query/deployComplete');
-	commandObserver._client.onNotification(queryCompleteType, (data: any) => {
+	client.onNotification(queryCompleteType, (data: any) => {
         if (!data.batchSummaries.some(s => s.hasError)) {
             commandObserver.logToOutputChannel(localize('extension.DeployCompleted', 'Deployment completed successfully.'));
         }
     });
 
     const queryMessageType: NotificationType<string, any> = new NotificationType('query/deployMessage');
-    commandObserver._client.onNotification(queryMessageType, (data: any) => {
+    client.onNotification(queryMessageType, (data: any) => {
         var messageText = data.message.isError ? localize('extension.deployErrorMessage', "Error: {0}", data.message.message) : localize('extension.deployMessage', "{0}", data.message.message);
         commandObserver.logToOutputChannel(messageText);
     });
 
     const queryBatchStartType: NotificationType<string, any> = new NotificationType('query/deployBatchStart');
-    commandObserver._client.onNotification(queryBatchStartType, (data: any) => {
+    client.onNotification(queryBatchStartType, (data: any) => {
         if (data.batchSummary.selection) {
             commandObserver.logToOutputChannel(localize('extension.runQueryBatchStartMessage', "\nStarted executing query at {0}", data.batchSummary.selection.startLine + 1));
         }
