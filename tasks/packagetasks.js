@@ -90,13 +90,13 @@ gulp.task('package:offline', () => {
 
     var promise = Promise.resolve();
     cleanServiceInstallFolder().then(() => {
-            packages.forEach(data => {
-              promise = promise.then(() => {
-                 return doOfflinePackage(data.rid, data.runtime, packageName).then(() => {
-                        return cleanServiceInstallFolder();
-                 });
-              });
-           });
+        packages.forEach(data => {
+            promise = promise.then(() => {
+                return doOfflinePackage(data.rid, data.runtime, packageName).then(() => {
+                    return cleanServiceInstallFolder();
+                });
+            });
+        });
     });
 
     return promise;

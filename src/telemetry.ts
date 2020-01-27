@@ -2,8 +2,8 @@
  *  Copyright (c) Microsoft Corporation. All rights reserved.
  *  Licensed under the Source EULA. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
-
 'use strict';
+
 import * as vscode from 'vscode';
 import * as opener from 'opener';
 import TelemetryReporter from 'vscode-extension-telemetry';
@@ -12,8 +12,6 @@ import { ErrorAction, ErrorHandler, Message, CloseAction } from 'vscode-language
 
 import * as Utils from './utils';
 import * as Constants from './constants';
-
-const packageJson = require('../package.json');
 
 export interface ITelemetryEventProperties {
 	[key: string]: string;
@@ -91,7 +89,7 @@ export class Telemetry {
 				return;
 			}
 
-			let packageInfo = Utils.getPackageInfo(packageJson);
+			let packageInfo = Utils.getPackageInfo();
 			this.reporter = new TelemetryReporter(packageInfo.name, packageInfo.version, packageInfo.aiKey);
 		}
 	}

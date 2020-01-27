@@ -357,6 +357,68 @@
           "defaultValue": null
         }
       ]
+    },
+    "commands": [
+      {
+        "command": "pgproj.build.all",
+        "title": "Build all PostgreSQL projects",
+        "category": "PostgreSQLProject"
+      },
+      {
+        "command": "pgproj.build.current",
+        "title": "Build PostgreSQL project",
+        "category": "PostgreSQLProject"
+      },
+      {
+        "command": "pgproj.add.new",
+        "title": "New PostgreSQL Project",
+        "category": "PostgreSQLProject"
+      },
+      {
+        "command": "pgproj.deploy.current",
+        "title": "Deploy",
+        "category": "PostgreSQLProject"
+      }
+    ],
+    "menus": {
+      "commandPalette": [
+        {
+          "command": "pgproj.build.current",
+          "when": "resourceExtname == .pgproj"
+        },
+        {
+          "command": "pgproj.deploy.current",
+          "when": "resourceExtname == .pgproj"
+        },
+        {
+          "command": "pgproj.add.new",
+          "when": "false"
+        }
+      ],
+      "explorer/context": [
+        {
+          "command": "pgproj.build.current",
+          "when": "resourceExtname == .pgproj"
+        },
+        {
+          "command": "pgproj.deploy.current",
+          "when": "resourceExtname == .pgproj"
+        },
+        {
+          "command": "pgproj.add.new",
+          "when": "explorerResourceIsFolder"
+        }
+      ],
+      "editor/context": [
+        {
+          "command": "pgproj.build.current",
+          "when": "resourceExtname == .pgproj"
+        },
+        {
+          "command": "pgproj.deploy.current",
+          "when": "resourceExtname == .pgproj"
+        }
+      ]
     }
   },
   "dependencies": {
@@ -380,7 +442,11 @@
     "vscode-languageclient": "3.5.0",
     "vscode-languageserver-protocol": "3.5.0",
     "vscode-languageserver-types": "3.5.0",
-    "zone.js": "0.7.6"
+    "zone.js": "0.7.6",
+    "which": "^1.3.1",
+    "compare-versions": "^3.5.1",
+    "xml2js": "^0.4.22",
+		"vscode-nls": "^4.1.1"
   },
   "devDependencies": {
     "@types/node": "^8.0.53",
@@ -429,14 +495,18 @@
     "uglify-js": "mishoo/UglifyJS2#harmony-v2.8.22",
     "url-parse": "1.2.0",
     "vscode": "1.0.1",
-    "vscode-nls-dev": "https://github.com/Raymondd/vscode-nls-dev/releases/download/2.0.2/build.tar.gz",
     "xmldom": "^0.1.27",
-    "yargs": "https://registry.npmjs.org/yargs/-/yargs-3.32.0.tgz"
+    "yargs": "https://registry.npmjs.org/yargs/-/yargs-3.32.0.tgz",
+		"vscode-nls-dev": "^3.3.1"
   },
   "resolutions": {
     "vscode-jsonrpc": "3.5.0",
     "vscode-languageclient": "3.5.0",
     "vscode-languageserver-protocol": "3.5.0",
     "vscode-languageserver-types": "3.5.0"
-  }
+  },
+  "requiredDotNetCoreSDK": "2.1.0",
+  "projectTemplateNugetId": "Microsoft.DataTools.PostgreSql.ProjectTemplate",
+  "minSupportedPostgreSQLProjectSDK": "0.1.0",
+  "maxSupportedPostgreSQLProjectSDK": "0.1.0"
 }

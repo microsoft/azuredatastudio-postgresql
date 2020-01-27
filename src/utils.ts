@@ -7,8 +7,10 @@
 import * as path from 'path';
 import * as crypto from 'crypto';
 import * as os from 'os';
+const packageJson = require('../package.json');
+let baseConfig = require('./config.json');
 
-var baseConfig = require('./config.json');
+var packageInfo: IPackageInfo = null;
 
 // The function is a duplicate of \src\paths.js. IT would be better to import path.js but it doesn't
 // work for now because the extension is running in different process.
@@ -37,16 +39,26 @@ export interface IPackageInfo {
 	name: string;
 	version: string;
 	aiKey: string;
+	requiredDotNetCoreSDK: string;
+	projectTemplateNugetId: string;
+	minSupportedPostgreSQLProjectSDK: string;
+	maxSupportedPostgreSQLProjectSDK: string
 }
 
-export function getPackageInfo(packageJson: any): IPackageInfo {
-	if (packageJson) {
-		return {
+export function getPackageInfo(): IPackageInfo {
+	if (!packageInfo) {
+		packageInfo = {
 			name: packageJson.name,
 			version: packageJson.version,
-			aiKey: packageJson.aiKey
+			aiKey: packageJson.aiKey,
+			requiredDotNetCoreSDK: packageJson.requiredDotNetCoreSDK,
+			projectTemplateNugetId: packageJson.projectTemplateNugetId,
+			minSupportedPostgreSQLProjectSDK: packageJson.minSupportedPostgreSQLProjectSDK,
+			maxSupportedPostgreSQLProjectSDK: packageJson.maxSupportedPostgreSQLProjectSDK
 		};
 	}
+
+	return packageInfo;
 }
 
 export function generateUserId(): Promise<string> {
