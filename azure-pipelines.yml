@@ -22,7 +22,7 @@ steps:
 - script:
     sudo chown -R $USER:$GROUP ~/.config
   displayName: 'fix filesystem permissions'
-  
+
 - script:
     yarn
   displayName: 'yarn'
@@ -30,6 +30,10 @@ steps:
 - script:
     yarn run compile
   displayName: 'yarn compile'
+
+- script:
+    sudo npm install -g vsce
+  displayName: 'install vsce'
 
 - script:
     yarn run package-offline
