@@ -1,0 +1,45 @@
+# Node.js
+# Build a general Node.js project with npm.
+# Add steps that analyze code, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
+
+trigger:
+- master
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- task: NodeTool@0
+  inputs:
+    versionSpec: '10.x'
+  displayName: 'Install Node.js'
+
+- script: |
+    yarn
+    yarn run compile
+  displayName: 'yarn install and build'
+
+  - script:
+    sudo npm install -g vsce
+  displayName: 'install vsce'
+
+- script:
+    sudo chown -R $USER:$GROUP ~/.config
+  displayName: 'fix filesystem permissions'
+
+- script:
+    yarn run package
+  displayName: 'create extension package'
+
+- task: CopyFiles@2
+  inputs:
+    contents: '*.vsix'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+  displayName: 'copy files'
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    pathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    artifactName: azuredatastudio-postgresql  
+  displayName: 'publish build artifacts'
