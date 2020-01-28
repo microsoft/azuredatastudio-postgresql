@@ -22,7 +22,7 @@ steps:
 - script:
     sudo chown -R $USER:$GROUP ~/.config
   displayName: 'fix filesystem permissions'
-  
+
 - script:
     yarn
   displayName: 'yarn'
@@ -36,7 +36,7 @@ steps:
   displayName: 'install vsce'
 
 - script:
-    yarn run package
+    yarn run package-offline
   displayName: 'create extension package'
 
 - task: CopyFiles@2
