@@ -20,6 +20,10 @@ steps:
   displayName: 'install yarn'
 
 - script:
+    sudo chown -R $USER:$GROUP ~/.config
+  displayName: 'fix filesystem permissions'
+  
+- script:
     yarn
     yarn run compile
   displayName: 'yarn install and build'
@@ -27,10 +31,6 @@ steps:
 - script:
     sudo npm install -g vsce
   displayName: 'install vsce'
-
-- script:
-    sudo chown -R $USER:$GROUP ~/.config
-  displayName: 'fix filesystem permissions'
 
 - script:
     yarn run package
