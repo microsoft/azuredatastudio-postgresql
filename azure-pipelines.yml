@@ -16,6 +16,10 @@ steps:
   displayName: 'Install Node.js'
 
 - script:
+    sudo npm install -g yarn
+  displayName: 'install yarn'
+
+- script:
     yarn
     yarn run compile
   displayName: 'yarn install and build'
