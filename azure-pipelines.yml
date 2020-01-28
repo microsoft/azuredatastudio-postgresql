@@ -32,11 +32,7 @@ steps:
   displayName: 'yarn compile'
 
 - script:
-    sudo npm install -g vsce
-  displayName: 'install vsce'
-
-- script:
-    yarn run package
+    yarn run package-offline
   displayName: 'create extension package'
 
 - task: CopyFiles@2
