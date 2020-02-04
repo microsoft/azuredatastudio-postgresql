@@ -92,11 +92,12 @@ async function deployCurrentProject(args, commandObserver: CommandObserver, clie
 		await projectHelper.buildProjects([project], commandObserver).then(async result => {
 			if (result && !result.some(b => b.status === buildStatus.Failure || b.status === buildStatus.Skipped)) {
 				await projectHelper.setOutputFilePath(project, commandObserver);
-				var filePath = commandObserver.outputFilePath;
-				if (filePath && fs.existsSync(filePath)) {
+				var fileUri = vscode.Uri.file(commandObserver.outputFilePath);
+				if (fileUri.fsPath && fs.existsSync(fileUri.fsPath)) {
 					var connection = await azdata.connection.openConnectionDialog([Constants.providerId]);
 					if (connection) {
-						let projectFileText = fs.readFileSync(filePath, 'utf8');
+						var filePath = fileUri.toString(true)
+						let projectFileText = fs.readFileSync(fileUri.fsPath, 'utf8');
 						azdata.queryeditor.connect(filePath, connection.connectionId).then(() => {
 							commandObserver.logToOutputChannel(localize('extension.deploymentStartedMessage', '\nDeployment started {0}.', new Date().toLocaleString()));
 							client.sendRequest("query/executeDeploy", {owner_uri: filePath, query:projectFileText})
