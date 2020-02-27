@@ -166,29 +166,6 @@
           "isArray": false
         },
         {
-          "specialValueType": "authType",
-          "isIdentity": true,
-          "name": "authenticationType",
-          "displayName": "Authentication type",
-          "description": "How to authenticate with server",
-          "groupName": "Security",
-          "valueType": "category",
-          "defaultValue": "SqlLogin",
-          "objectType": null,
-          "categoryValues": [
-            {
-              "displayName": "Password",
-              "name": "SqlLogin"
-            },
-            {
-              "displayName": "Azure Active Directory",
-              "name": "AzureMFAAndUser"
-            }
-          ],
-          "isRequired": true,
-          "isArray": false
-        },
-        {
           "name": "dbname",
           "displayName": "Database name",
           "description": "The name of the initial catalog or database int the data source",
