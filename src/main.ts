@@ -36,6 +36,7 @@ export async function activate(context: vscode.ExtensionContext) {
 		return;
 	}
 
+	Telemetry.initialize(context);
 	let config: IConfig = JSON.parse(JSON.stringify(baseConfig));
 	config.installDirectory = path.join(__dirname, config.installDirectory);
 	config.proxy = vscode.workspace.getConfiguration('http').get('proxy');
@@ -205,4 +206,5 @@ function generateHandleServerProviderEvent() {
 
 // this method is called when your extension is deactivated
 export function deactivate(): void {
+	Telemetry.dispose();
 }
