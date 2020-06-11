@@ -40,7 +40,7 @@ export class Telemetry {
 	private static reporter: TelemetryReporter;
 	private static userId: string;
 	private static platformInformation: PlatformInformation;
-	private static disabled: boolean = true; // Disable the telemetry for public preview
+	private static disabled: boolean = false; // Disable the telemetry for public preview
 
 	// Get the unique ID for the current user of the extension
 	public static getUserId(): Promise<string> {
@@ -81,7 +81,7 @@ export class Telemetry {
 	/**
 	 * Initialize the telemetry reporter for use.
 	 */
-	public static initialize(): void {
+	public static initialize(context: vscode.ExtensionContext): void {
 		if (typeof this.reporter === 'undefined') {
 			// Check if the user has opted out of telemetry
 			if (!vscode.workspace.getConfiguration('telemetry').get<boolean>('enableTelemetry', true)) {
@@ -91,6 +91,8 @@ export class Telemetry {
 
 			let packageInfo = Utils.getPackageInfo();
 			this.reporter = new TelemetryReporter(packageInfo.name, packageInfo.version, packageInfo.aiKey);
+			// ensure it gets property disposed
+			context.subscriptions.push(this.reporter);
 		}
 	}
 
@@ -149,6 +151,10 @@ export class Telemetry {
 			this.reporter.sendTelemetryEvent(eventName, properties, measures);
 		});
 	}
+	/**
+	 * This will ensure all pending events get flushed
+	 */
+	static dispose(){this.reporter.dispose()}
 }
 
 /**
@@ -205,5 +211,3 @@ export class LanguageClientErrorHandler implements ErrorHandler {
 		return CloseAction.DoNotRestart;
 	}
 }
-
-Telemetry.initialize();

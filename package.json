@@ -4,7 +4,7 @@
   "version": "0.2.6",
   "publisher": "Microsoft",
   "description": "PostgreSQL extension for Azure Data Studio",
-  "aiKey": "AIF-5574968e-856d-40d2-af67-c89a14e76412",
+  "aiKey": "c2c974c2-f342-42c8-b85b-b79436a86603",
   "icon": "images/extension-icon.png",
   "repository": {
     "url": "https://github.com/Microsoft/azuredatastudio-postgresql"
