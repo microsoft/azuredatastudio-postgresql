@@ -8,7 +8,7 @@ import * as nls from 'vscode-nls';
 
 const localize = nls.loadMessageBundle();
 
-export const serviceName = localize('extension.serviceName', 'pgSQLToolsService');
+export const serviceName = localize('extension.serviceName', 'osToolsService');
 export const providerId = localize('extension.providerId', 'PGSQL');
 export const serviceCrashMessage = localize('extension.serviceCrashMessage', 'PG SQL Tools Service component exited unexpectedly. Please restart Azure Data Studio.');
 export const serviceCrashButton = localize('extension.serviceCrashButton', 'View Known Issues');

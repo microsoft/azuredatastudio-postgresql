@@ -6,4 +6,4 @@ test/**
 tsconfig.json
 src/**
 tasks/**
-pgsqltoolsservice/**
+ostoolsservice/**
