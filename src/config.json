@@ -15,9 +15,9 @@
 		"Ubuntu_16": "linux-x64.tar.gz",
 		"Linux": "linux-x64.tar.gz"
 	},
-	"installDirectory": "ostoolsservice/{#platform#}/{#version#}",
+	"installDirectory": "ossdbtoolsservice/{#platform#}/{#version#}",
 	"executableFiles": [
-		"ostoolsservice/ostoolsservice_main",
-		"ostoolsservice/ostoolsservice_main.exe"
+		"ossdbtoolsservice/ossdbtoolsservice_main",
+		"ossdbtoolsservice/ossdbtoolsservice_main.exe"
 	]
 }
