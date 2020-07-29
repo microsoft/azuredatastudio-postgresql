@@ -28,15 +28,11 @@
     "postinstall": "node ./node_modules/vscode/bin/install && node ./node_modules/azdata/bin/install"
   },
   "contributes": {
-    "languages": [
+    "grammars": [
       {
-        "id": "sql",
-        "extensions": [
-          ".sql"
-        ],
-        "aliases": [
-          "SQL"
-        ]
+        "injectTo": [ "source.sql" ],
+        "scopeName": "source.pgsql-injection.sql",
+        "path": "./syntaxes/pgsql-injection.json"
       }
     ],
     "outputChannels": [

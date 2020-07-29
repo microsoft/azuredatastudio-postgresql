@@ -1,0 +1,18 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"patterns": [
+		{
+		  "include": "#pgsql-keywords"
+		}
+	],
+	"repository": {
+		"pgsql-keywords": {
+			"patterns": [{
+				"name": "keyword.pgsql.sql",
+				"match": "\\b(?i)(conflict|do|exception)\\b"
+			}]
+		}
+	},
+	"scopeName": "source.pgsql-injection.sql",
+	"injectionSelector": "L:source.sql"
+}
