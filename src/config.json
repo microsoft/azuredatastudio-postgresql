@@ -17,7 +17,7 @@
 	},
 	"installDirectory": "ossdbtoolsservice/{#platform#}/{#version#}",
 	"executableFiles": [
-		"ossdbtoolsservice/ossdbtoolsservice_main",
-		"ossdbtoolsservice/ossdbtoolsservice_main.exe"
+		"pgsqltoolsservice/ossdbtoolsservice_main",
+		"pgsqltoolsservice/ossdbtoolsservice_main.exe"
 	]
 }
