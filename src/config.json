@@ -1,6 +1,6 @@
 {
 	"downloadUrl": "https://github.com/Microsoft/pgtoolsservice/releases/download/{#version#}/pgsqltoolsservice-{#fileName#}",
-	"version": "v1.4.0",
+	"version": "v1.5.0",
 	"downloadFileNames": {
 		"Windows_64": "win-x64.zip",
 		"Windows_86": "win-x86.zip",
@@ -15,9 +15,9 @@
 		"Ubuntu_16": "linux-x64.tar.gz",
 		"Linux": "linux-x64.tar.gz"
 	},
-	"installDirectory": "pgsqltoolsservice/{#platform#}/{#version#}",
+	"installDirectory": "ossdbtoolsservice/{#platform#}/{#version#}",
 	"executableFiles": [
-		"pgsqltoolsservice/pgtoolsservice_main",
-		"pgsqltoolsservice/pgtoolsservice_main.exe"
+		"pgsqltoolsservice/ossdbtoolsservice_main",
+		"pgsqltoolsservice/ossdbtoolsservice_main.exe"
 	]
 }

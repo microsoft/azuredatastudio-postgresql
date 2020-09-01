@@ -142,7 +142,7 @@ function generateServerOptions(executablePath: string): ServerOptions {
 		let useLocalSource = config["useDebugSource"];
 		if (useLocalSource) {
 			let localSourcePath = config["debugSourcePath"];
-			let filePath = path.join(localSourcePath, "pgsqltoolsservice/pgtoolsservice_main.py");
+			let filePath = path.join(localSourcePath, "ossdbtoolsservice/ossdbtoolsservice_main.py");
 			process.env.PYTHONPATH = localSourcePath;
 			serverCommand = process.platform === 'win32' ? 'python' : 'python3';
 
