@@ -220,6 +220,7 @@
           "displayName": "Host IP address",
           "description": "IP address of the server",
           "valueType": "string",
+          "isIdentity": true,
           "groupName": "Server",
           "defaultValue": null
         },
@@ -228,6 +229,7 @@
           "displayName": "Port",
           "description": "Port number for the server",
           "valueType": "number",
+          "isIdentity": true,
           "groupName": "Server",
           "defaultValue": null
         },
