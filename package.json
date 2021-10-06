@@ -447,7 +447,7 @@
 		"vscode-nls": "^4.1.1"
   },
   "devDependencies": {
-    "@types/node": "^8.0.53",
+    "@types/node": "^12.11.7",
     "chai": "^3.5.0",
     "coveralls": "^2.11.15",
     "decache": "^4.1.0",
@@ -489,7 +489,7 @@
     "systemjs-builder": "^0.15.32",
     "tslint": "^3.14.0",
     "typemoq": "^1.7.0",
-    "typescript": "^2.8.1",
+    "typescript": "^4.1.2",
     "uglify-js": "mishoo/UglifyJS2#harmony-v2.8.22",
     "url-parse": "1.2.0",
     "vscode": "1.0.1",
