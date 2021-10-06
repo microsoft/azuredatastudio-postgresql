@@ -23,6 +23,7 @@ import { Telemetry, LanguageClientErrorHandler } from './telemetry';
 import { CommandObserver } from './commandObserver';
 import { NotificationType } from 'vscode-languageclient';
 
+
 const baseConfig = require('./config.json');
 const outputChannel = vscode.window.createOutputChannel(Constants.serviceName);
 const statusView = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left);
@@ -142,7 +143,8 @@ function generateServerOptions(executablePath: string): ServerOptions {
 		let useLocalSource = config["useDebugSource"];
 		if (useLocalSource) {
 			let localSourcePath = config["debugSourcePath"];
-			let filePath = path.join(localSourcePath, "pgsqltoolsservice/pgtoolsservice_main.py");
+			let filePath = path.join(localSourcePath, "ossdbtoolsservice/ossdbtoolsservice_main.py");
+			console.log(filePath);
 			process.env.PYTHONPATH = localSourcePath;
 			serverCommand = process.platform === 'win32' ? 'python' : 'python3';
 
