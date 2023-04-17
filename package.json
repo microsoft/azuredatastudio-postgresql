@@ -24,8 +24,7 @@
   "scripts": {
     "compile": "gulp build",
     "package": "gulp package:online",
-    "package-offline": "gulp package:offline",
-    "postinstall": "node ./node_modules/vscode/bin/install && node ./node_modules/azdata/bin/install"
+    "package-offline": "gulp package:offline"
   },
   "contributes": {
     "grammars": [
@@ -448,6 +447,8 @@
   },
   "devDependencies": {
     "@types/node": "^12.11.7",
+    "@types/vscode": "^1.39.0",
+    "@types/azdata": "^1.41.0",
     "chai": "^3.5.0",
     "coveralls": "^2.11.15",
     "decache": "^4.1.0",
@@ -492,7 +493,6 @@
     "typescript": "^4.1.2",
     "uglify-js": "mishoo/UglifyJS2#harmony-v2.8.22",
     "url-parse": "1.2.0",
-    "vscode": "1.0.1",
     "xmldom": "^0.1.27",
     "yargs": "https://registry.npmjs.org/yargs/-/yargs-3.32.0.tgz",
 		"vscode-nls-dev": "^3.3.1"
