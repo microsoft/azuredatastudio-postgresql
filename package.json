@@ -493,7 +493,7 @@
     "typescript": "^4.1.2",
     "uglify-js": "mishoo/UglifyJS2#harmony-v2.8.22",
     "url-parse": "1.2.0",
-    "xmldom": "^0.1.27",
+    "xmldom": "^0.6.0",
     "yargs": "https://registry.npmjs.org/yargs/-/yargs-3.32.0.tgz",
 		"vscode-nls-dev": "^3.3.1"
   },
