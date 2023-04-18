@@ -42,6 +42,11 @@
   resolved "https://msazure.pkgs.visualstudio.com/_packaging/AzurePortal/npm/registry/@types/node/-/node-18.15.11.tgz#b3b790f09cb1696cffcec605de025b088fa4225f"
   integrity sha1-s7eQ8JyxaWz/zsYF3gJbCI+kIl8=
 
+"@types/node@^10.11.7":
+  version "10.17.60"
+  resolved "https://msazure.pkgs.visualstudio.com/_packaging/AzurePortal/npm/registry/@types/node/-/node-10.17.60.tgz#35f3d6213daed95da7f0f73e75bcc6980e90597b"
+  integrity sha1-NfPWIT2u2V2n8Pc+dbzGmA6QWXs=
+
 "@types/node@^12.11.7":
   version "12.20.18"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-12.20.18.tgz#37a0aab0560d1186da54ee5d62ff6a78cacb8c75"
