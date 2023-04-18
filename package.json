@@ -13,10 +13,6 @@
   "activationEvents": [
     "*"
   ],
-  "engines": {
-    "vscode": "*",
-    "azdata": ">=1.16.0"
-  },
   "main": "./out/main",
   "extensionDependencies": [
     "vscode.sql"
@@ -447,8 +443,8 @@
   },
   "devDependencies": {
     "@types/node": "^12.11.7",
-    "@types/vscode": "^1.39.0",
-    "@types/azdata": "^1.41.0",
+    "@types/vscode": "^1.77.0",
+    "@types/azdata": "^1.43.0",
     "chai": "^3.5.0",
     "coveralls": "^2.11.15",
     "decache": "^4.1.0",

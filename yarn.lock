@@ -15,7 +15,7 @@
   resolved "https://registry.yarnpkg.com/@socket.io/base64-arraybuffer/-/base64-arraybuffer-1.0.2.tgz#568d9beae00b0d835f4f8c53fd55714986492e61"
   integrity sha512-dOlCBKnDw4iShaIsH/bxujKTM18+2TOAsYz+KSc11Am38H4q5Xw8Bbz97ZYdrVNM+um3p7w86Bvvmcn9q+5+eQ==
 
-"@types/azdata@^1.41.0":
+"@types/azdata@^1.43.0":
   version "1.43.0"
   resolved "https://msazure.pkgs.visualstudio.com/_packaging/AzurePortal/npm/registry/@types/azdata/-/azdata-1.43.0.tgz#a4e6a2a2cc09b7d535040c15a1758f7d28f348f8"
   integrity sha1-pOaioswJt9U1BAwVoXWPfSjzSPg=
@@ -57,7 +57,7 @@
   resolved "https://registry.yarnpkg.com/@types/semver/-/semver-5.5.0.tgz#146c2a29ee7d3bae4bf2fcb274636e264c813c45"
   integrity sha512-41qEJgBH/TWgo5NFSvBCJ1qkoi3Q6ONSF2avrHq1LVEZfYpdHmj0y9SuTK+u9ZhG1sYQKBL1AWXKyLWP4RaUoQ==
 
-"@types/vscode@*", "@types/vscode@^1.39.0":
+"@types/vscode@*", "@types/vscode@^1.77.0":
   version "1.77.0"
   resolved "https://msazure.pkgs.visualstudio.com/_packaging/AzurePortal/npm/registry/@types/vscode/-/vscode-1.77.0.tgz#f92f15a636abc9ef562f44dd8af6766aefedb445"
   integrity sha1-+S8Vpjarye9WL0TdivZ2au/ttEU=
