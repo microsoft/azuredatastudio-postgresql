@@ -7,7 +7,9 @@
 import * as vscode from 'vscode';
 import * as opener from 'opener';
 import TelemetryReporter from 'vscode-extension-telemetry';
-import { PlatformInformation } from 'service-downloader/out/platform';
+import { PlatformInformation } from '@microsoft/ads-service-downloader/out/platform';
+import { Logger } from '@microsoft/ads-service-downloader/out/logger'
+import { EventEmitter2 as EventEmitter } from 'eventemitter2';
 import { ErrorAction, ErrorHandler, Message, CloseAction } from 'vscode-languageclient';
 
 import * as Utils from './utils';
@@ -41,6 +43,7 @@ export class Telemetry {
 	private static userId: string;
 	private static platformInformation: PlatformInformation;
 	private static disabled: boolean = false; // Disable the telemetry for public preview
+	private static logger = new Logger(new EventEmitter({ wildcard: true }));
 
 	// Get the unique ID for the current user of the extension
 	public static getUserId(): Promise<string> {
@@ -63,7 +66,7 @@ export class Telemetry {
 			return Promise.resolve(this.platformInformation);
 		} else {
 			return new Promise<PlatformInformation>(resolve => {
-				PlatformInformation.getCurrent().then(info => {
+				PlatformInformation.getCurrent(Telemetry.logger).then(info => {
 					this.platformInformation = info;
 					resolve(this.platformInformation);
 				});

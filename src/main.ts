@@ -7,7 +7,7 @@
 import * as vscode from 'vscode';
 import * as path from 'path';
 import { SqlOpsDataClient, ClientOptions } from 'dataprotocol-client';
-import { IConfig, ServerProvider, Events } from 'service-downloader';
+import { IConfig, ServerProvider, Events } from '@microsoft/ads-service-downloader';
 import { ServerOptions, TransportKind } from 'vscode-languageclient';
 import * as nls from 'vscode-nls';
 
@@ -176,7 +176,7 @@ function generateHandleServerProviderEvent() {
 			case Events.INSTALL_START:
 				outputChannel.show(true);
 				statusView.show();
-				outputChannel.appendLine(`Installing ${Constants.serviceName} service to ${args[0]}`);
+				outputChannel.appendLine(`Installing ${Constants.serviceName} to ${args[0]}`);
 				statusView.text = 'Installing Service';
 				break;
 			case Events.INSTALL_END:

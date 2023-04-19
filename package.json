@@ -415,6 +415,7 @@
     }
   },
   "dependencies": {
+    "@microsoft/ads-service-downloader": "1.0.2",
     "applicationinsights": "1.0.1",
     "azdata": "^1.0.0",
     "crypto": "^1.0.1",
@@ -422,13 +423,12 @@
     "decompress": "4.2.1",
     "diagnostic-channel": "0.2.0",
     "diagnostic-channel-publishers": "0.2.1",
-    "eventemitter2": "5.0.1 ",
+    "eventemitter2": "^5.0.1",
     "http-proxy-agent": "2.1.0 ",
     "https-proxy-agent": "2.2.3",
     "mkdirp": "0.5.1 ",
     "opener": "^1.4.3",
     "readable-stream": "2.3.0",
-    "service-downloader": "github:anthonydresser/service-downloader#0.1.5",
     "tmp": "0.0.33 ",
     "vscode-extension-telemetry": "0.0.18",
     "vscode-jsonrpc": "3.5.0",
