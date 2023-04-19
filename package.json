@@ -13,10 +13,6 @@
   "activationEvents": [
     "*"
   ],
-  "engines": {
-    "vscode": "*",
-    "azdata": ">=1.16.0"
-  },
   "main": "./out/main",
   "extensionDependencies": [
     "vscode.sql"
@@ -24,8 +20,7 @@
   "scripts": {
     "compile": "gulp build",
     "package": "gulp package:online",
-    "package-offline": "gulp package:offline",
-    "postinstall": "node ./node_modules/vscode/bin/install && node ./node_modules/azdata/bin/install"
+    "package-offline": "gulp package:offline"
   },
   "contributes": {
     "grammars": [
@@ -424,12 +419,12 @@
     "azdata": "^1.0.0",
     "crypto": "^1.0.1",
     "dataprotocol-client": "github:Microsoft/sqlops-dataprotocolclient#0.3.0",
-    "decompress": "4.2.0 ",
+    "decompress": "4.2.1",
     "diagnostic-channel": "0.2.0",
     "diagnostic-channel-publishers": "0.2.1",
     "eventemitter2": "5.0.1 ",
     "http-proxy-agent": "2.1.0 ",
-    "https-proxy-agent": "2.2.1 ",
+    "https-proxy-agent": "2.2.3",
     "mkdirp": "0.5.1 ",
     "opener": "^1.4.3",
     "readable-stream": "2.3.0",
@@ -443,11 +438,13 @@
     "zone.js": "0.7.6",
     "which": "^1.3.1",
     "compare-versions": "^3.5.1",
-    "xml2js": "^0.4.22",
+    "xml2js": "^0.5.0",
 		"vscode-nls": "^4.1.1"
   },
   "devDependencies": {
     "@types/node": "^12.11.7",
+    "@types/vscode": "^1.77.0",
+    "@types/azdata": "^1.43.0",
     "chai": "^3.5.0",
     "coveralls": "^2.11.15",
     "decache": "^4.1.0",
@@ -473,7 +470,7 @@
     "gulp-vinyl-zip": "2.1.0",
     "istanbul": "^0.4.5",
     "jasmine-core": "~2.4.1",
-    "karma": "^1.3.0",
+    "karma": "^6.3.16",
     "karma-chrome-launcher": "^2.0.0",
     "karma-coverage": "^1.1.1",
     "karma-htmlfile-reporter": "^0.3.4",
@@ -491,9 +488,8 @@
     "typemoq": "^1.7.0",
     "typescript": "^4.1.2",
     "uglify-js": "mishoo/UglifyJS2#harmony-v2.8.22",
-    "url-parse": "1.2.0",
-    "vscode": "1.0.1",
-    "xmldom": "^0.1.27",
+    "url-parse": "1.5.9",
+    "xmldom": "^0.6.0",
     "yargs": "https://registry.npmjs.org/yargs/-/yargs-3.32.0.tgz",
 		"vscode-nls-dev": "^3.3.1"
   },
