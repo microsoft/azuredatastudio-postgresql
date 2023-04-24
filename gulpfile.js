@@ -1,22 +1,13 @@
 "use strict"
 var gulp = require('gulp');
 var rename = require('gulp-rename');
-var install = require('gulp-install');
 var tslint = require('gulp-tslint');
-var filter = require('gulp-filter');
 var ts = require('gulp-typescript');
 var tsProject = ts.createProject('tsconfig.json');
 var del = require('del');
 var srcmap = require('gulp-sourcemaps');
 var config = require('./tasks/config');
-var request = require('request');
-var fs = require('fs');
-var gutil = require('gulp-util');
-var through = require('through2');
 var cproc = require('child_process');
-var os = require('os');
-var jeditor = require("gulp-json-editor");
-var path = require('path');
 var nls = require('vscode-nls-dev');
 
 require('./tasks/packagetasks')
@@ -102,22 +93,6 @@ gulp.task('ext:copy-js', () => {
         .pipe(gulp.dest(config.paths.project.root + '/out/'))
 });
 
-// The version of applicationinsights the extension needs is 0.15.19 but the version vscode-telemetry dependns on is 0.15.6
-// so we need to manually overwrite the version in package.json inside vscode-extension-telemetry module.
-gulp.task('ext:appinsights-version', () => {
-    return gulp.src("./node_modules/vscode-extension-telemetry/package.json")
-     .pipe(gulp.dest("./node_modules/vscode-extension-telemetry", {'overwrite':true}));
-});
-
-gulp.task('ext:copy-appinsights', () => {
-    var filesToMove = [
-        './node_modules/applicationinsights/**/*.*',
-        './node_modules/applicationinsights/*.*'
-    ];
-    return gulp.src(filesToMove, { base: './' })
-     .pipe(gulp.dest("./node_modules/vscode-extension-telemetry", {'overwrite':true}));
-});
-
 gulp.task('ext:copy', gulp.series('ext:copy-tests', 'ext:copy-js', 'ext:copy-config'));
 
 gulp.task('ext:build', gulp.series('ext:compile', 'ext:copy'));
@@ -147,7 +122,7 @@ gulp.task('clean', function (done) {
     return del('out', done);
 });
 
-gulp.task('build', gulp.series('clean', 'ext:build', 'localization:process-package-json', 'ext:appinsights-version'));
+gulp.task('build', gulp.series('clean', 'ext:build', 'localization:process-package-json'));
 
 gulp.task('watch', function(){
     return gulp.watch(config.paths.project.root + '/src/**/*', gulp.series('build'))
