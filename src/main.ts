@@ -15,10 +15,6 @@ import ContextProvider from './contextProvider';
 import * as Utils from './utils';
 import { TelemetryReporter, LanguageClientErrorHandler } from './telemetry';
 import { TelemetryFeature } from './features/telemetry';
-<<<<<<< HEAD
-=======
-
->>>>>>> bf78ad1d99f1fccf6095c3279598c4bac35e7bab
 
 const baseConfig = require('./config.json');
 const outputChannel = vscode.window.createOutputChannel(Constants.serviceName);
