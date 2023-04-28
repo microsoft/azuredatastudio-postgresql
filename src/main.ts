@@ -16,7 +16,6 @@ import * as Utils from './utils';
 import { TelemetryReporter, LanguageClientErrorHandler } from './telemetry';
 import { TelemetryFeature } from './features/telemetry';
 
-
 const baseConfig = require('./config.json');
 const outputChannel = vscode.window.createOutputChannel(Constants.serviceName);
 const statusView = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left);
@@ -93,7 +92,7 @@ function generateServerOptions(executablePath: string): ServerOptions {
 	let serverArgs = [];
 	let serverCommand: string = executablePath;
 
-	let config = vscode.workspace.getConfiguration(Constants.providerId);
+	let config = vscode.workspace.getConfiguration('pgsql');
 	if (config) {
 		// Override the server path with the local debug path if enabled
 

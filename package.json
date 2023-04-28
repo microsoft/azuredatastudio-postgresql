@@ -1,6 +1,6 @@
 {
-  "name": "azuredatastudio-postgresql-rel-test",
-  "displayName": "PostgreSQL-rel-test",
+  "name": "azuredatastudio-postgresql",
+  "displayName": "PostgreSQL",
   "version": "0.3.0",
   "publisher": "Microsoft",
   "description": "PostgreSQL extension for Azure Data Studio",
@@ -419,7 +419,7 @@
     }
   },
   "dependencies": {
-    "@microsoft/ads-service-downloader": "^1.2.2",
+    "@microsoft/ads-service-downloader": "^1.1.0",
     "@microsoft/ads-extension-telemetry": "^1.3.4",
     "crypto": "^1.0.1",
     "dataprotocol-client": "github:Microsoft/sqlops-dataprotocolclient#1.3.1",
@@ -430,7 +430,8 @@
     "xml2js": "^0.5.0",
 		"vscode-nls": "^5.0.0",
     "fstream": "^1.0.12",
-    "block-stream": "^0.0.9"
+    "block-stream": "^0.0.9",
+    "graceful-fs": "4.2.4"
   },
   "devDependencies": {
     "@types/node": "^12.11.7",
