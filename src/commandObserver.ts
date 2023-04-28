@@ -6,8 +6,7 @@
 
 import * as vscode from 'vscode';
 import * as Constants from './constants';
-import { Telemetry } from './telemetry';
-import { SqlOpsDataClient } from 'dataprotocol-client';
+import { TelemetryReporter } from './telemetry';
 
 const msbuildOutputRegex = /^\s*([\d]>)?(((?<origin>([^\s].*))):|())\s*(?<subcategory>(()|([^:]*? )))(?<category>(error|warning))(\s*(?<code>[^: ]*))?\s*:\s*(?<text>.*)$/gm;
 const lineRegex = /^(?<origin>([^\s].*))(\((?<linedetails>(\d+|\d+-\d+|\d+,\d+((-\d+)?)|\d+,\d+,\d+,\d+))\))$/;
@@ -53,7 +52,7 @@ export class CommandObserver {
 				this._diagnosticCollection.set(uri, value);
 			});
 		} catch {
-			Telemetry.sendTelemetryEvent('FailedToParseBuildMessage');
+			TelemetryReporter.sendTelemetryEvent('FailedToParseBuildMessage');
 		}
 	}
 

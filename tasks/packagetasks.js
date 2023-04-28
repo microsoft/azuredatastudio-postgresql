@@ -5,7 +5,7 @@ var cproc = require('child_process');
 var os = require('os');
 var del = require('del');
 var path = require('path');
-var serviceDownloader = require('service-downloader');
+var serviceDownloader = require('@microsoft/ads-service-downloader');
 
 
 function getServiceInstallConfig() {
@@ -86,6 +86,7 @@ gulp.task('package:offline', () => {
     var packages = [];
     packages.push({rid: 'win-x64', runtime: 'Windows_64'});
     packages.push({rid: 'osx', runtime: 'OSX'});
+    packages.push({rid: 'osx-arm64', runtime: 'OSX_ARM64'});
     packages.push({rid: 'linux', runtime: 'Ubuntu_16'});
 
     var promise = Promise.resolve();
