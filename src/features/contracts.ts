@@ -3,7 +3,7 @@
  *  Licensed under the Source EULA. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
-import { NotificationType } from "vscode-languageserver-protocol";
+import { NotificationType } from "vscode-languageclient";
 import * as telemetry from '@microsoft/ads-extension-telemetry';
 
 
