@@ -92,7 +92,7 @@ function generateServerOptions(executablePath: string): ServerOptions {
 	let serverArgs = [];
 	let serverCommand: string = executablePath;
 
-	let config = vscode.workspace.getConfiguration(Constants.providerId);
+	let config = vscode.workspace.getConfiguration('pgsql');
 	if (config) {
 		// Override the server path with the local debug path if enabled
 

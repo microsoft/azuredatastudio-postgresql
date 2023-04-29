@@ -1,7 +1,7 @@
 {
   "name": "azuredatastudio-postgresql",
   "displayName": "PostgreSQL",
-  "version": "0.2.6",
+  "version": "0.3.0",
   "publisher": "Microsoft",
   "description": "PostgreSQL extension for Azure Data Studio",
   "aiKey": "c2c974c2-f342-42c8-b85b-b79436a86603",
@@ -13,6 +13,10 @@
   "activationEvents": [
     "*"
   ],
+  "engines":{
+    "vscode": "*",
+    "azdata": "*"
+  },
   "main": "./out/main",
   "extensionDependencies": [
     "vscode.sql"
@@ -424,7 +428,10 @@
     "which": "^1.3.1",
     "compare-versions": "^3.5.1",
     "xml2js": "^0.5.0",
-		"vscode-nls": "^5.0.0"
+		"vscode-nls": "^5.0.0",
+    "fstream": "^1.0.12",
+    "block-stream": "^0.0.9",
+    "graceful-fs": "4.2.4"
   },
   "devDependencies": {
     "@types/node": "^12.11.7",

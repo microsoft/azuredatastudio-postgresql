@@ -47,7 +47,7 @@ gulp.task('ext:compile-src', (done) => {
                 .pipe(nls.rewriteLocalizeCalls())
                 .pipe(nls.createAdditionalLanguageFiles(languages, 'i18n', 'out'))
                 .pipe(srcmap.write('.', {
-                   sourceRoot: function(file){ return file.cwd + '/src'; }
+                   sourceRoot: function(file){ return file.cwd + '/src'; }
                 }))
                 .pipe(gulp.dest('out/'));
 });
@@ -65,8 +65,8 @@ gulp.task('ext:compile-tests', (done) => {
                     }
                 })
                 .pipe(srcmap.write('.', {
-                   sourceRoot: function(file){ return file.cwd + '/test'; }
-                }))
+                   sourceRoot: function(file){ return file.cwd + '/test'; }
+                }))
                 .pipe(gulp.dest('out/test/'));
 
 });
