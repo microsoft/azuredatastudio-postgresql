@@ -24,7 +24,10 @@
   "scripts": {
     "compile": "gulp build",
     "package": "gulp package:online",
-    "package-offline": "gulp package:offline"
+    "package-offline": "gulp package:offline",
+    "package-offline-windows": "gulp package:offline-windows",
+    "package-offline-osx": "gulp package:offline-osx",
+    "package-offline-osx-arm64": "gulp package:offline-osx-arm64"
   },
   "contributes": {
     "grammars": [
