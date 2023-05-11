@@ -32,7 +32,7 @@ steps:
     inlineOperation: |
       [
         {
-          "KeyCode" : "CP-230012",
+          "KeyCode" : "CP-233016",
           "OperationCode" : "SigntoolSign",
           "Parameters" : {
               "OpusName" : "Microsoft",
@@ -45,7 +45,7 @@ steps:
           "ToolVersion" : "1.0"
         },
         {
-          "KeyCode" : "CP-230012",
+          "KeyCode" : "CP-233016",
           "OperationCode" : "SigntoolVerify",
           "Parameters" : {},
           "ToolName" : "sign",
