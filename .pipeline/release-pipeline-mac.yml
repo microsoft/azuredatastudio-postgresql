@@ -1,7 +1,7 @@
 trigger: none
 pr: none
 pool:
-  vmImage: 'macos-latest'
+  vmImage: 'ubuntu-latest'
 
 steps:
 - task: NodeTool@0
