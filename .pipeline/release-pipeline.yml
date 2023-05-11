@@ -16,7 +16,6 @@ steps:
       sudo npm install -g vsce
 - task: CmdLine@2
   displayName: 'Building Vsix Packages'
-  errorActionPreference: continue
   inputs:
     script: |
       yarn install
