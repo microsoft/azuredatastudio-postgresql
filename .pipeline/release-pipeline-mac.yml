@@ -1,7 +1,7 @@
 trigger: none
 pr: none
 pool:
-  vmImage: 'macos-latest'
+  vmImage: 'ubuntu-latest'
 
 steps:
 - task: NodeTool@0
@@ -12,15 +12,15 @@ steps:
   displayName: 'Installing Dependencies'
   inputs:
     script: |
-      npm install -g yarn
-      npm install -g vsce
+      sudo npm install -g yarn
+      sudo npm install -g vsce
 - task: CmdLine@2
   displayName: 'Building Vsix Packages'
   inputs:
     script: |
       yarn install
       yarn run compile
-      yarn run package-offline
+      yarn run package
 - task: EsrpCodeSigning@2
   displayName: 'Code Signing'
   inputs:
@@ -32,24 +32,20 @@ steps:
     inlineOperation: |
       [
         {
-          "KeyCode" : "CP-233016",
-          "OperationCode" : "SigntoolSign",
-          "Parameters" : {
-              "OpusName" : "Microsoft",
-              "OpusInfo" : "http://www.microsoft.com",
-              "FileDigest" : "/fd \"SHA256\"",
-              "PageHash" : "/NPH",
-              "TimeStamp" : "/tr \"http://rfc3161.gtm.corp.microsoft.com/TSS/HttpTspServer\" /td sha256"
+            "KeyCode" : "CP-233016",
+            "OperationCode" : "OpcSign",
+            "Parameters" : {
+                "FileDigest" : "/fd SHA256"
             },
-          "ToolName" : "sign",
-          "ToolVersion" : "1.0"
+            "ToolName" : "sign",
+            "ToolVersion" : "1.0"
         },
         {
-          "KeyCode" : "CP-233016",
-          "OperationCode" : "SigntoolVerify",
-          "Parameters" : {},
-          "ToolName" : "sign",
-          "ToolVersion" : "1.0"
+            "KeyCode" : "CP-233016",
+            "OperationCode" : "OpcVerify",
+            "Parameters" : {},
+            "ToolName" : "sign",
+            "ToolVersion" : "1.0"
         }
       ]
     SessionTimeout: '60'
@@ -60,7 +56,7 @@ steps:
     sourceFolder: '$(Build.SourcesDirectory)'
     contents: '*.vsix'
     targetFolder: '$(Build.ArtifactStagingDirectory)'
-  displayName: 'Copy Vsix Files'
+  displayName: 'Copy Files'
 - task: PublishBuildArtifacts@1
   inputs:
     pathToPublish: '$(Build.ArtifactStagingDirectory)'
