@@ -5,7 +5,7 @@ var cproc = require('child_process');
 var os = require('os');
 var del = require('del');
 var path = require('path');
-var serviceDownloader = require('@microsoft/ads-service-downloader');
+var serviceDownloader = require('service-downloader');
 
 
 function getServiceInstallConfig() {
@@ -70,10 +70,27 @@ function doOfflinePackage(runtimeId, runtime, packageName) {
 
 //Install vsce to be able to run this task: npm install -g vsce
 gulp.task('package:online', () => {
-    return cleanServiceInstallFolder().then(() => {
-         doPackageSync();
-         return getOrDownloadServer();
+    var json = JSON.parse(fs.readFileSync('package.json'));
+    var name = json.name;
+    var version = json.version;
+    var packageName = name + '-' + version;
+
+    var packages = [];
+    packages.push({rid: 'win-x64', runtime: 'Windows_64'});
+    packages.push({rid: 'osx', runtime: 'OSX'});
+    packages.push({rid: 'osx-arm64', runtime: 'OSX_ARM64'});
+
+    var promise = cleanServiceInstallFolder();
+
+    packages.forEach(data => {
+        promise = promise.then(() => {
+            return cleanServiceInstallFolder().then(() => {
+                return doPackageSync(packageName + '-' + data.rid + '.vsix');
+            });
+        });
     });
+
+    return promise;
 });
 
 //Install vsce to be able to run this task: npm install -g vsce

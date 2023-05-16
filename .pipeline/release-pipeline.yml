@@ -20,7 +20,7 @@ steps:
     script: |
       yarn install
       yarn run compile
-      yarn run package-offline
+      yarn run package
 - task: EsrpCodeSigning@2
   displayName: 'Code Signing'
   inputs:
