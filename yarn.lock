@@ -3252,9 +3252,9 @@ semver-greatest-satisfied-range@^1.1.0:
   resolved "https://registry.yarnpkg.com/semver/-/semver-5.7.1.tgz#a954f931aeba508d307bbf069eff0c01c96116f7"
   integrity sha512-sauaDf/PZdVgrLTNYHRtpXa1iRiKcaebiKQ1BJdpQlWH2lCvexQdX55snPFyK7QzpudqbCI0qXFfOasHdyNDGQ==
 
-"service-downloader@github:anthonydresser/service-downloader#0.1.5":
-  version "0.1.5"
-  resolved "https://codeload.github.com/anthonydresser/service-downloader/tar.gz/6ebb0465573cc140e461a22f334260f55ef45546"
+"service-downloader@github:daeunyim/service-downloader#0.1.1":
+  version "0.1.1"
+  resolved "https://codeload.github.com/daeunyim/service-downloader/tar.gz/65e8abd2466eb07d6740862d5af28842143e08e1"
   dependencies:
     decompress "^4.2.0"
     eventemitter2 "^5.0.1"
