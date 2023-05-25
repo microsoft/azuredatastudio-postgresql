@@ -21,6 +21,7 @@ steps:
       yarn install
       yarn run compile
       yarn run package
+      yarn run package-offline
 - task: EsrpCodeSigning@2
   displayName: 'Code Signing'
   inputs:
