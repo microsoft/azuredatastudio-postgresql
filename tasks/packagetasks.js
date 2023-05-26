@@ -111,6 +111,29 @@ gulp.task('package:offline-osx', () => {
 
     var packages = [];
     packages.push({rid: 'osx', runtime: 'OSX'});
+
+    var promise = Promise.resolve();
+    cleanServiceInstallFolder().then(() => {
+        packages.forEach(data => {
+            promise = promise.then(() => {
+                return doOfflinePackage(data.rid, data.runtime, packageName).then(() => {
+                    return cleanServiceInstallFolder();
+                });
+            });
+        });
+    });
+
+    return promise;
+});
+
+//Install vsce to be able to run this task: npm install -g vsce
+gulp.task('package:offline-osx-arm64', () => {
+    var json = JSON.parse(fs.readFileSync('package.json'));
+    var name = json.name;
+    var version = json.version;
+    var packageName = name + '-' + version;
+
+    var packages = [];
     packages.push({rid: 'osx-arm64', runtime: 'OSX_ARM64'});
 
     var promise = Promise.resolve();

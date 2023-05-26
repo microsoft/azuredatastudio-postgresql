@@ -33,4 +33,4 @@ steps:
       npm install -g vsce
       yarn install
       yarn run compile
-      yarn run package-offline-osx
+      yarn run package-offline-osx-arm64
