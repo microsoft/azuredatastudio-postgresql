@@ -1,56 +1,18 @@
 trigger: none
 pr: none
+strategy:
+  matrix:
+    mac-x64:
+      platform: 'mac'
+      imageName: 'macOS-latest'
+    windows:
+      platform: 'windows'
+      imageName: 'windows-latest'
 pool:
-  vmImage: 'windows-latest'
-
+  vmImage: $(imageName)
 steps:
-- task: NodeTool@0
-  inputs:
-    versionSpec: '14.x'
-  displayName: 'Install Node.js'
-
-- powershell: |
-    npm install -g yarn
-    npm install -g vsce
-  displayName: 'Installing Dependencies'
-
-- powershell: |
-    yarn install
-    yarn run compile
-    yarn run package
-    yarn run package-offline
-  displayName: 'Building Vsix Packages'
-
-- task: EsrpCodeSigning@2
-  displayName: 'Code Signing'
-  inputs:
-    ConnectedServiceName: 'Database System ESRP Connector'
-    FolderPath: '$(Build.SourcesDirectory)'
-    Pattern: '*.vsix'
-    useMinimatch: true
-    signConfigType: inlineSignParams
-    inlineOperation: |
-      [
-        {
-            "KeyCode" : "CP-233016",
-            "OperationCode" : "OpcSign",
-            "Parameters" : {
-                "FileDigest" : "/fd SHA256"
-            },
-            "ToolName" : "sign",
-            "ToolVersion" : "1.0"
-        },
-        {
-            "KeyCode" : "CP-233016",
-            "OperationCode" : "OpcVerify",
-            "Parameters" : {},
-            "ToolName" : "sign",
-            "ToolVersion" : "1.0"
-        }
-      ]
-    SessionTimeout: '60'
-    MaxConcurrency: '50'
-    MaxRetryAttempts: '5'
+- template: templates/build.yml
+- template: templates/code-sign.yml
 - task: CopyFiles@2
   inputs:
     sourceFolder: '$(Build.SourcesDirectory)'
