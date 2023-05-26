@@ -15,7 +15,7 @@
   ],
   "engines":{
     "vscode": "*",
-    "azdata": "*"
+    "azdata": ">=1.40.0"
   },
   "main": "./out/main",
   "extensionDependencies": [
