@@ -2,7 +2,7 @@ trigger: none
 pr: none
 strategy:
   matrix:
-    mac-x64:
+    mac:
       platform: 'mac'
       imageName: 'macOS-latest'
     windows:
