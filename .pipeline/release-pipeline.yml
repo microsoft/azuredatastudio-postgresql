@@ -8,20 +8,19 @@ steps:
   inputs:
     versionSpec: '14.x'
   displayName: 'Install Node.js'
-- task: CmdLine@2
+
+- powershell: |
+    npm install -g yarn
+    npm install -g vsce
   displayName: 'Installing Dependencies'
-  inputs:
-    script: |
-      npm install -g yarn
-      npm install -g vsce
-- task: CmdLine@2
+
+- powershell: |
+    yarn install
+    yarn run compile
+    yarn run package
+    yarn run package-offline
   displayName: 'Building Vsix Packages'
-  inputs:
-    script: |
-      yarn install
-      yarn run compile
-      yarn run package
-      yarn run package-offline
+
 - task: EsrpCodeSigning@2
   displayName: 'Code Signing'
   inputs:
