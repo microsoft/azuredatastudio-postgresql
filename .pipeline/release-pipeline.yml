@@ -2,8 +2,12 @@ trigger: none
 pr: none
 strategy:
   matrix:
-    mac:
-      platform: 'mac'
+    mac-x64:
+      platform: 'mac-x64'
+      imageName: 'macOS-latest'
+      archiveType: 'tar'
+    mac-arm64:
+      platform: 'mac-arm64'
       imageName: 'macOS-latest'
     windows:
       platform: 'windows'

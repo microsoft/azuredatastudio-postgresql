@@ -15,7 +15,18 @@ steps:
 
 - task: CmdLine@2
   displayName: 'Installing Dependencies and build packages'
-  condition: eq(variables['platform'], 'mac')
+  condition: eq(variables['platform'], 'mac-x64')
+  inputs:
+    script: |
+      npm install -g yarn
+      npm install -g vsce
+      yarn install
+      yarn run compile
+      yarn run package-offline-osx
+
+- task: CmdLine@2
+  displayName: 'Installing Dependencies and build packages'
+  condition: eq(variables['platform'], 'mac-arm64')
   inputs:
     script: |
       npm install -g yarn
