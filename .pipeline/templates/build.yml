@@ -18,8 +18,8 @@ steps:
   condition: eq(variables['platform'], 'mac')
   inputs:
     script: |
-      sudo npm install -g yarn
-      sudo npm install -g vsce
+      npm install -g yarn
+      npm install -g vsce
       yarn install
       yarn run compile
       yarn run package-offline-osx
