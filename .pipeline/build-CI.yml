@@ -1,0 +1,26 @@
+trigger: none
+pr: none
+strategy:
+  matrix:
+    mac-x64:
+      platform: 'mac'
+      imageName: 'macOS-latest'
+    windows:
+      platform: 'windows'
+      imageName: 'windows-latest'
+pool:
+  vmImage: $(imageName)
+steps:
+- template: templates/build.yml
+- template: templates/code-sign.yml
+- task: CopyFiles@2
+  inputs:
+    sourceFolder: '$(Build.SourcesDirectory)'
+    contents: '*.vsix'
+    targetFolder: '$(Build.ArtifactStagingDirectory)'
+  displayName: 'Copy Files'
+- task: PublishBuildArtifacts@1
+  inputs:
+    pathToPublish: '$(Build.ArtifactStagingDirectory)'
+    artifactName: build
+  displayName: 'Publish Artifacts'

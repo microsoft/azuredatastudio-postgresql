@@ -1,0 +1,25 @@
+steps:
+- task: NodeTool@0
+  inputs:
+    versionSpec: '14.x'
+  displayName: 'Install Node.js'
+- powershell: |
+    npm install -g yarn
+    npm install -g vsce
+    yarn install
+    yarn run compile
+    yarn run package
+    yarn run package-offline
+  displayName: 'Installing Dependencies and build packages'
+  condition: eq(variables['platform'], 'windows')
+
+- task: CmdLine@2
+  displayName: 'Installing Dependencies and build packages'
+  condition: eq(variables['platform'], 'mac')
+  inputs:
+    script: |
+      sudo npm install -g yarn
+      sudo npm install -g vsce
+      yarn install
+      yarn run compile
+      yarn run package
