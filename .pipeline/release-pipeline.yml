@@ -1,6 +1,6 @@
-trigger: none
-pr:
+trigger:
   - release
+pr: none
 strategy:
   matrix:
     mac-x64:
