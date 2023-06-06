@@ -9,7 +9,7 @@
 		"pgsql-keywords": {
 			"patterns": [{
 				"name": "keyword.pgsql.sql",
-				"match": "\\b(?i)(conflict|do|exception)\\b"
+				"match": "\\b(?i)(conflict|do|exception|trunc)\\b"
 			}]
 		}
 	},
