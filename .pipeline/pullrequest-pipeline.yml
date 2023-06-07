@@ -1,23 +1,19 @@
 trigger: none
 pr:
   - master
+strategy:
+  matrix:
+    mac-x64:
+      platform: 'mac-x64'
+      imageName: 'macOS-latest'
+      archiveType: 'tar'
+    mac-arm64:
+      platform: 'mac-arm64'
+      imageName: 'macOS-latest'
+    windows:
+      platform: 'windows'
+      imageName: 'windows-latest'
 pool:
-  vmImage: 'ubuntu-latest'
-
+  vmImage: $(imageName)
 steps:
-- task: NodeTool@0
-  inputs:
-    versionSpec: '14.x'
-  displayName: 'Install Node.js'
-- task: CmdLine@2
-  displayName: 'Installing Dependencies'
-  inputs:
-    script: |
-      sudo npm install -g yarn
-- task: CmdLine@2
-  displayName: 'Building Vsix Packages'
-  inputs:
-    script: |
-      yarn install
-      yarn run compile
-      yarn run package
+- template: templates/build.yml
