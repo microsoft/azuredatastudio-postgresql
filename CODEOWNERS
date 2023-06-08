@@ -1,0 +1,6 @@
+/images/** @microsoft/azurepostgresql
+/snippets/** @microsoft/azurepostgresql
+/src/** @microsoft/azurepostgresql
+/syntaxes/** @microsoft/azurepostgresql
+/tasks/** @microsoft/azurepostgresql
+/templates/** @microsoft/azurepostgresql
