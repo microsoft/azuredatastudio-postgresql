@@ -3,6 +3,10 @@ pr:
   - master
 strategy:
   matrix:
+    linux:
+      platform: 'ubuntu'
+      imageName: 'ubuntu-latest'
+      archiveType: 'tar'
     mac-x64:
       platform: 'mac-x64'
       imageName: 'macOS-latest'
