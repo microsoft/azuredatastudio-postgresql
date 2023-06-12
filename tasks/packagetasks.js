@@ -87,6 +87,7 @@ gulp.task('package:offline', () => {
     packages.push({rid: 'win-x64', runtime: 'Windows_64'});
     packages.push({rid: 'osx', runtime: 'OSX'});
     packages.push({rid: 'osx-arm64', runtime: 'OSX_ARM64'});
+    packages.push({rid: 'linux-x64', runtime: 'Linux'});
 
     var promise = Promise.resolve();
     cleanServiceInstallFolder().then(() => {
@@ -159,6 +160,30 @@ gulp.task('package:offline-windows', () => {
 
     var packages = [];
     packages.push({rid: 'win-x64', runtime: 'Windows_64'});
+
+    var promise = Promise.resolve();
+    cleanServiceInstallFolder().then(() => {
+        packages.forEach(data => {
+            promise = promise.then(() => {
+                return doOfflinePackage(data.rid, data.runtime, packageName).then(() => {
+                    return cleanServiceInstallFolder();
+                });
+            });
+        });
+    });
+
+    return promise;
+});
+
+//Install vsce to be able to run this task: npm install -g vsce
+gulp.task('package:offline-linux', () => {
+    var json = JSON.parse(fs.readFileSync('package.json'));
+    var name = json.name;
+    var version = json.version;
+    var packageName = name + '-' + version;
+
+    var packages = [];
+    packages.push({rid: 'linux-x64', runtime: 'Linux'});
 
     var promise = Promise.resolve();
     cleanServiceInstallFolder().then(() => {
