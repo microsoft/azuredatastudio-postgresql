@@ -1,5 +1,8 @@
 trigger: none
 pr: none
+variables:
+- name: version
+  value: v1.8.0-insiders-20230614.8
 strategy:
   matrix:
     linux:

@@ -23,11 +23,13 @@
   ],
   "scripts": {
     "compile": "gulp build",
+    "pgtoolsservice": "gulp pgtoolsservice \"version -- {1}\"",
     "package": "gulp package:online",
     "package-offline": "gulp package:offline",
     "package-offline-osx": "gulp package:offline-osx",
     "package-offline-osx-arm64": "gulp package:offline-osx-arm64",
-    "package-offline-windows": "gulp package:offline-windows"
+    "package-offline-windows": "gulp package:offline-windows",
+    "package-offline-linux": "gulp package:offline-linux"
   },
   "contributes": {
     "grammars": [

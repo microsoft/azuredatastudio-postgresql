@@ -1,4 +1,5 @@
 var gulp = require('gulp');
+var args = process.argv.splice(3, process.argv.length - 3)
 var fs = require('fs');
 var gutil = require('gulp-util');
 var cproc = require('child_process');
@@ -51,7 +52,6 @@ function doPackageSync(packageName) {
 
 function cleanServiceInstallFolder() {
     return new Promise((resolve, reject) => {
-       const config = getServiceInstallConfig();
        let root = path.join(__dirname, '../out/' + 'pgsqltoolsservice');
         console.log('Deleting Service Install folder: ' + root);
         del(root + '/*').then(() => {
@@ -67,6 +67,15 @@ function doOfflinePackage(runtimeId, runtime, packageName) {
        return doPackageSync(packageName + '-' + runtimeId + '.vsix');
     });
 }
+
+//Install vsce to be able to run this task: npm install -g vsce
+gulp.task('pgtoolsservice', () => {
+    var config = JSON.parse(fs.readFileSync('../src/config.json'));
+    config.version = args[0];
+	config.downloadUrl = config.downloadUrl.replace('{#version#}', buildVersion);
+    fs.writeFileSync('../src/config.json', JSON.stringify(config, null, 4));
+    return Promise.resolve();
+});
 
 //Install vsce to be able to run this task: npm install -g vsce
 gulp.task('package:online', () => {

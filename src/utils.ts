@@ -118,6 +118,10 @@ export function verifyPlatform(): Thenable<boolean> {
 
 export function getServiceInstallConfig() {
     let config = JSON.parse(JSON.stringify(baseConfig));
+
+
+	config.version = packageJson.serviceVersion;
+	config.downloadUrl = config.downloadUrl.replace('{#version#}', config.version);
     config.installDirectory = path.join(__dirname, config.installDirectory);
 
     return config;
