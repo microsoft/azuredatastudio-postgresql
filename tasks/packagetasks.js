@@ -94,6 +94,8 @@ gulp.task('package:offline', () => {
                 return cleanServiceInstallFolder();
             });
         });
+    }).catch((error) => {
+        throw error;
     });
 });
 
@@ -113,6 +115,8 @@ gulp.task('package:offline-osx', () => {
                 return cleanServiceInstallFolder();
             });
         });
+    }).catch((error) => {
+        throw error;
     });
 });
 
@@ -132,6 +136,8 @@ gulp.task('package:offline-osx-arm64', () => {
                 return cleanServiceInstallFolder();
             });
         });
+    }).catch((error) => {
+        throw error;
     });
 });
 
@@ -151,5 +157,7 @@ gulp.task('package:offline-windows', () => {
                 return cleanServiceInstallFolder();
             });
         });
+    }).catch((error) => {
+        throw error;
     });
 });
