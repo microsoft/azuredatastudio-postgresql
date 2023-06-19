@@ -1,23 +1,7 @@
 trigger: none
 pr: none
-strategy:
-  matrix:
-    linux:
-      platform: 'ubuntu'
-      imageName: 'windows-latest'
-      archiveType: 'tar'
-    mac-x64:
-      platform: 'mac-x64'
-      imageName: 'windows-latest'
-      archiveType: 'tar'
-    mac-arm64:
-      platform: 'mac-arm64'
-      imageName: 'windows-latest'
-    windows:
-      platform: 'windows'
-      imageName: 'windows-latest'
 pool:
-  vmImage: $(imageName)
+  vmImage: 'windows-latest'
 steps:
 - template: templates/build.yml
 - template: templates/code-sign.yml

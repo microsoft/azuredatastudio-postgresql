@@ -10,31 +10,6 @@ steps:
     yarn run compile
     yarn run package
     yarn run package-offline-windows
+    yarn run package-offline-osx
+    yarn run package-offline-osx-arm64
   displayName: 'Installing Dependencies and build packages'
-  condition: eq(variables['platform'], 'windows')
-
-- task: NodeTool@0
-  inputs:
-    versionSpec: '14.x'
-  displayName: 'Installing Dependencies and build packages'
-  condition: eq(variables['platform'], 'mac-x64')
-  inputs:
-    script: |
-      npm install -g yarn
-      npm install -g vsce
-      yarn install
-      yarn run compile
-      yarn run package-offline-osx
-
-- task: NodeTool@0
-  inputs:
-    versionSpec: '14.x'
-  displayName: 'Installing Dependencies and build packages'
-  condition: eq(variables['platform'], 'mac-arm64')
-  inputs:
-    script: |
-      npm install -g yarn
-      npm install -g vsce
-      yarn install
-      yarn run compile
-      yarn run package-offline-osx-arm64
