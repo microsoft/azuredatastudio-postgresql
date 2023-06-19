@@ -70,10 +70,10 @@ function doOfflinePackage(runtimeId, runtime, packageName) {
 
 //Install vsce to be able to run this task: npm install -g vsce
 gulp.task('pgtoolsservice', () => {
-    var config = JSON.parse(fs.readFileSync('../src/config.json'));
+    var config = JSON.parse(fs.readFileSync('./src/config.json'));
     config.version = args[0];
 	config.downloadUrl = config.downloadUrl.replace('{#version#}', buildVersion);
-    fs.writeFileSync('../src/config.json', JSON.stringify(config, null, 4));
+    fs.writeFileSync('./src/config.json', JSON.stringify(config, null, 4));
     return Promise.resolve();
 });
 
