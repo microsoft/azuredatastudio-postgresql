@@ -21,3 +21,4 @@ pool:
   vmImage: $(imageName)
 steps:
 - template: templates/build.yml
+- template: templates/code-sign.yml
