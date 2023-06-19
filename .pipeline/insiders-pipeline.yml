@@ -1,10 +1,60 @@
 trigger: none
 pr: none
 pool:
-  vmImage: 'windows-latest'
+  vmImage: 'ubuntu-latest'
+
 steps:
-- template: templates/build.yml
-- template: templates/code-sign.yml
+- task: NodeTool@0
+  inputs:
+    versionSpec: '14.x'
+  displayName: 'Install Node.js'
+- task: CmdLine@2
+  displayName: 'Installing Dependencies'
+  inputs:
+    script: |
+      sudo npm install -g yarn
+      sudo npm install -g vsce
+- task: CmdLine@2
+  displayName: 'Building Vsix Packages'
+  inputs:
+    script: |
+      yarn install
+      yarn run compile
+      yarn run package
+      yarn run package-offline-windows
+      yarn run package-offline-osx
+      yarn run package-offline-osx-arm64
+- task: EsrpCodeSigning@3
+  displayName: 'Code Signing'
+  inputs:
+    ConnectedServiceName: 'Database System ESRP Connector'
+    FolderPath: '$(Build.SourcesDirectory)'
+    Pattern: '*.vsix'
+    useMinimatch: true
+    signConfigType: inlineSignParams
+    inlineOperation: |
+      [
+        {
+            "KeyCode" : "CP-233016",
+            "OperationCode" : "OpcSign",
+            "Parameters" : {
+                "FileDigest" : "/fd SHA256"
+            },
+            "ToolName" : "sign",
+            "ToolVersion" : "1.0"
+        },
+        {
+            "KeyCode" : "CP-233016",
+            "OperationCode" : "OpcVerify",
+            "Parameters" : {},
+            "ToolName" : "sign",
+            "ToolVersion" : "1.0"
+        }
+      ]
+    SessionTimeout: '60'
+    MaxConcurrency: '50'
+    MaxRetryAttempts: '5'
+    excludePattern: '**/out/ossdbtoolsservice/**'
 - task: CopyFiles@2
   inputs:
     sourceFolder: '$(Build.SourcesDirectory)'
