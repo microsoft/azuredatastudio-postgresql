@@ -9,11 +9,11 @@ strategy:
       archiveType: 'tar'
     mac-x64:
       platform: 'mac-x64'
-      imageName: 'ubuntu-latest'
+      imageName: 'macOS-latest'
       archiveType: 'tar'
     mac-arm64:
       platform: 'mac-arm64'
-      imageName: 'ubuntu-latest'
+      imageName: 'macOS-latest'
     windows:
       platform: 'windows'
       imageName: 'windows-latest'
