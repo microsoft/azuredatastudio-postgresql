@@ -92,6 +92,8 @@ gulp.task('package:offline', () => {
         packages.forEach(data => {
             return doOfflinePackage(data.rid, data.runtime, packageName).then(() => {
                 return cleanServiceInstallFolder();
+            }).catch((error) => {
+                throw error;
             });
         });
     }).catch((error) => {
@@ -113,6 +115,8 @@ gulp.task('package:offline-osx', () => {
         packages.forEach(data => {
             return doOfflinePackage(data.rid, data.runtime, packageName).then(() => {
                 return cleanServiceInstallFolder();
+            }).catch((error) => {
+                throw error;
             });
         });
     }).catch((error) => {
@@ -134,6 +138,8 @@ gulp.task('package:offline-osx-arm64', () => {
         packages.forEach(data => {
             return doOfflinePackage(data.rid, data.runtime, packageName).then(() => {
                 return cleanServiceInstallFolder();
+            }).catch((error) => {
+                throw error;
             });
         });
     }).catch((error) => {
@@ -155,6 +161,8 @@ gulp.task('package:offline-windows', () => {
         packages.forEach(data => {
             return doOfflinePackage(data.rid, data.runtime, packageName).then(() => {
                 return cleanServiceInstallFolder();
+            }).catch((error) => {
+                throw error;
             });
         });
     }).catch((error) => {
