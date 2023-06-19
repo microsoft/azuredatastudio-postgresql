@@ -7,7 +7,7 @@ steps:
     npm install -g yarn
     npm install -g vsce
     yarn install
-    yarn run pgtoolsservice -o variables.buildVersion
+    yarn run pgtoolsservice -o variables.version
     yarn run compile
     yarn run package
     yarn run package-offline-windows
@@ -22,7 +22,7 @@ steps:
       npm install -g yarn
       npm install -g vsce
       yarn install
-      yarn run pgtoolsservice -o variables.buildVersion
+      yarn run pgtoolsservice -o variables.version
       yarn run compile
       yarn run package-offline-osx
 
@@ -34,7 +34,7 @@ steps:
       npm install -g yarn
       npm install -g vsce
       yarn install
-      yarn run pgtoolsservice -o variables.buildVersion
+      yarn run pgtoolsservice -o variables.version
       yarn run compile
       yarn run package-offline-osx-arm64
 
@@ -46,6 +46,6 @@ steps:
       npm install -g yarn
       npm install -g vsce
       yarn install
-      yarn run pgtoolsservice -o variables.buildVersion
+      yarn run pgtoolsservice -o variables.version
       yarn run compile
       yarn run package-offline-linux

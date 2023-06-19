@@ -72,7 +72,7 @@ function doOfflinePackage(runtimeId, runtime, packageName) {
 gulp.task('pgtoolsservice', () => {
     var config = JSON.parse(fs.readFileSync('./src/config.json'));
     config.version = args[0];
-	config.downloadUrl = config.downloadUrl.replace('{#version#}', buildVersion);
+	config.downloadUrl = config.downloadUrl.replace('{#version#}', args[0]);
     fs.writeFileSync('./src/config.json', JSON.stringify(config, null, 4));
     return Promise.resolve();
 });
