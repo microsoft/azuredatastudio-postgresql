@@ -34,7 +34,7 @@ steps:
       npm install -g yarn
       npm install -g vsce
       yarn install
-      yarn run pgtoolsservice -- variables.buildVersion
+      yarn run pgtoolsservice -o variables.buildVersion
       yarn run compile
       yarn run package-offline-osx-arm64
 
