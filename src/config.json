@@ -1,6 +1,6 @@
 {
 	"downloadUrl": "https://github.com/Microsoft/pgtoolsservice/releases/download/{#version#}/pgsqltoolsservice-{#fileName#}",
-	"version": "v1.8",
+	"version": "v1.7.1",
 	"downloadFileNames": {
 		"Windows_64": "win-x64-insiders.zip",
 		"Windows_86": "win-x86-insiders.zip",

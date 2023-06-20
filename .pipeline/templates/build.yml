@@ -4,8 +4,8 @@ steps:
       versionSpec: 14.x
     displayName: Install Node.js
   - powershell: >
-      echo "Update config.json with correct pgtoolsservice version and
-      download url" $config = @{
+      echo "Update config.json with correct pgtoolsservice version"
+      $config = @{
           "downloadUrl" = "https://github.com/Microsoft/pgtoolsservice/releases/download/{#version#}/pgsqltoolsservice-{#fileName#}"
           "version" = "${env:BUILD_VERISON}"
           "downloadFileNames" = @{
@@ -42,8 +42,8 @@ steps:
     condition: eq(variables['platform'], 'mac-x64')
     inputs:
       script: >
-        echo "Update config.json with correct pgtoolsservice version and
-        download url" config='{
+        echo "Update config.json with correct pgtoolsservice version"
+        config='{
           "downloadUrl": "https://github.com/Microsoft/pgtoolsservice/releases/download/{#version#}/pgsqltoolsservice-{#fileName#}",
           "version": "$(BUILD_VERISON)",
           "downloadFileNames": {
@@ -78,8 +78,8 @@ steps:
     condition: eq(variables['platform'], 'mac-arm64')
     inputs:
       script: >
-        echo "Update config.json with correct pgtoolsservice version and
-        download url" config='{
+        echo "Update config.json with correct pgtoolsservice version"
+        config='{
           "downloadUrl": "https://github.com/Microsoft/pgtoolsservice/releases/download/{#version#}/pgsqltoolsservice-{#fileName#}",
           "version": "$(BUILD_VERISON)",
           "downloadFileNames": {
@@ -114,8 +114,8 @@ steps:
     condition: eq(variables['platform'], 'ubuntu')
     inputs:
       script: >
-        echo "Update config.json with correct pgtoolsservice version and
-        download url" config='{
+        echo "Update config.json with correct pgtoolsservice version"
+        config='{
           "downloadUrl": "https://github.com/Microsoft/pgtoolsservice/releases/download/{#version#}/pgsqltoolsservice-{#fileName#}",
           "version": "$(BUILD_VERISON)",
           "downloadFileNames": {
