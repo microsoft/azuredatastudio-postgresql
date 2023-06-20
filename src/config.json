@@ -5,7 +5,8 @@
 		"Windows_64": "win-x64-insiders.zip",
 		"Windows_86": "win-x86-insiders.zip",
 		"OSX": "osx-insiders.tar.gz",
-		"OSX_ARM64": "osx-arm64-insiders.tar.gz"
+		"OSX_ARM64": "osx-arm64-insiders.tar.gz",
+		"Linux_64": "linux-x64-insiders.tar.gz"
 	},
 	"installDirectory": "ossdbtoolsservice/{#platform#}/{#version#}",
 	"executableFiles": [
