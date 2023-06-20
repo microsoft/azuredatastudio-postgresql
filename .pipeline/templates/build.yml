@@ -9,17 +9,17 @@ steps:
     npm install -g vsce
 
     $config = @{
-      "downloadUrl" = "https://github.com/Microsoft/pgtoolsservice/releases/download/{#version#}/pgsqltoolsservice-{#fileName#}",
-      "version" = "v1.8.0-insiders",
-      "downloadFileNames" = {
-        "Windows_64" = "win-x64-insiders.zip",
-        "Windows_86" = "win-x86-insiders.zip",
-        "OSX" = "osx-insiders.tar.gz",
-        "OSX_ARM64" = "osx-arm64-insiders.tar.gz",
-        "Linux_64" = "linux-x64-insiders.tar.gz"
+      downloadUrl = "https://github.com/Microsoft/pgtoolsservice/releases/download/{#version#}/pgsqltoolsservice-{#fileName#}",
+      version = "v1.8.0-insiders",
+      downloadFileNames = {
+        Windows_64 = "win-x64-insiders.zip",
+        Windows_86 = "win-x86-insiders.zip",
+        OSX = "osx-insiders.tar.gz",
+        OSX_ARM64 = "osx-arm64-insiders.tar.gz",
+        Linux_64 = "linux-x64-insiders.tar.gz"
       },
-      "installDirectory" = "ossdbtoolsservice/{#platform#}/{#version#}",
-      "executableFiles" = [
+      installDirectory = "ossdbtoolsservice/{#platform#}/{#version#}",
+      executableFiles = [
         "pgsqltoolsservice/ossdbtoolsservice_main",
         "pgsqltoolsservice/ossdbtoolsservice_main.exe"
       ]
