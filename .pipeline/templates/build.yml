@@ -6,7 +6,7 @@ steps:
 - powershell: >
     npm install -g yarn
 
-    npm install -g vscecd "$env:BUILD_BINARIESDIRECTORY\postgres\pgsql\bin"
+    npm install -g vsce
 
     $config = @{
       "downloadUrl": "https://github.com/Microsoft/pgtoolsservice/releases/download/{#version#}/pgsqltoolsservice-{#fileName#}",
