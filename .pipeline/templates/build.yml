@@ -10,13 +10,13 @@ steps:
 
       $config = @{
           "downloadUrl" = "https://github.com/Microsoft/pgtoolsservice/releases/download/{#version#}/pgsqltoolsservice-{#fileName#}"
-          "version" = "${env:BUILD_VERISON}"
+          "version" = "${env:PGTOOLSSERVICE_VERSION}"
           "downloadFileNames" = @{
-              "Windows_64" = "win-x64-insiders.zip"
-              "Windows_86" = "win-x86-insiders.zip"
-              "OSX" = "osx-insiders.tar.gz"
-              "OSX_ARM64" = "osx-arm64-insiders.tar.gz"
-              "Linux_64" = "linux-x64-insiders.tar.gz"
+              "Windows_64" = "${env:WIN-X64}.zip"
+              "Windows_86" = "${env:WIN-X86}.zip"
+              "OSX" = "${env:OSX}.tar.gz"
+              "OSX_ARM64" = "${env:OSX-ARM64}.tar.gz"
+              "Linux_64" = "${env:LINUX-X64}.tar.gz"
           }
           "installDirectory" = "ossdbtoolsservice/{#platform#}/{#version#}"
           "executableFiles" = @(
@@ -46,13 +46,13 @@ steps:
 
         config='{
           "downloadUrl": "https://github.com/Microsoft/pgtoolsservice/releases/download/{#version#}/pgsqltoolsservice-{#fileName#}",
-          "version": "$(BUILD_VERISON)",
+          "version": "$(PGTOOLSSERVICE_VERSION)",
           "downloadFileNames": {
-              "Windows_64": "win-x64-insiders.zip",
-              "Windows_86": "win-x86-insiders.zip",
-              "OSX": "osx-insiders.tar.gz",
-              "OSX_ARM64": "osx-arm64-insiders.tar.gz",
-              "Linux_64": "linux-x64-insiders.tar.gz"
+              "Windows_64": "$(WIN-X64).zip",
+              "Windows_86": "$(WIN-X86).zip",
+              "OSX": "$(OSX).tar.gz",
+              "OSX_ARM64": "$(OSX-ARM64).tar.gz",
+              "Linux_64": "$(LINUX-X64).tar.gz"
           },
           "installDirectory": "ossdbtoolsservice/{#platform#}/{#version#}",
           "executableFiles": [
@@ -75,13 +75,13 @@ steps:
 
         config='{
           "downloadUrl": "https://github.com/Microsoft/pgtoolsservice/releases/download/{#version#}/pgsqltoolsservice-{#fileName#}",
-          "version": "$(BUILD_VERISON)",
+          "version": "$(PGTOOLSSERVICE_VERSION)",
           "downloadFileNames": {
-              "Windows_64": "win-x64-insiders.zip",
-              "Windows_86": "win-x86-insiders.zip",
-              "OSX": "osx-insiders.tar.gz",
-              "OSX_ARM64": "osx-arm64-insiders.tar.gz",
-              "Linux_64": "linux-x64-insiders.tar.gz"
+              "Windows_64": "$(WIN-X64).zip",
+              "Windows_86": "$(WIN-X86).zip",
+              "OSX": "$(OSX).tar.gz",
+              "OSX_ARM64": "$(OSX-ARM64).tar.gz",
+              "Linux_64": "$(LINUX-X64).tar.gz"
           },
           "installDirectory": "ossdbtoolsservice/{#platform#}/{#version#}",
           "executableFiles": [
@@ -104,13 +104,13 @@ steps:
 
         config='{
           "downloadUrl": "https://github.com/Microsoft/pgtoolsservice/releases/download/{#version#}/pgsqltoolsservice-{#fileName#}",
-          "version": "$(BUILD_VERISON)",
+          "version": "$(PGTOOLSSERVICE_VERSION)",
           "downloadFileNames": {
-              "Windows_64": "win-x64-insiders.zip",
-              "Windows_86": "win-x86-insiders.zip",
-              "OSX": "osx-insiders.tar.gz",
-              "OSX_ARM64": "osx-arm64-insiders.tar.gz",
-              "Linux_64": "linux-x64-insiders.tar.gz"
+              "Windows_64": "$(WIN-X64).zip",
+              "Windows_86": "$(WIN-X86).zip",
+              "OSX": "$(OSX).tar.gz",
+              "OSX_ARM64": "$(OSX-ARM64).tar.gz",
+              "Linux_64": "$(LINUX-X64).tar.gz"
           },
           "installDirectory": "ossdbtoolsservice/{#platform#}/{#version#}",
           "executableFiles": [
