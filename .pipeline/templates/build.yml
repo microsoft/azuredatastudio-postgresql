@@ -10,11 +10,11 @@ steps:
     yarn run compile
     yarn run package
     yarn run package-offline-windows
-  displayName: 'Installing Dependencies and build packages'
+  displayName: 'Installing Dependencies and build packages windows'
   condition: eq(variables['platform'], 'windows')
 
 - task: CmdLine@2
-  displayName: 'Installing Dependencies and build packages'
+  displayName: 'Installing Dependencies and build packages mac-x64'
   condition: eq(variables['platform'], 'mac-x64')
   inputs:
     script: |
@@ -25,7 +25,7 @@ steps:
       yarn run package-offline-osx
 
 - task: CmdLine@2
-  displayName: 'Installing Dependencies and build packages'
+  displayName: 'Installing Dependencies and build packages mac-arm64'
   condition: eq(variables['platform'], 'mac-arm64')
   inputs:
     script: |
@@ -36,8 +36,8 @@ steps:
       yarn run package-offline-osx-arm64
 
 - task: CmdLine@2
-  displayName: 'Installing Dependencies and build packages'
-  condition: eq(variables['platform'], 'linux')
+  displayName: 'Installing Dependencies and build packages ubuntu'
+  condition: eq(variables['platform'], 'ubuntu')
   inputs:
     script: |
       npm install -g yarn
