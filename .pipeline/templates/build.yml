@@ -1,123 +1,147 @@
 steps:
-- task: NodeTool@0
-  inputs:
-    versionSpec: '14.x'
-  displayName: 'Install Node.js'
-- powershell: >
-    npm install -g yarn
-    npm install -g vsce
+  - task: NodeTool@0
+    inputs:
+      versionSpec: 14.x
+    displayName: Install Node.js
+  - powershell: >
+      echo "Update config.json with correct pgtoolsservice version and
+      download url" $config = @{
+          "downloadUrl" = "https://github.com/Microsoft/pgtoolsservice/releases/download/{#version#}/pgsqltoolsservice-{#fileName#}"
+          "version" = "${env:BUILD_VERISON}"
+          "downloadFileNames" = @{
+              "Windows_64" = "win-x64-insiders.zip"
+              "Windows_86" = "win-x86-insiders.zip"
+              "OSX" = "osx-insiders.tar.gz"
+              "OSX_ARM64" = "osx-arm64-insiders.tar.gz"
+              "Linux_64" = "linux-x64-insiders.tar.gz"
+          }
+          "installDirectory" = "ossdbtoolsservice/{#platform#}/{#version#}"
+          "executableFiles" = @(
+              "pgsqltoolsservice/ossdbtoolsservice_main",
+              "pgsqltoolsservice/ossdbtoolsservice_main.exe"
+          )
+      }
 
-    $config = @{
-        "downloadUrl" = "https://github.com/Microsoft/pgtoolsservice/releases/download/{#version#}/pgsqltoolsservice-{#fileName#}"
-        "version" = "v1.8.0-insiders"
-        "downloadFileNames" = @{
-            "Windows_64" = "win-x64-insiders.zip"
-            "Windows_86" = "win-x86-insiders.zip"
-            "OSX" = "osx-insiders.tar.gz"
-            "OSX_ARM64" = "osx-arm64-insiders.tar.gz"
-            "Linux_64" = "linux-x64-insiders.tar.gz"
-        }
-        "installDirectory" = "ossdbtoolsservice/{#platform#}/{#version#}"
-        "executableFiles" = @(
-            "pgsqltoolsservice/ossdbtoolsservice_main",
-            "pgsqltoolsservice/ossdbtoolsservice_main.exe"
-        )
-    }
-    $config | ConvertTo-Json -Depth 4 | Set-Content -Path "$env:BUILD_SOURCESDIRECTORY\src\config.json" -Encoding utf8
+      $config | ConvertTo-Json -Depth 4 | Set-Content -Path "$env:BUILD_SOURCESDIRECTORY\src\config.json" -Encoding utf8
 
-    yarn install
-    yarn run compile
-    yarn run package
-    yarn run package-offline-windows
-  displayName: Installing Dependencies and build packages windows
-  condition: eq(variables['platform'], 'windows')
+      echo "Install dependencies and build packages" npm install -g yarn
 
-- task: CmdLine@2
-  displayName: 'Installing Dependencies and build packages mac-x64'
-  condition: eq(variables['platform'], 'mac-x64')
-  inputs:
-    script: |
-      npm install -g yarn
       npm install -g vsce
 
-      config='{
-        "downloadUrl": "https://github.com/Microsoft/pgtoolsservice/releases/download/{#version#}/pgsqltoolsservice-{#fileName#}",
-        "version": "v1.8.0-insiders",
-        "downloadFileNames": {
-            "Windows_64": "win-x64-insiders.zip",
-            "Windows_86": "win-x86-insiders.zip",
-            "OSX": "osx-insiders.tar.gz",
-            "OSX_ARM64": "osx-arm64-insiders.tar.gz",
-            "Linux_64": "linux-x64-insiders.tar.gz"
-        },
-        "installDirectory": "ossdbtoolsservice/{#platform#}/{#version#}",
-        "executableFiles": [
-            "pgsqltoolsservice/ossdbtoolsservice_main",
-            "pgsqltoolsservice/ossdbtoolsservice_main.exe"
-        ]
-      }'
-      echo "$config" > "$BUILD_SOURCESDIRECTORY/src/config.json"
-
       yarn install
+
       yarn run compile
-      yarn run package-offline-osx
 
-- task: CmdLine@2
-  displayName: 'Installing Dependencies and build packages mac-arm64'
-  condition: eq(variables['platform'], 'mac-arm64')
-  inputs:
-    script: |
-      npm install -g yarn
-      npm install -g vsce
+      yarn run package
 
-      config='{
-        "downloadUrl": "https://github.com/Microsoft/pgtoolsservice/releases/download/{#version#}/pgsqltoolsservice-{#fileName#}",
-        "version": "v1.8.0-insiders",
-        "downloadFileNames": {
-            "Windows_64": "win-x64-insiders.zip",
-            "Windows_86": "win-x86-insiders.zip",
-            "OSX": "osx-insiders.tar.gz",
-            "OSX_ARM64": "osx-arm64-insiders.tar.gz",
-            "Linux_64": "linux-x64-insiders.tar.gz"
-        },
-        "installDirectory": "ossdbtoolsservice/{#platform#}/{#version#}",
-        "executableFiles": [
-            "pgsqltoolsservice/ossdbtoolsservice_main",
-            "pgsqltoolsservice/ossdbtoolsservice_main.exe"
-        ]
-      }'
-      echo "$config" > "$BUILD_SOURCESDIRECTORY/src/config.json"
+      yarn run package-offline-windows
+    displayName: Installing Dependencies and build packages windows
+    condition: eq(variables['platform'], 'windows')
+  - task: CmdLine@2
+    displayName: Installing Dependencies and build packages mac-x64
+    condition: eq(variables['platform'], 'mac-x64')
+    inputs:
+      script: >
+        echo "Update config.json with correct pgtoolsservice version and
+        download url" config='{
+          "downloadUrl": "https://github.com/Microsoft/pgtoolsservice/releases/download/{#version#}/pgsqltoolsservice-{#fileName#}",
+          "version": "$(BUILD_VERISON)",
+          "downloadFileNames": {
+              "Windows_64": "win-x64-insiders.zip",
+              "Windows_86": "win-x86-insiders.zip",
+              "OSX": "osx-insiders.tar.gz",
+              "OSX_ARM64": "osx-arm64-insiders.tar.gz",
+              "Linux_64": "linux-x64-insiders.tar.gz"
+          },
+          "installDirectory": "ossdbtoolsservice/{#platform#}/{#version#}",
+          "executableFiles": [
+              "pgsqltoolsservice/ossdbtoolsservice_main",
+              "pgsqltoolsservice/ossdbtoolsservice_main.exe"
+          ]
+        }'
 
-      yarn install
-      yarn run compile
-      yarn run package-offline-osx-arm64
+        echo "$config" > "$BUILD_SOURCESDIRECTORY/src/config.json"
 
-- task: CmdLine@2
-  displayName: 'Installing Dependencies and build packages ubuntu'
-  condition: eq(variables['platform'], 'ubuntu')
-  inputs:
-    script: |
-      npm install -g yarn
-      npm install -g vsce
+        echo "Install dependencies and build packages"
 
-      config='{
-        "downloadUrl": "https://github.com/Microsoft/pgtoolsservice/releases/download/{#version#}/pgsqltoolsservice-{#fileName#}",
-        "version": "v1.8.0-insiders",
-        "downloadFileNames": {
-            "Windows_64": "win-x64-insiders.zip",
-            "Windows_86": "win-x86-insiders.zip",
-            "OSX": "osx-insiders.tar.gz",
-            "OSX_ARM64": "osx-arm64-insiders.tar.gz",
-            "Linux_64": "linux-x64-insiders.tar.gz"
-        },
-        "installDirectory": "ossdbtoolsservice/{#platform#}/{#version#}",
-        "executableFiles": [
-            "pgsqltoolsservice/ossdbtoolsservice_main",
-            "pgsqltoolsservice/ossdbtoolsservice_main.exe"
-        ]
-      }'
-      echo "$config" > "$BUILD_SOURCESDIRECTORY/src/config.json"
+        npm install -g yarn
 
-      yarn install
-      yarn run compile
-      yarn run package-offline-linux
+        npm install -g vsce
+
+        yarn install
+
+        yarn run compile
+
+        yarn run package-offline-osx
+  - task: CmdLine@2
+    displayName: Installing Dependencies and build packages mac-arm64
+    condition: eq(variables['platform'], 'mac-arm64')
+    inputs:
+      script: >
+        echo "Update config.json with correct pgtoolsservice version and
+        download url" config='{
+          "downloadUrl": "https://github.com/Microsoft/pgtoolsservice/releases/download/{#version#}/pgsqltoolsservice-{#fileName#}",
+          "version": "$(BUILD_VERISON)",
+          "downloadFileNames": {
+              "Windows_64": "win-x64-insiders.zip",
+              "Windows_86": "win-x86-insiders.zip",
+              "OSX": "osx-insiders.tar.gz",
+              "OSX_ARM64": "osx-arm64-insiders.tar.gz",
+              "Linux_64": "linux-x64-insiders.tar.gz"
+          },
+          "installDirectory": "ossdbtoolsservice/{#platform#}/{#version#}",
+          "executableFiles": [
+              "pgsqltoolsservice/ossdbtoolsservice_main",
+              "pgsqltoolsservice/ossdbtoolsservice_main.exe"
+          ]
+        }'
+
+        echo "$config" > "$BUILD_SOURCESDIRECTORY/src/config.json"
+
+        echo "Install dependencies and build packages"
+
+        npm install -g yarn
+
+        npm install -g vsce
+
+        yarn install
+
+        yarn run compile
+
+        yarn run package-offline-osx-arm64
+  - task: CmdLine@2
+    displayName: Installing Dependencies and build packages ubuntu
+    condition: eq(variables['platform'], 'ubuntu')
+    inputs:
+      script: >
+        echo "Update config.json with correct pgtoolsservice version and
+        download url" config='{
+          "downloadUrl": "https://github.com/Microsoft/pgtoolsservice/releases/download/{#version#}/pgsqltoolsservice-{#fileName#}",
+          "version": "$(BUILD_VERISON)",
+          "downloadFileNames": {
+              "Windows_64": "win-x64-insiders.zip",
+              "Windows_86": "win-x86-insiders.zip",
+              "OSX": "osx-insiders.tar.gz",
+              "OSX_ARM64": "osx-arm64-insiders.tar.gz",
+              "Linux_64": "linux-x64-insiders.tar.gz"
+          },
+          "installDirectory": "ossdbtoolsservice/{#platform#}/{#version#}",
+          "executableFiles": [
+              "pgsqltoolsservice/ossdbtoolsservice_main",
+              "pgsqltoolsservice/ossdbtoolsservice_main.exe"
+          ]
+        }'
+
+        echo "$config" > "$BUILD_SOURCESDIRECTORY/src/config.json"
+
+        echo "Install dependencies and build packages"
+
+        npm install -g yarn
+
+        npm install -g vsce
+
+        yarn install
+
+        yarn run compile
+
+        yarn run package-offline-linux
