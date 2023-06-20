@@ -92,7 +92,7 @@ gulp.task('package:offline', () => {
         return cleanServiceInstallFolder().then(() => {
             packages.forEach(data => {
                 return doOfflinePackage(data.rid, data.runtime, packageName).then(() => {
-                    return cleanServiceInstallFolder();
+                    return resolve();
                 }).catch((error) => {
                     reject(error)
                 });
@@ -117,7 +117,7 @@ gulp.task('package:offline-osx', () => {
         return cleanServiceInstallFolder().then(() => {
             packages.forEach(data => {
                 return doOfflinePackage(data.rid, data.runtime, packageName).then(() => {
-                    return cleanServiceInstallFolder();
+                    return resolve();
                 }).catch((error) => {
                     reject(error)
                 });
@@ -142,7 +142,7 @@ gulp.task('package:offline-osx-arm64', () => {
         return cleanServiceInstallFolder().then(() => {
             packages.forEach(data => {
                 return doOfflinePackage(data.rid, data.runtime, packageName).then(() => {
-                    return cleanServiceInstallFolder();
+                    return resolve();
                 }).catch((error) => {
                     reject(error)
                 });
@@ -167,7 +167,7 @@ gulp.task('package:offline-windows', () => {
         return cleanServiceInstallFolder().then(() => {
             packages.forEach(data => {
                 return doOfflinePackage(data.rid, data.runtime, packageName).then(() => {
-                    return cleanServiceInstallFolder();
+                    return resolve();
                 }).catch((error) => {
                     reject(error)
                 });
@@ -192,7 +192,7 @@ gulp.task('package:offline-linux', () => {
         return cleanServiceInstallFolder().then(() => {
             packages.forEach(data => {
                 return doOfflinePackage(data.rid, data.runtime, packageName).then(() => {
-                    return cleanServiceInstallFolder();
+                    return resolve();
                 }).catch((error) => {
                     reject(error)
                 });
