@@ -88,7 +88,7 @@ gulp.task('package:offline', () => {
     packages.push({rid: 'osx-arm64', runtime: 'OSX_ARM64'});
     packages.push({rid: 'linux-x64', runtime: 'Linux_64'});
 
-    return new Promise((_resolve, reject) => {
+    return new Promise((resolve, reject) => {
         return cleanServiceInstallFolder().then(() => {
             packages.forEach(data => {
                 return doOfflinePackage(data.rid, data.runtime, packageName).then(() => {
@@ -113,7 +113,7 @@ gulp.task('package:offline-osx', () => {
     var packages = [];
     packages.push({rid: 'osx', runtime: 'OSX'});
 
-    return new Promise((_resolve, reject) => {
+    return new Promise((resolve, reject) => {
         return cleanServiceInstallFolder().then(() => {
             packages.forEach(data => {
                 return doOfflinePackage(data.rid, data.runtime, packageName).then(() => {
@@ -138,7 +138,7 @@ gulp.task('package:offline-osx-arm64', () => {
     var packages = [];
     packages.push({rid: 'osx-arm64', runtime: 'OSX_ARM64'});
 
-    return new Promise((_resolve, reject) => {
+    return new Promise((resolve, reject) => {
         return cleanServiceInstallFolder().then(() => {
             packages.forEach(data => {
                 return doOfflinePackage(data.rid, data.runtime, packageName).then(() => {
@@ -163,7 +163,7 @@ gulp.task('package:offline-windows', () => {
     var packages = [];
     packages.push({rid: 'win-x64', runtime: 'Windows_64'});
 
-    return new Promise((_resolve, reject) => {
+    return new Promise((resolve, reject) => {
         return cleanServiceInstallFolder().then(() => {
             packages.forEach(data => {
                 return doOfflinePackage(data.rid, data.runtime, packageName).then(() => {
@@ -188,7 +188,7 @@ gulp.task('package:offline-linux', () => {
     var packages = [];
     packages.push({rid: 'linux-x64', runtime: 'Linux_64'});
 
-    return new Promise((_resolve, reject) => {
+    return new Promise((resolve, reject) => {
         return cleanServiceInstallFolder().then(() => {
             packages.forEach(data => {
                 return doOfflinePackage(data.rid, data.runtime, packageName).then(() => {
