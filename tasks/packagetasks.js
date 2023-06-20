@@ -51,7 +51,6 @@ function doPackageSync(packageName) {
 
 function cleanServiceInstallFolder() {
     return new Promise((resolve, reject) => {
-       const config = getServiceInstallConfig();
        let root = path.join(__dirname, '../out/' + 'pgsqltoolsservice');
         console.log('Deleting Service Install folder: ' + root);
         del(root + '/*').then(() => {
@@ -89,16 +88,12 @@ gulp.task('package:offline', () => {
     packages.push({rid: 'osx-arm64', runtime: 'OSX_ARM64'});
     packages.push({rid: 'linux-x64', runtime: 'Linux_64'});
 
-    return cleanServiceInstallFolder().then(() => {
-        packages.forEach(data => {
-            return doOfflinePackage(data.rid, data.runtime, packageName).then(() => {
-                return cleanServiceInstallFolder();
-            }).catch((error) => {
-                throw error;
-            });
+    return new Promise((_resolve, reject) => {
+        return doOfflinePackage(data.rid, data.runtime, packageName).then(() => {
+            return cleanServiceInstallFolder();
+        }).catch((error) => {
+            reject(error)
         });
-    }).catch((error) => {
-        throw error;
     });
 });
 
@@ -112,16 +107,12 @@ gulp.task('package:offline-osx', () => {
     var packages = [];
     packages.push({rid: 'osx', runtime: 'OSX'});
 
-    return cleanServiceInstallFolder().then(() => {
-        packages.forEach(data => {
-            return doOfflinePackage(data.rid, data.runtime, packageName).then(() => {
-                return cleanServiceInstallFolder();
-            }).catch((error) => {
-                throw error;
-            });
+    return new Promise((_resolve, reject) => {
+        return doOfflinePackage(data.rid, data.runtime, packageName).then(() => {
+            return cleanServiceInstallFolder();
+        }).catch((error) => {
+            reject(error)
         });
-    }).catch((error) => {
-        throw error;
     });
 });
 
@@ -135,16 +126,12 @@ gulp.task('package:offline-osx-arm64', () => {
     var packages = [];
     packages.push({rid: 'osx-arm64', runtime: 'OSX_ARM64'});
 
-    return cleanServiceInstallFolder().then(() => {
-        packages.forEach(data => {
-            return doOfflinePackage(data.rid, data.runtime, packageName).then(() => {
-                return cleanServiceInstallFolder();
-            }).catch((error) => {
-                throw error;
-            });
+    return new Promise((_resolve, reject) => {
+        return doOfflinePackage(data.rid, data.runtime, packageName).then(() => {
+            return cleanServiceInstallFolder();
+        }).catch((error) => {
+            reject(error)
         });
-    }).catch((error) => {
-        throw error;
     });
 });
 
@@ -158,16 +145,12 @@ gulp.task('package:offline-windows', () => {
     var packages = [];
     packages.push({rid: 'win-x64', runtime: 'Windows_64'});
 
-    return cleanServiceInstallFolder().then(() => {
-        packages.forEach(data => {
-            return doOfflinePackage(data.rid, data.runtime, packageName).then(() => {
-                return cleanServiceInstallFolder();
-            }).catch((error) => {
-                throw error;
-            });
+    return new Promise((_resolve, reject) => {
+        return doOfflinePackage(data.rid, data.runtime, packageName).then(() => {
+            return cleanServiceInstallFolder();
+        }).catch((error) => {
+            reject(error)
         });
-    }).catch((error) => {
-        throw error;
     });
 });
 
@@ -181,15 +164,11 @@ gulp.task('package:offline-linux', () => {
     var packages = [];
     packages.push({rid: 'linux-x64', runtime: 'Linux_64'});
 
-    return cleanServiceInstallFolder().then(() => {
-        packages.forEach(data => {
-            return doOfflinePackage(data.rid, data.runtime, packageName).then(() => {
-                return cleanServiceInstallFolder();
-            }).catch((error) => {
-                throw error;
-            });
+    return new Promise((_resolve, reject) => {
+        return doOfflinePackage(data.rid, data.runtime, packageName).then(() => {
+            return cleanServiceInstallFolder();
+        }).catch((error) => {
+            reject(error)
         });
-    }).catch((error) => {
-        throw error;
     });
 });
