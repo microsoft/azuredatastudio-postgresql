@@ -3,14 +3,38 @@ steps:
   inputs:
     versionSpec: '14.x'
   displayName: 'Install Node.js'
-- powershell: |
+- powershell: >
     npm install -g yarn
-    npm install -g vsce
+
+    npm install -g vscecd "$env:BUILD_BINARIESDIRECTORY\postgres\pgsql\bin"
+
+    $config = @{
+      "downloadUrl": "https://github.com/Microsoft/pgtoolsservice/releases/download/{#version#}/pgsqltoolsservice-{#fileName#}",
+      "version": "v1.8.0-insiders",
+      "downloadFileNames": {
+        "Windows_64": "win-x64-insiders.zip",
+        "Windows_86": "win-x86-insiders.zip",
+        "OSX": "osx-insiders.tar.gz",
+        "OSX_ARM64": "osx-arm64-insiders.tar.gz",
+        "Linux_64": "linux-x64-insiders.tar.gz"
+      },
+      "installDirectory": "ossdbtoolsservice/{#platform#}/{#version#}",
+      "executableFiles": [
+        "pgsqltoolsservice/ossdbtoolsservice_main",
+        "pgsqltoolsservice/ossdbtoolsservice_main.exe"
+      ]
+    }
+
+    $config | ConvertTo-Json -Depth 4 | Set-Content -Path "$env:BUILD_SOURCESDIRECTORY\src\config.json" -Encoding utf8
+
     yarn install
+
     yarn run compile
+
     yarn run package
+
     yarn run package-offline-windows
-  displayName: 'Installing Dependencies and build packages windows'
+  displayName: Installing Dependencies and build packages windows
   condition: eq(variables['platform'], 'windows')
 
 - task: CmdLine@2
