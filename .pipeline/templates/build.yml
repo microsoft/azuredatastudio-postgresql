@@ -4,10 +4,13 @@ steps:
       versionSpec: 14.x
     displayName: Install Node.js
   - powershell: >
-      echo "Update config.json with correct pgtoolsservice version"
+      npm install -g yarn
+
+      npm install -g vsce
+
       $config = @{
           "downloadUrl" = "https://github.com/Microsoft/pgtoolsservice/releases/download/{#version#}/pgsqltoolsservice-{#fileName#}"
-          "version" = "${env:BUILD_VERISON}"
+          "version" = "v1.8.0-insiders"
           "downloadFileNames" = @{
               "Windows_64" = "win-x64-insiders.zip"
               "Windows_86" = "win-x86-insiders.zip"
@@ -24,10 +27,6 @@ steps:
 
       $config | ConvertTo-Json -Depth 4 | Set-Content -Path "$env:BUILD_SOURCESDIRECTORY\src\config.json" -Encoding utf8
 
-      echo "Install dependencies and build packages" npm install -g yarn
-
-      npm install -g vsce
-
       yarn install
 
       yarn run compile
@@ -35,17 +34,17 @@ steps:
       yarn run package
 
       yarn run package-offline-windows
-    displayName: Installing Dependencies and build packages windows
-    condition: eq(variables['platform'], 'windows')
   - task: CmdLine@2
     displayName: Installing Dependencies and build packages mac-x64
     condition: eq(variables['platform'], 'mac-x64')
     inputs:
-      script: >
-        echo "Update config.json with correct pgtoolsservice version"
+      script: |
+        npm install -g yarn
+        npm install -g vsce
+
         config='{
           "downloadUrl": "https://github.com/Microsoft/pgtoolsservice/releases/download/{#version#}/pgsqltoolsservice-{#fileName#}",
-          "version": "$(BUILD_VERISON)",
+          "version": "v1.8.0-insiders",
           "downloadFileNames": {
               "Windows_64": "win-x64-insiders.zip",
               "Windows_86": "win-x86-insiders.zip",
@@ -59,29 +58,22 @@ steps:
               "pgsqltoolsservice/ossdbtoolsservice_main.exe"
           ]
         }'
-
         echo "$config" > "$BUILD_SOURCESDIRECTORY/src/config.json"
 
-        echo "Install dependencies and build packages"
-
-        npm install -g yarn
-
-        npm install -g vsce
-
         yarn install
-
         yarn run compile
-
         yarn run package-offline-osx
   - task: CmdLine@2
     displayName: Installing Dependencies and build packages mac-arm64
     condition: eq(variables['platform'], 'mac-arm64')
     inputs:
-      script: >
-        echo "Update config.json with correct pgtoolsservice version"
+      script: |
+        npm install -g yarn
+        npm install -g vsce
+
         config='{
           "downloadUrl": "https://github.com/Microsoft/pgtoolsservice/releases/download/{#version#}/pgsqltoolsservice-{#fileName#}",
-          "version": "$(BUILD_VERISON)",
+          "version": "v1.8.0-insiders",
           "downloadFileNames": {
               "Windows_64": "win-x64-insiders.zip",
               "Windows_86": "win-x86-insiders.zip",
@@ -95,29 +87,22 @@ steps:
               "pgsqltoolsservice/ossdbtoolsservice_main.exe"
           ]
         }'
-
         echo "$config" > "$BUILD_SOURCESDIRECTORY/src/config.json"
 
-        echo "Install dependencies and build packages"
-
-        npm install -g yarn
-
-        npm install -g vsce
-
         yarn install
-
         yarn run compile
-
         yarn run package-offline-osx-arm64
   - task: CmdLine@2
     displayName: Installing Dependencies and build packages ubuntu
     condition: eq(variables['platform'], 'ubuntu')
     inputs:
-      script: >
-        echo "Update config.json with correct pgtoolsservice version"
+      script: |
+        npm install -g yarn
+        npm install -g vsce
+
         config='{
           "downloadUrl": "https://github.com/Microsoft/pgtoolsservice/releases/download/{#version#}/pgsqltoolsservice-{#fileName#}",
-          "version": "$(BUILD_VERISON)",
+          "version": "v1.8.0-insiders",
           "downloadFileNames": {
               "Windows_64": "win-x64-insiders.zip",
               "Windows_86": "win-x86-insiders.zip",
@@ -131,17 +116,8 @@ steps:
               "pgsqltoolsservice/ossdbtoolsservice_main.exe"
           ]
         }'
-
         echo "$config" > "$BUILD_SOURCESDIRECTORY/src/config.json"
 
-        echo "Install dependencies and build packages"
-
-        npm install -g yarn
-
-        npm install -g vsce
-
         yarn install
-
         yarn run compile
-
         yarn run package-offline-linux
