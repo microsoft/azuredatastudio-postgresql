@@ -29,4 +29,4 @@ steps:
     SessionTimeout: '60'
     MaxConcurrency: '50'
     MaxRetryAttempts: '5'
-    excludePattern: '**/out/ossdbtoolsservice/**'
+  condition: eq(variables['platform'], 'windows')
