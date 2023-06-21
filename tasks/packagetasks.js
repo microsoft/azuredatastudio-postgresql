@@ -51,7 +51,6 @@ function doPackageSync(packageName) {
 
 function cleanServiceInstallFolder() {
     return new Promise((resolve, reject) => {
-       const config = getServiceInstallConfig();
        let root = path.join(__dirname, '../out/' + 'pgsqltoolsservice');
         console.log('Deleting Service Install folder: ' + root);
         del(root + '/*').then(() => {
@@ -87,20 +86,21 @@ gulp.task('package:offline', () => {
     packages.push({rid: 'win-x64', runtime: 'Windows_64'});
     packages.push({rid: 'osx', runtime: 'OSX'});
     packages.push({rid: 'osx-arm64', runtime: 'OSX_ARM64'});
-    packages.push({rid: 'linux-x64', runtime: 'Linux'});
+    packages.push({rid: 'linux-x64', runtime: 'Linux_64'});
 
-    var promise = Promise.resolve();
-    cleanServiceInstallFolder().then(() => {
-        packages.forEach(data => {
-            promise = promise.then(() => {
+    return new Promise((resolve, reject) => {
+        return cleanServiceInstallFolder().then(() => {
+            packages.forEach(data => {
                 return doOfflinePackage(data.rid, data.runtime, packageName).then(() => {
-                    return cleanServiceInstallFolder();
+                    return resolve();
+                }).catch((error) => {
+                    reject(error)
                 });
             });
+        }).catch((error) => {
+            reject(error)
         });
     });
-
-    return promise;
 });
 
 //Install vsce to be able to run this task: npm install -g vsce
@@ -113,18 +113,19 @@ gulp.task('package:offline-osx', () => {
     var packages = [];
     packages.push({rid: 'osx', runtime: 'OSX'});
 
-    var promise = Promise.resolve();
-    cleanServiceInstallFolder().then(() => {
-        packages.forEach(data => {
-            promise = promise.then(() => {
+    return new Promise((resolve, reject) => {
+        return cleanServiceInstallFolder().then(() => {
+            packages.forEach(data => {
                 return doOfflinePackage(data.rid, data.runtime, packageName).then(() => {
-                    return cleanServiceInstallFolder();
+                    return resolve();
+                }).catch((error) => {
+                    reject(error)
                 });
             });
+        }).catch((error) => {
+            reject(error)
         });
     });
-
-    return promise;
 });
 
 //Install vsce to be able to run this task: npm install -g vsce
@@ -137,18 +138,19 @@ gulp.task('package:offline-osx-arm64', () => {
     var packages = [];
     packages.push({rid: 'osx-arm64', runtime: 'OSX_ARM64'});
 
-    var promise = Promise.resolve();
-    cleanServiceInstallFolder().then(() => {
-        packages.forEach(data => {
-            promise = promise.then(() => {
+    return new Promise((resolve, reject) => {
+        return cleanServiceInstallFolder().then(() => {
+            packages.forEach(data => {
                 return doOfflinePackage(data.rid, data.runtime, packageName).then(() => {
-                    return cleanServiceInstallFolder();
+                    return resolve();
+                }).catch((error) => {
+                    reject(error)
                 });
             });
+        }).catch((error) => {
+            reject(error)
         });
     });
-
-    return promise;
 });
 
 //Install vsce to be able to run this task: npm install -g vsce
@@ -161,18 +163,19 @@ gulp.task('package:offline-windows', () => {
     var packages = [];
     packages.push({rid: 'win-x64', runtime: 'Windows_64'});
 
-    var promise = Promise.resolve();
-    cleanServiceInstallFolder().then(() => {
-        packages.forEach(data => {
-            promise = promise.then(() => {
+    return new Promise((resolve, reject) => {
+        return cleanServiceInstallFolder().then(() => {
+            packages.forEach(data => {
                 return doOfflinePackage(data.rid, data.runtime, packageName).then(() => {
-                    return cleanServiceInstallFolder();
+                    return resolve();
+                }).catch((error) => {
+                    reject(error)
                 });
             });
+        }).catch((error) => {
+            reject(error)
         });
     });
-
-    return promise;
 });
 
 //Install vsce to be able to run this task: npm install -g vsce
@@ -183,18 +186,19 @@ gulp.task('package:offline-linux', () => {
     var packageName = name + '-' + version;
 
     var packages = [];
-    packages.push({rid: 'linux-x64', runtime: 'Linux'});
+    packages.push({rid: 'linux-x64', runtime: 'Linux_64'});
 
-    var promise = Promise.resolve();
-    cleanServiceInstallFolder().then(() => {
-        packages.forEach(data => {
-            promise = promise.then(() => {
+    return new Promise((resolve, reject) => {
+        return cleanServiceInstallFolder().then(() => {
+            packages.forEach(data => {
                 return doOfflinePackage(data.rid, data.runtime, packageName).then(() => {
-                    return cleanServiceInstallFolder();
+                    return resolve();
+                }).catch((error) => {
+                    reject(error)
                 });
             });
+        }).catch((error) => {
+            reject(error)
         });
     });
-
-    return promise;
 });

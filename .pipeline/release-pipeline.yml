@@ -1,35 +1,62 @@
 trigger:
   - release
 pr: none
-strategy:
-  matrix:
-    linux:
-      platform: 'ubuntu'
-      imageName: 'ubuntu-latest'
-      archiveType: 'tar'
-    mac-x64:
-      platform: 'mac-x64'
-      imageName: 'macOS-latest'
-      archiveType: 'tar'
-    mac-arm64:
-      platform: 'mac-arm64'
-      imageName: 'macOS-latest'
-    windows:
-      platform: 'windows'
-      imageName: 'windows-latest'
-pool:
-  vmImage: $(imageName)
-steps:
-- template: templates/build.yml
-- template: templates/code-sign.yml
-- task: CopyFiles@2
-  inputs:
-    sourceFolder: '$(Build.SourcesDirectory)'
-    contents: '*.vsix'
-    targetFolder: '$(Build.ArtifactStagingDirectory)'
-  displayName: 'Copy Files'
-- task: PublishBuildArtifacts@1
-  inputs:
-    pathToPublish: '$(Build.ArtifactStagingDirectory)'
-    artifactName: build
-  displayName: 'Publish Artifacts'
+jobs:
+  - job: platform_matrix
+    displayName: Build and Publish Artifacts
+    strategy:
+      matrix:
+        linux:
+          platform: 'ubuntu'
+          imageName: 'ubuntu-latest'
+          archiveType: 'tar'
+        mac-x64:
+          platform: 'mac-x64'
+          imageName: 'macOS-latest'
+          archiveType: 'tar'
+        mac-arm64:
+          platform: 'mac-arm64'
+          imageName: 'macOS-latest'
+        windows:
+          platform: 'windows'
+          imageName: 'windows-latest'
+    pool:
+      vmImage: $(imageName)
+    steps:
+    - template: templates/build.yml
+    - template: templates/code-sign.yml
+    - task: CopyFiles@2
+      inputs:
+        sourceFolder: '$(Build.SourcesDirectory)'
+        contents: '*.vsix'
+        targetFolder: '$(Build.ArtifactStagingDirectory)'
+      displayName: 'Copy Files'
+    - task: PublishBuildArtifacts@1
+      inputs:
+        pathToPublish: '$(Build.ArtifactStagingDirectory)'
+        artifactName: build
+      displayName: 'Publish Artifacts'
+  - job: github_release
+    displayName: Manage GitHub Release
+    dependsOn:
+      - platform_matrix
+    pool:
+      vmImage: windows-latest
+    steps:
+      - task: DownloadBuildArtifacts@0
+        inputs:
+          buildType: current
+          downloadType: specific
+          artifactName: dist
+          downloadPath: $(System.ArtifactsDirectory)
+      - task: GithubRelease@1
+        displayName: Create GitHub Release
+        inputs:
+          gitHubConnection: azuredatastudio-postgresqlext2
+          repositoryName: microsoft/azuredatastudio-postgresql
+          tagSource: userSpecifiedTag
+          tag: $(ReleaseVersion)
+          title: $(ReleaseVersion)
+          changeLogType: issueBased
+          assets: |
+            $(System.ArtifactsDirectory)/**/*.vsix
