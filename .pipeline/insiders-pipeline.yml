@@ -47,7 +47,7 @@ jobs:
         continueOnError: true
         inputs:
           gitHubConnection: azuredatastudio-postgresqlext2
-          repositoryName: 'microsoft/pgtoolsservice'
+          repositoryName: microsoft/azuredatastudio-postgresql
           action: delete
           tag: '$(InsidersVersion)'
       - task: DownloadBuildArtifacts@0
@@ -60,7 +60,7 @@ jobs:
         displayName: Create GitHub Release
         inputs:
           gitHubConnection: azuredatastudio-postgresqlext2
-          repositoryName: microsoft/pgtoolsservice
+          repositoryName: microsoft/azuredatastudio-postgresql
           tagSource: userSpecifiedTag
           tag: $(InsidersVersion)
           title: $(InsidersVersion)
