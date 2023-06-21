@@ -59,5 +59,4 @@ jobs:
           title: $(ReleaseVersion)
           changeLogType: issueBased
           assets: |
-            $(System.ArtifactsDirectory)/**/*.gz
-            $(System.ArtifactsDirectory)/**/*.zip
+            $(System.ArtifactsDirectory)/**/*.vsix

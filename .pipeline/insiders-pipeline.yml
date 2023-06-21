@@ -67,5 +67,4 @@ jobs:
           changeLogType: issueBased
           isPreRelease: true
           assets: |
-            $(System.ArtifactsDirectory)/**/*.gz
-            $(System.ArtifactsDirectory)/**/*.zip
+            $(System.ArtifactsDirectory)/**/*.vsix
