@@ -14,9 +14,6 @@ steps:
           "downloadFileNames" = @{
               "Windows_64" = "${env:WIN-X64}.zip"
               "Windows_86" = "${env:WIN-X86}.zip"
-              "OSX" = "${env:OSX}.tar.gz"
-              "OSX_ARM64" = "${env:OSX-ARM64}.tar.gz"
-              "Linux_64" = "${env:LINUX-X64}.tar.gz"
           }
           "installDirectory" = "ossdbtoolsservice/{#platform#}/{#version#}"
           "executableFiles" = @(
@@ -48,11 +45,7 @@ steps:
           "downloadUrl": "https://github.com/Microsoft/pgtoolsservice/releases/download/{#version#}/pgsqltoolsservice-{#fileName#}",
           "version": "$(PGTOOLSSERVICE_VERSION)",
           "downloadFileNames": {
-              "Windows_64": "$(WIN-X64).zip",
-              "Windows_86": "$(WIN-X86).zip",
-              "OSX": "$(OSX).tar.gz",
-              "OSX_ARM64": "$(OSX-ARM64).tar.gz",
-              "Linux_64": "$(LINUX-X64).tar.gz"
+              "OSX": "$(OSX).tar.gz"
           },
           "installDirectory": "ossdbtoolsservice/{#platform#}/{#version#}",
           "executableFiles": [
@@ -77,11 +70,7 @@ steps:
           "downloadUrl": "https://github.com/Microsoft/pgtoolsservice/releases/download/{#version#}/pgsqltoolsservice-{#fileName#}",
           "version": "$(PGTOOLSSERVICE_VERSION)",
           "downloadFileNames": {
-              "Windows_64": "$(WIN-X64).zip",
-              "Windows_86": "$(WIN-X86).zip",
-              "OSX": "$(OSX).tar.gz",
-              "OSX_ARM64": "$(OSX-ARM64).tar.gz",
-              "Linux_64": "$(LINUX-X64).tar.gz"
+              "OSX_ARM64": "$(OSX-ARM64).tar.gz"
           },
           "installDirectory": "ossdbtoolsservice/{#platform#}/{#version#}",
           "executableFiles": [
@@ -95,8 +84,8 @@ steps:
         yarn run compile
         yarn run package-offline-osx-arm64
   - task: CmdLine@2
-    displayName: Installing Dependencies and build packages ubuntu
-    condition: eq(variables['platform'], 'ubuntu')
+    displayName: Installing Dependencies and build packages linux
+    condition: eq(variables['platform'], 'linux')
     inputs:
       script: |
         npm install -g yarn
@@ -106,10 +95,6 @@ steps:
           "downloadUrl": "https://github.com/Microsoft/pgtoolsservice/releases/download/{#version#}/pgsqltoolsservice-{#fileName#}",
           "version": "$(PGTOOLSSERVICE_VERSION)",
           "downloadFileNames": {
-              "Windows_64": "$(WIN-X64).zip",
-              "Windows_86": "$(WIN-X86).zip",
-              "OSX": "$(OSX).tar.gz",
-              "OSX_ARM64": "$(OSX-ARM64).tar.gz",
               "Linux_64": "$(LINUX-X64).tar.gz"
           },
           "installDirectory": "ossdbtoolsservice/{#platform#}/{#version#}",
@@ -123,3 +108,28 @@ steps:
         yarn install
         yarn run compile
         yarn run package-offline-linux
+  - task: CmdLine@2
+    displayName: Installing Dependencies and build packages ubuntu
+    condition: eq(variables['platform'], 'ubuntu')
+    inputs:
+      script: |
+        npm install -g yarn
+        npm install -g vsce
+
+        config='{
+          "downloadUrl": "https://github.com/Microsoft/pgtoolsservice/releases/download/{#version#}/pgsqltoolsservice-{#fileName#}",
+          "version": "$(PGTOOLSSERVICE_VERSION)",
+          "downloadFileNames": {
+              "Ubuntu_16": "$(LINUX-X64).tar.gz"
+          },
+          "installDirectory": "ossdbtoolsservice/{#platform#}/{#version#}",
+          "executableFiles": [
+              "pgsqltoolsservice/ossdbtoolsservice_main",
+              "pgsqltoolsservice/ossdbtoolsservice_main.exe"
+          ]
+        }'
+        echo "$config" > "$BUILD_SOURCESDIRECTORY/src/config.json"
+
+        yarn install
+        yarn run compile
+        yarn run package-offline-ubuntu

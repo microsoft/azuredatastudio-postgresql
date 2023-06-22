@@ -4,7 +4,7 @@ pr:
 strategy:
   matrix:
     linux:
-      platform: 'ubuntu'
+      platform: 'linux'
       imageName: 'ubuntu-latest'
       archiveType: 'tar'
     mac-x64:
@@ -14,6 +14,10 @@ strategy:
     mac-arm64:
       platform: 'mac-arm64'
       imageName: 'macOS-latest'
+    ubuntu:
+      platform: 'ubuntu'
+      imageName: 'ubuntu-latest'
+      archiveType: 'tar'
     windows:
       platform: 'windows'
       imageName: 'windows-latest'
