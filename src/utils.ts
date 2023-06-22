@@ -148,6 +148,18 @@ export function getRuntimeDisplayName(runtime: Runtime): string {
 			return 'Linux';
 		case Runtime.Ubuntu_16:
 			return 'Linux';
+		case Runtime.CentOS_7:
+			return 'Linux';
+		case Runtime.Debian_8:
+			return 'Linux';
+		case Runtime.Fedora_23:
+			return 'Linux';
+		case Runtime.OpenSUSE_13_2:
+			return 'Linux';
+		case Runtime.SLES_12_2:
+			return 'Linux';
+		case Runtime.RHEL_7:
+			return 'Linux';
 		default:
 			return 'Unknown';
 	}
