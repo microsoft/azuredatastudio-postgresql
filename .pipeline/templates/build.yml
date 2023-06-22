@@ -12,7 +12,7 @@ steps:
           "downloadUrl" = "https://github.com/Microsoft/pgtoolsservice/releases/download/{#version#}/pgsqltoolsservice-{#fileName#}"
           "version" = "${env:PGTOOLSSERVICE_VERSION}"
           "downloadFileNames" = @{
-              "Windows_64" = "${env:WIN-X64}.zip",
+              "Windows_64" = "${env:WIN-X64}.zip"
               "Windows_86" = "${env:WIN-X86}.zip"
           }
           "installDirectory" = "ossdbtoolsservice/{#platform#}/{#version#}"
