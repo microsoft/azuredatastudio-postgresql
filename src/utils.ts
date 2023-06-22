@@ -142,6 +142,10 @@ export function getRuntimeDisplayName(runtime: Runtime): string {
 			return 'OSX';
 		case Runtime.Linux_64:
 			return 'Linux';
+		case Runtime.Linux_86:
+			return 'Linux';
+		case Runtime.Ubuntu_14:
+			return 'Linux';
 		case Runtime.Ubuntu_16:
 			return 'Linux';
 		default:
