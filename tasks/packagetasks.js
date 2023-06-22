@@ -202,3 +202,28 @@ gulp.task('package:offline-linux', () => {
         });
     });
 });
+
+//Install vsce to be able to run this task: npm install -g vsce
+gulp.task('package:offline-ubuntu', () => {
+    var json = JSON.parse(fs.readFileSync('package.json'));
+    var name = json.name;
+    var version = json.version;
+    var packageName = name + '-' + version;
+
+    var packages = [];
+    packages.push({rid: 'ubuntu-16', runtime: 'Ubuntu_16'});
+
+    return new Promise((resolve, reject) => {
+        return cleanServiceInstallFolder().then(() => {
+            packages.forEach(data => {
+                return doOfflinePackage(data.rid, data.runtime, packageName).then(() => {
+                    return resolve();
+                }).catch((error) => {
+                    reject(error)
+                });
+            });
+        }).catch((error) => {
+            reject(error)
+        });
+    });
+});

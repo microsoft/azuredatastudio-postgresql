@@ -6,7 +6,8 @@
 		"Windows_86": "win-x86.zip",
 		"OSX": "osx.tar.gz",
 		"OSX_ARM64": "osx-arm64.tar.gz",
-		"Linux": "linux-x64.tar.gz"
+		"Linux_64": "linux-x64.tar.gz",
+		"Ubuntu_16": "linux-x64.tar.gz"
 	},
 	"installDirectory": "ossdbtoolsservice/{#platform#}/{#version#}",
 	"executableFiles": [
