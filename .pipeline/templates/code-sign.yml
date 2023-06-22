@@ -1,5 +1,5 @@
 steps:
-- task: EsrpCodeSigning@2
+- task: EsrpCodeSigning@3
   displayName: 'Code Signing'
   inputs:
     ConnectedServiceName: 'Database System ESRP Connector'
@@ -29,3 +29,4 @@ steps:
     SessionTimeout: '60'
     MaxConcurrency: '50'
     MaxRetryAttempts: '5'
+  condition: eq(variables['platform'], 'windows')
