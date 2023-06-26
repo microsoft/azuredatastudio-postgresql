@@ -14,6 +14,9 @@ steps:
           "downloadFileNames" = @{
               "Windows_64" = "${env:WIN-X64}.zip"
               "Windows_86" = "${env:WIN-X86}.zip"
+              "OSX" = "${env:OSX}.tar.gz"
+              "OSX_ARM64" = "${env:OSX-ARM64}.tar.gz"
+              "Linux_64" = "${env:LINUX-X64}.tar.gz"
           }
           "installDirectory" = "ossdbtoolsservice/{#platform#}/{#version#}"
           "executableFiles" = @(
