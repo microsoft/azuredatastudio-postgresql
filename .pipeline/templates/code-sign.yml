@@ -1,0 +1,32 @@
+steps:
+- task: EsrpCodeSigning@3
+  displayName: 'Code Signing'
+  inputs:
+    ConnectedServiceName: 'Database System ESRP Connector'
+    FolderPath: '$(Build.SourcesDirectory)'
+    Pattern: '*.vsix'
+    useMinimatch: true
+    signConfigType: inlineSignParams
+    inlineOperation: |
+      [
+        {
+            "KeyCode" : "CP-233016",
+            "OperationCode" : "OpcSign",
+            "Parameters" : {
+                "FileDigest" : "/fd SHA256"
+            },
+            "ToolName" : "sign",
+            "ToolVersion" : "1.0"
+        },
+        {
+            "KeyCode" : "CP-233016",
+            "OperationCode" : "OpcVerify",
+            "Parameters" : {},
+            "ToolName" : "sign",
+            "ToolVersion" : "1.0"
+        }
+      ]
+    SessionTimeout: '60'
+    MaxConcurrency: '50'
+    MaxRetryAttempts: '5'
+  condition: eq(variables['platform'], 'windows')

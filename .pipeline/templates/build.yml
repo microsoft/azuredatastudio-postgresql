@@ -1,0 +1,138 @@
+steps:
+  - task: NodeTool@0
+    inputs:
+      versionSpec: 14.x
+    displayName: Install Node.js
+  - powershell: >
+      npm install -g yarn
+
+      npm install -g vsce
+
+      $config = @{
+          "downloadUrl" = "https://github.com/Microsoft/pgtoolsservice/releases/download/{#version#}/pgsqltoolsservice-{#fileName#}"
+          "version" = "${env:PGTOOLSSERVICE_VERSION}"
+          "downloadFileNames" = @{
+              "Windows_64" = "${env:WIN-X64}.zip"
+              "Windows_86" = "${env:WIN-X86}.zip"
+              "OSX" = "${env:OSX}.tar.gz"
+              "OSX_ARM64" = "${env:OSX-ARM64}.tar.gz"
+              "Linux_64" = "${env:LINUX-X64}.tar.gz"
+          }
+          "installDirectory" = "ossdbtoolsservice/{#platform#}/{#version#}"
+          "executableFiles" = @(
+              "pgsqltoolsservice/ossdbtoolsservice_main",
+              "pgsqltoolsservice/ossdbtoolsservice_main.exe"
+          )
+      }
+
+      $config | ConvertTo-Json -Depth 4 | Set-Content -Path "$env:BUILD_SOURCESDIRECTORY\src\config.json" -Encoding utf8
+
+      yarn install
+
+      yarn run compile
+
+      yarn run package
+
+      yarn run package-offline-windows
+    displayName: Installing Dependencies and build packages windows
+    condition: eq(variables['platform'], 'windows')
+  - task: CmdLine@2
+    displayName: Installing Dependencies and build packages mac-x64
+    condition: eq(variables['platform'], 'mac-x64')
+    inputs:
+      script: |
+        npm install -g yarn
+        npm install -g vsce
+
+        config='{
+          "downloadUrl": "https://github.com/Microsoft/pgtoolsservice/releases/download/{#version#}/pgsqltoolsservice-{#fileName#}",
+          "version": "$(PGTOOLSSERVICE_VERSION)",
+          "downloadFileNames": {
+              "OSX": "$(OSX).tar.gz"
+          },
+          "installDirectory": "ossdbtoolsservice/{#platform#}/{#version#}",
+          "executableFiles": [
+              "pgsqltoolsservice/ossdbtoolsservice_main",
+              "pgsqltoolsservice/ossdbtoolsservice_main.exe"
+          ]
+        }'
+        echo "$config" > "$BUILD_SOURCESDIRECTORY/src/config.json"
+
+        yarn install
+        yarn run compile
+        yarn run package-offline-osx
+  - task: CmdLine@2
+    displayName: Installing Dependencies and build packages mac-arm64
+    condition: eq(variables['platform'], 'mac-arm64')
+    inputs:
+      script: |
+        npm install -g yarn
+        npm install -g vsce
+
+        config='{
+          "downloadUrl": "https://github.com/Microsoft/pgtoolsservice/releases/download/{#version#}/pgsqltoolsservice-{#fileName#}",
+          "version": "$(PGTOOLSSERVICE_VERSION)",
+          "downloadFileNames": {
+              "OSX_ARM64": "$(OSX-ARM64).tar.gz"
+          },
+          "installDirectory": "ossdbtoolsservice/{#platform#}/{#version#}",
+          "executableFiles": [
+              "pgsqltoolsservice/ossdbtoolsservice_main",
+              "pgsqltoolsservice/ossdbtoolsservice_main.exe"
+          ]
+        }'
+        echo "$config" > "$BUILD_SOURCESDIRECTORY/src/config.json"
+
+        yarn install
+        yarn run compile
+        yarn run package-offline-osx-arm64
+  - task: CmdLine@2
+    displayName: Installing Dependencies and build packages linux
+    condition: eq(variables['platform'], 'linux')
+    inputs:
+      script: |
+        npm install -g yarn
+        npm install -g vsce
+
+        config='{
+          "downloadUrl": "https://github.com/Microsoft/pgtoolsservice/releases/download/{#version#}/pgsqltoolsservice-{#fileName#}",
+          "version": "$(PGTOOLSSERVICE_VERSION)",
+          "downloadFileNames": {
+              "Linux_64": "$(LINUX-X64).tar.gz"
+          },
+          "installDirectory": "ossdbtoolsservice/{#platform#}/{#version#}",
+          "executableFiles": [
+              "pgsqltoolsservice/ossdbtoolsservice_main",
+              "pgsqltoolsservice/ossdbtoolsservice_main.exe"
+          ]
+        }'
+        echo "$config" > "$BUILD_SOURCESDIRECTORY/src/config.json"
+
+        yarn install
+        yarn run compile
+        yarn run package-offline-linux
+  - task: CmdLine@2
+    displayName: Installing Dependencies and build packages ubuntu
+    condition: eq(variables['platform'], 'ubuntu')
+    inputs:
+      script: |
+        npm install -g yarn
+        npm install -g vsce
+
+        config='{
+          "downloadUrl": "https://github.com/Microsoft/pgtoolsservice/releases/download/{#version#}/pgsqltoolsservice-{#fileName#}",
+          "version": "$(PGTOOLSSERVICE_VERSION)",
+          "downloadFileNames": {
+              "Ubuntu_16": "$(LINUX-X64).tar.gz"
+          },
+          "installDirectory": "ossdbtoolsservice/{#platform#}/{#version#}",
+          "executableFiles": [
+              "pgsqltoolsservice/ossdbtoolsservice_main",
+              "pgsqltoolsservice/ossdbtoolsservice_main.exe"
+          ]
+        }'
+        echo "$config" > "$BUILD_SOURCESDIRECTORY/src/config.json"
+
+        yarn install
+        yarn run compile
+        yarn run package-offline-ubuntu

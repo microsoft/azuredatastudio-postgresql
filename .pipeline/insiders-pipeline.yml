@@ -1,5 +1,4 @@
-trigger:
-  - release
+trigger: none
 pr: none
 jobs:
   - job: platform_matrix
@@ -47,6 +46,14 @@ jobs:
     pool:
       vmImage: windows-latest
     steps:
+      - task: GithubRelease@1
+        displayName: 'Delete GitHub Release'
+        continueOnError: true
+        inputs:
+          gitHubConnection: azuredatastudio-postgresqlext2
+          repositoryName: microsoft/azuredatastudio-postgresql
+          action: delete
+          tag: '$(InsidersVersion)'
       - task: DownloadBuildArtifacts@0
         inputs:
           buildType: current
@@ -59,8 +66,9 @@ jobs:
           gitHubConnection: azuredatastudio-postgresqlext2
           repositoryName: microsoft/azuredatastudio-postgresql
           tagSource: userSpecifiedTag
-          tag: $(ReleaseVersion)
-          title: $(ReleaseVersion)
+          tag: $(InsidersVersion)
+          title: $(InsidersVersion)
           changeLogType: issueBased
+          isPreRelease: true
           assets: |
             $(System.ArtifactsDirectory)/**/*.vsix
