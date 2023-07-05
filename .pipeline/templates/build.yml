@@ -5,7 +5,6 @@ steps:
     displayName: Install Node.js
   - powershell: >
       npm install -g yarn
-
       npm install -g vsce
 
       $config = @{
@@ -37,11 +36,8 @@ steps:
       $config | ConvertTo-Json -Depth 4 | Set-Content -Path "$env:BUILD_SOURCESDIRECTORY\src\config.json" -Encoding utf8
 
       yarn install
-
       yarn run compile
-
       yarn run package
-
       yarn run package-offline-windows
     displayName: Installing Dependencies and build packages windows
     condition: eq(variables['platform'], 'windows')
