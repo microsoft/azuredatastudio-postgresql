@@ -51,7 +51,7 @@ function doPackageSync(packageName) {
 
 function cleanServiceInstallFolder() {
     return new Promise((resolve, reject) => {
-       let root = path.join(__dirname, '../out/' + 'pgsqltoolsservice');
+       let root = path.join(__dirname, '../out/' + 'ossdbtoolsservice');
         console.log('Deleting Service Install folder: ' + root);
         del(root + '/*').then(() => {
             resolve();
