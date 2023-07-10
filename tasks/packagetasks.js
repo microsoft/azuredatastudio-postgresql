@@ -5,7 +5,7 @@ var cproc = require('child_process');
 var os = require('os');
 var del = require('del');
 var path = require('path');
-var serviceDownloader = require('service-downloader');
+var serviceDownloader = require('@microsoft/ads-service-downloader');
 
 
 function getServiceInstallConfig() {
