@@ -69,6 +69,8 @@ jobs:
           tag: $(InsidersVersion)
           title: $(InsidersVersion)
           changeLogType: issueBased
+          changeLogCompareToRelease: lastNonDraftReleaseByTag
+          changeLogCompareToReleaseTag: $(PreviousInsidersVersion)
           isPreRelease: true
           assets: |
             $(System.ArtifactsDirectory)/**/*.vsix
