@@ -17,7 +17,6 @@ steps:
               "OSX" = "${env:OSX}.tar.gz"
               "OSX_ARM64" = "${env:OSX-ARM64}.tar.gz"
               "Linux" = "${env:LINUX-X64}.tar.gz"
-              "Linux_64" = "${env:LINUX-X64}.tar.gz"
               "Ubuntu_14" = "${env:LINUX-X64}.tar.gz"
               "Ubuntu_16" = "${env:LINUX-X64}.tar.gz"
               "Ubuntu_18" = "${env:LINUX-X64}.tar.gz"
@@ -111,7 +110,7 @@ steps:
           "downloadUrl": "https://github.com/Microsoft/pgtoolsservice/releases/download/{#version#}/pgsqltoolsservice-{#fileName#}",
           "version": "$(PGTOOLSSERVICE_VERSION)",
           "downloadFileNames": {
-            "Linux_64": "${LINUX-X64}.tar.gz"
+            "Linux": "${LINUX-X64}.tar.gz"
           },
           "installDirectory": "ossdbtoolsservice/{#platform#}/{#version#}",
           "executableFiles": [
