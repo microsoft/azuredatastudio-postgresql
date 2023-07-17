@@ -12,23 +12,23 @@ steps:
           "downloadUrl" = "https://github.com/Microsoft/pgtoolsservice/releases/download/{#version#}/pgsqltoolsservice-{#fileName#}"
           "version" = "${env:PGTOOLSSERVICE_VERSION}"
           "downloadFileNames" = @{
-            "Windows_64" = "${env:WIN-X64}.zip"
-            "Windows_86" = "${env:WIN-X86}.zip"
-            "OSX" = "${env:OSX}.tar.gz"
-            "OSX_ARM64" = "${env:OSX-ARM64}.tar.gz"
-            "Linux" = "${env:LINUX-X64}.tar.gz"
-            "Ubuntu_14" = "${env:LINUX-X64}.tar.gz"
-            "Ubuntu_16" = "${env:LINUX-X64}.tar.gz"
-            "Ubuntu_18" = "${env:LINUX-X64}.tar.gz"
-            "Ubuntu_20" = "${env:LINUX-X64}.tar.gz"
-            "Ubuntu_22" = "${env:LINUX-X64}.tar.gz"
-            "Ubuntu" = "${env:LINUX-X64}.tar.gz"
-            "CentOS" = "${env:LINUX-X64}.tar.gz"
-            "Debian" = "${env:LINUX-X64}.tar.gz"
-            "Fedora" = "${env:LINUX-X64}.tar.gz"
-            "OpenSUSE" = "${env:LINUX-X64}.tar.gz"
-            "RHEL" = "${env:LINUX-X64}.tar.gz"
-            "SLES" = "${env:LINUX-X64}.tar.gz
+              "Windows_64" = "${env:WIN-X64}.zip"
+              "Windows_86" = "${env:WIN-X86}.zip"
+              "OSX" = "${env:OSX}.tar.gz"
+              "OSX_ARM64" = "${env:OSX-ARM64}.tar.gz"
+              "Linux" = "${env:LINUX-X64}.tar.gz"
+              "Ubuntu_14" = "${env:LINUX-X64}.tar.gz"
+              "Ubuntu_16" = "${env:LINUX-X64}.tar.gz"
+              "Ubuntu_18" = "${env:LINUX-X64}.tar.gz"
+              "Ubuntu_20" = "${env:LINUX-X64}.tar.gz"
+              "Ubuntu_22" = "${env:LINUX-X64}.tar.gz"
+              "Ubuntu" = "${env:LINUX-X64}.tar.gz"
+              "CentOS" = "${env:LINUX-X64}.tar.gz"
+              "Debian" = "${env:LINUX-X64}.tar.gz"
+              "Fedora" = "${env:LINUX-X64}.tar.gz"
+              "OpenSUSE" = "${env:LINUX-X64}.tar.gz"
+              "RHEL" = "${env:LINUX-X64}.tar.gz"
+              "SLES" = "${env:LINUX-X64}.tar.gz"
           }
           "installDirectory" = "ossdbtoolsservice/{#platform#}/{#version#}"
           "executableFiles" = @(
@@ -110,7 +110,7 @@ steps:
           "downloadUrl": "https://github.com/Microsoft/pgtoolsservice/releases/download/{#version#}/pgsqltoolsservice-{#fileName#}",
           "version": "$(PGTOOLSSERVICE_VERSION)",
           "downloadFileNames": {
-            "Linux" = "${LINUX-X64}.tar.gz"
+            "Linux": "${LINUX-X64}.tar.gz"
           },
           "installDirectory": "ossdbtoolsservice/{#platform#}/{#version#}",
           "executableFiles": [
@@ -135,7 +135,7 @@ steps:
           "downloadUrl": "https://github.com/Microsoft/pgtoolsservice/releases/download/{#version#}/pgsqltoolsservice-{#fileName#}",
           "version": "$(PGTOOLSSERVICE_VERSION)",
           "downloadFileNames": {
-            "Ubuntu_22" = "${LINUX-X64}.tar.gz"
+            "Ubuntu_22": "${LINUX-X64}.tar.gz"
           },
           "installDirectory": "ossdbtoolsservice/{#platform#}/{#version#}",
           "executableFiles": [
