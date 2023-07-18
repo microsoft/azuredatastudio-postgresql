@@ -19,6 +19,7 @@ function getResolvedServiceInstallationPath(runtime) {
 
 async function installService(runtime) {
     const config = getServiceInstallConfig();
+    console.log(config);
     const serverdownloader = new serviceDownloader.ServiceDownloadProvider(config);
 
     return serverdownloader.installService(runtime)
