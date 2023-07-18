@@ -4,6 +4,8 @@ steps:
       versionSpec: 14.x
     displayName: Install Node.js
   - powershell: >
+      npm cache clean --force
+
       npm install -g yarn
 
       npm install -g vsce
