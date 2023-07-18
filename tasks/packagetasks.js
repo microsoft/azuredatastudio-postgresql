@@ -1,5 +1,6 @@
 var gulp = require('gulp');
 var fs = require('fs');
+var fsPromise = require('fs').promises;
 var gutil = require('gulp-util');
 var cproc = require('child_process');
 var os = require('os');
@@ -35,28 +36,43 @@ gulp.task('ext:install-service', () => {
 });
 
 function doPackageSync(packageName) {
-    var vsceArgs = [];
-    vsceArgs.push('vsce');
-    vsceArgs.push('package'); // package command
-    vsceArgs.push('--yarn'); // to use yarn list instead on npm list
+    return new Promise((resolve, reject) => {
+        var vsceArgs = [];
+        vsceArgs.push('vsce');
+        vsceArgs.push('package'); // package command
+        vsceArgs.push('--yarn'); // to use yarn list instead on npm list
 
-    if (packageName !== undefined) {
-        vsceArgs.push('-o');
-        vsceArgs.push(packageName);
-    }
-    var command = vsceArgs.join(' ');
-    console.log(command);
-    return cproc.execSync(command);
+        if (packageName !== undefined) {
+            vsceArgs.push('-o');
+            vsceArgs.push(packageName);
+        }
+        var command = vsceArgs.join(' ');
+        console.log(command);
+
+        cproc.exec(command, (error, stdout, stderr) => {
+            if (error) {
+                console.log(`Error: ${error.message}`);
+                return reject(error);
+            }
+            if (stderr) {
+                console.log(`stderr: ${stderr}`);
+            }
+            console.log(`stdout: ${stdout}`);
+            resolve(stdout);
+        });
+    });
 }
+
 
 function cleanServiceInstallFolder() {
     return new Promise((resolve, reject) => {
-       let root = path.join(__dirname, '../out/' + 'pgsqltoolsservice');
+       let root = path.join(__dirname, '../out/' + 'ossdbtoolsservice');
         console.log('Deleting Service Install folder: ' + root);
-        del(root + '/*').then(() => {
+        fsPromise.rm(root, { recursive: true, force: true })  // using fs.rm with options
+        .then(() => {
             resolve();
         }).catch((error) => {
-            reject(error)
+            reject(error);
         });
     });
 }
@@ -87,20 +103,17 @@ gulp.task('package:offline', () => {
     packages.push({rid: 'osx', runtime: 'OSX'});
     packages.push({rid: 'osx-arm64', runtime: 'OSX_ARM64'});
     packages.push({rid: 'linux-x64', runtime: 'Linux'});
+    packages.push({rid: 'ubuntu22-x64', runtime: 'Ubuntu_22'});
 
-    return new Promise((resolve, reject) => {
-        return cleanServiceInstallFolder().then(() => {
-            packages.forEach(data => {
-                return doOfflinePackage(data.rid, data.runtime, packageName).then(() => {
-                    return resolve();
-                }).catch((error) => {
-                    reject(error)
-                });
+    return packages.reduce((prevPromise, data) => {
+        return prevPromise
+            .then(() => cleanServiceInstallFolder())
+            .then(() => doOfflinePackage(data.rid, data.runtime, packageName))
+            .catch(error => {
+                console.error(`Failed to process package ${data.rid}`, error);
+                throw error; // propagate the error up
             });
-        }).catch((error) => {
-            reject(error)
-        });
-    });
+    }, Promise.resolve());  // Start with a promise that always resolves
 });
 
 //Install vsce to be able to run this task: npm install -g vsce
@@ -211,7 +224,7 @@ gulp.task('package:offline-ubuntu', () => {
     var packageName = name + '-' + version;
 
     var packages = [];
-    packages.push({rid: 'ubuntu-16', runtime: 'Ubuntu_16'});
+    packages.push({rid: 'ubuntu22-x64', runtime: 'Ubuntu_22'});
 
     return new Promise((resolve, reject) => {
         return cleanServiceInstallFolder().then(() => {
