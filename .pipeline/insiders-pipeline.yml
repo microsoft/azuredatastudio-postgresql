@@ -21,8 +21,6 @@ jobs:
       displayName: 'Publish Artifacts'
   - job: github_release
     displayName: Manage GitHub Release
-    dependsOn:
-      - platform_matrix
     pool:
       vmImage: windows-latest
     steps:
