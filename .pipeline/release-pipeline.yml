@@ -20,25 +20,20 @@ jobs:
         pathToPublish: '$(Build.ArtifactStagingDirectory)'
         artifactName: build
       displayName: 'Publish Artifacts'
-  - job: github_release
-    displayName: Manage GitHub Release
-    pool:
-      vmImage: windows-latest
-    steps:
-      - task: DownloadBuildArtifacts@0
-        inputs:
-          buildType: current
-          downloadType: specific
-          artifactName: dist
-          downloadPath: $(System.ArtifactsDirectory)
-      - task: GithubRelease@1
-        displayName: Create GitHub Release
-        inputs:
-          gitHubConnection: azuredatastudio-postgresqlext2
-          repositoryName: microsoft/azuredatastudio-postgresql
-          tagSource: userSpecifiedTag
-          tag: $(ReleaseVersion)
-          title: $(ReleaseVersion)
-          changeLogType: issueBased
-          assets: |
-            $(System.ArtifactsDirectory)/**/*.vsix
+    - task: DownloadBuildArtifacts@0
+      inputs:
+        buildType: current
+        downloadType: specific
+        artifactName: dist
+        downloadPath: $(System.ArtifactsDirectory)
+    - task: GithubRelease@1
+      displayName: Create GitHub Release
+      inputs:
+        gitHubConnection: azuredatastudio-postgresqlext2
+        repositoryName: microsoft/azuredatastudio-postgresql
+        tagSource: userSpecifiedTag
+        tag: $(ReleaseVersion)
+        title: $(ReleaseVersion)
+        changeLogType: issueBased
+        assets: |
+          $(System.ArtifactsDirectory)/**/*.vsix
