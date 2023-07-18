@@ -20,11 +20,11 @@ jobs:
         pathToPublish: '$(Build.ArtifactStagingDirectory)'
         artifactName: build
       displayName: 'Publish Artifacts'
-    - task: DownloadBuildArtifacts@0
+    - task: DownloadBuildArtifacts@1
       inputs:
         buildType: current
         downloadType: specific
-        artifactName: dist
+        artifactName: build
         downloadPath: $(System.ArtifactsDirectory)
     - task: GithubRelease@1
       displayName: Create GitHub Release
