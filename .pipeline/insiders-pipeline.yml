@@ -27,11 +27,11 @@ jobs:
         repositoryName: microsoft/azuredatastudio-postgresql
         action: delete
         tag: '$(InsidersVersion)'
-    - task: DownloadBuildArtifacts@0
+    - task: DownloadBuildArtifacts@2
       inputs:
         buildType: current
         downloadType: specific
-        artifactName: dist
+        artifactName: build
         downloadPath: $(System.ArtifactsDirectory)
     - task: GithubRelease@1
       displayName: Create GitHub Release
