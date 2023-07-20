@@ -5,7 +5,10 @@
 'use strict';
 
 import * as vscode from 'vscode';
+import * as fs from 'fs';
+import * as os from 'os';
 import * as path from 'path';
+
 import { SqlOpsDataClient, ClientOptions } from 'dataprotocol-client';
 import { IConfig, ServerProvider, Events } from '@microsoft/ads-service-downloader';
 import { ServerOptions, TransportKind } from 'vscode-languageclient';
@@ -161,4 +164,13 @@ function generateHandleServerProviderEvent() {
 
 // this method is called when your extension is deactivated
 export function deactivate(): void {
+	const tempFolder = fs.realpathSync(os.tmpdir());
+    const tempFolders = fs.readdirSync(tempFolder).filter((file) => file.startsWith('_MEI'));
+
+    tempFolders.forEach((folder) => {
+        const folderPath = path.join(tempFolder, folder);
+        if (fs.existsSync(folderPath)) {
+            fs.rmdirSync(folderPath, { recursive: true });
+        }
+    });
 }
