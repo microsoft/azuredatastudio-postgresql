@@ -1,30 +1,10 @@
 trigger: none
 pr: none
 jobs:
-  - job: platform_matrix
+  - job: build_artifacts
     displayName: Build and Publish Artifacts
-    strategy:
-      matrix:
-        linux:
-          platform: 'linux'
-          imageName: 'ubuntu-latest'
-          archiveType: 'tar'
-        mac-x64:
-          platform: 'mac-x64'
-          imageName: 'macOS-latest'
-          archiveType: 'tar'
-        mac-arm64:
-          platform: 'mac-arm64'
-          imageName: 'macOS-latest'
-        ubuntu:
-          platform: 'ubuntu'
-          imageName: 'ubuntu-latest'
-          archiveType: 'tar'
-        windows:
-          platform: 'windows'
-          imageName: 'windows-latest'
     pool:
-      vmImage: $(imageName)
+      vmImage: 'windows-latest'
     steps:
     - template: templates/build.yml
     - template: templates/code-sign.yml
@@ -39,36 +19,29 @@ jobs:
         pathToPublish: '$(Build.ArtifactStagingDirectory)'
         artifactName: build
       displayName: 'Publish Artifacts'
-  - job: github_release
-    displayName: Manage GitHub Release
-    dependsOn:
-      - platform_matrix
-    pool:
-      vmImage: windows-latest
-    steps:
-      - task: GithubRelease@1
-        displayName: 'Delete GitHub Release'
-        continueOnError: true
-        inputs:
-          gitHubConnection: azuredatastudio-postgresqlext2
-          repositoryName: microsoft/azuredatastudio-postgresql
-          action: delete
-          tag: '$(InsidersVersion)'
-      - task: DownloadBuildArtifacts@0
-        inputs:
-          buildType: current
-          downloadType: specific
-          artifactName: dist
-          downloadPath: $(System.ArtifactsDirectory)
-      - task: GithubRelease@1
-        displayName: Create GitHub Release
-        inputs:
-          gitHubConnection: azuredatastudio-postgresqlext2
-          repositoryName: microsoft/azuredatastudio-postgresql
-          tagSource: userSpecifiedTag
-          tag: $(InsidersVersion)
-          title: $(InsidersVersion)
-          changeLogType: issueBased
-          isPreRelease: true
-          assets: |
-            $(System.ArtifactsDirectory)/**/*.vsix
+    - task: GithubRelease@1
+      displayName: 'Delete GitHub Release'
+      continueOnError: true
+      inputs:
+        gitHubConnection: azuredatastudio-postgresqlext2
+        repositoryName: microsoft/azuredatastudio-postgresql
+        action: delete
+        tag: '$(InsidersVersion)'
+    - task: DownloadBuildArtifacts@1
+      inputs:
+        buildType: current
+        downloadType: specific
+        artifactName: build
+        downloadPath: $(System.ArtifactsDirectory)
+    - task: GithubRelease@1
+      displayName: Create GitHub Release
+      inputs:
+        gitHubConnection: azuredatastudio-postgresqlext2
+        repositoryName: microsoft/azuredatastudio-postgresql
+        tagSource: userSpecifiedTag
+        tag: $(InsidersVersion)
+        title: $(InsidersVersion)
+        changeLogType: issueBased
+        isPreRelease: true
+        assets: |
+          $(System.ArtifactsDirectory)/**/*.vsix
