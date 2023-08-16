@@ -3,9 +3,8 @@
  *  Licensed under the Source EULA. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
-import { NotificationType } from "vscode-languageclient";
+import { RequestType, NotificationType } from "vscode-languageclient";
 import * as telemetry from '@microsoft/ads-extension-telemetry';
-
 
 // ------------------------------- < Telemetry Sent Event > ------------------------------------
 
@@ -29,3 +28,20 @@ export class TelemetryParams {
     }
 }
 // ------------------------------- </ Telemetry Sent Event > ------------------------------------
+
+// ------------------------------- < Metadata API > ------------------------------------
+
+export interface PgSchemaMetadataParams {
+    ownerUri: string;
+}
+
+export namespace PgSchemaMetadataRequest {
+    export const type =
+        new RequestType<PgSchemaMetadataParams, PgSchemaMetadataResponse, void, void>('metadata/schema');
+}
+
+export interface PgSchemaMetadataResponse {
+    description: string;
+}
+
+// ------------------------------- </ Metadata API > ------------------------------------
