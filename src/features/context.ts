@@ -5,14 +5,16 @@
 
 import { SqlOpsDataClient, SqlOpsFeature } from 'dataprotocol-client';
 import { ClientCapabilities, RPCMessageType, ServerCapabilities } from 'vscode-languageclient';
+import * as azdata from 'azdata';
+import * as contracts from './contracts';
 import * as UUID from 'vscode-languageclient/lib/utils/uuid';
 import { Disposable } from 'vscode';
 
-import { PgSchemaMetadataParams, PgSchemaMetadataRequest, PgSchemaMetadataResponse } from './contracts';
+import { ServerContextualizationParams, GetServerContextualizationRequest } from './contracts';
 
-export class PgSchemaMetadataFeature extends SqlOpsFeature<undefined> {
+export class ServerContextualizationServiceFeature extends SqlOpsFeature<undefined> {
     constructor(client: SqlOpsDataClient) {
-        super(client, [PgSchemaMetadataRequest.type]);
+        super(client, [contracts.GenerateServerContextualizationNotification.type]);
     }
 
     public fillClientCapabilities(capabilities: ClientCapabilities): void {
@@ -28,20 +30,29 @@ export class PgSchemaMetadataFeature extends SqlOpsFeature<undefined> {
     protected registerProvider(options: undefined): Disposable {
         const client = this._client;
 
-        let getSchemaMetadata = (ownerUri: string): Thenable<PgSchemaMetadataResponse> => {
-            const params: PgSchemaMetadataParams = {
+        const generateServerContextualization = (ownerUri: string): Thenable<boolean> => {
+            // TODO: Implement
+            return Promise.resolve(true)
+        };
+
+        const getServerContextualization = (ownerUri: string): Thenable<azdata.contextualization.GetServerContextualizationResult> => {
+            const params: contracts.ServerContextualizationParams = {
                 ownerUri: ownerUri
             };
 
-            return client.sendRequest(PgSchemaMetadataRequest.type, params).then(
+            return client.sendRequest(contracts.GetServerContextualizationRequest.type, params).then(
                 r => r,
                 e => {
-                    client.logFailedRequest(PgSchemaMetadataRequest.type, e);
+                    client.logFailedRequest(contracts.GetServerContextualizationRequest.type, e);
                     return Promise.reject(e);
                 }
             );
         };
 
-        // TODO: "register" the provider somehow
+        return azdata.dataprotocol.registerServerContextualizationProvider({
+            providerId: client.providerId,
+            generateServerContextualization: generateServerContextualization,
+            getServerContextualization: getServerContextualization
+        });
     }
 }

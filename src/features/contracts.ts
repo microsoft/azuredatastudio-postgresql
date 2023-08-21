@@ -4,6 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 
 import { RequestType, NotificationType } from "vscode-languageclient";
+import * as azdata from 'azdata';
 import * as telemetry from '@microsoft/ads-extension-telemetry';
 
 // ------------------------------- < Telemetry Sent Event > ------------------------------------
@@ -29,19 +30,18 @@ export class TelemetryParams {
 }
 // ------------------------------- </ Telemetry Sent Event > ------------------------------------
 
-// ------------------------------- < Metadata API > ------------------------------------
+// ------------------------------- < Server Contextualization API > ------------------------------------
 
-export interface PgSchemaMetadataParams {
+export interface ServerContextualizationParams {
     ownerUri: string;
 }
 
-export namespace PgSchemaMetadataRequest {
-    export const type =
-        new RequestType<PgSchemaMetadataParams, PgSchemaMetadataResponse, void, void>('metadata/schema');
+export namespace GenerateServerContextualizationNotification {
+    export const type = new NotificationType<ServerContextualizationParams, void>('metadata/generateServerContext');
 }
 
-export interface PgSchemaMetadataResponse {
-    description: string;
+export namespace GetServerContextualizationRequest {
+    export const type = new RequestType<ServerContextualizationParams, azdata.contextualization.GetServerContextualizationResult, void, void>('metadata/getServerContext');
 }
 
-// ------------------------------- </ Metadata API > ------------------------------------
+// ------------------------------- </ Server Contextualization API > ------------------------------------
