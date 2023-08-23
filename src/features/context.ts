@@ -49,10 +49,13 @@ export class ServerContextualizationServiceFeature extends SqlOpsFeature<undefin
             );
         };
 
-        return azdata.dataprotocol.registerServerContextualizationProvider({
-            providerId: client.providerId,
-            generateServerContextualization: generateServerContextualization,
-            getServerContextualization: getServerContextualization
-        });
+        // register the provider if the API is available in the current version of ADS
+        return azdata.dataprotocol.registerServerContextualizationProvider
+            ? azdata.dataprotocol.registerServerContextualizationProvider({
+                providerId: client.providerId,
+                generateServerContextualization: generateServerContextualization,
+                getServerContextualization: getServerContextualization
+              })
+            : Disposable.from();
     }
 }
