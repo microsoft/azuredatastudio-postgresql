@@ -32,16 +32,24 @@ export class TelemetryParams {
 
 // ------------------------------- < Server Contextualization API > ------------------------------------
 
+/* Duplicated from azdata.proposed.d.ts in core ADS */
+
 export interface ServerContextualizationParams {
     ownerUri: string;
 }
 
+export interface GetServerContextualizationResult {
+    context: string[];
+}
+
 export namespace GenerateServerContextualizationNotification {
-    export const type = new NotificationType<ServerContextualizationParams, void>('metadata/generateServerContext');
+    export const type = new NotificationType<ServerContextualizationParams, void>
+        ('metadata/generateServerContext');
 }
 
 export namespace GetServerContextualizationRequest {
-    export const type = new RequestType<ServerContextualizationParams, azdata.contextualization.GetServerContextualizationResult, void, void>('metadata/getServerContext');
+    export const type = new RequestType<ServerContextualizationParams, GetServerContextualizationResult, void, void>
+        ('metadata/getServerContext');
 }
 
 // ------------------------------- </ Server Contextualization API > ------------------------------------
