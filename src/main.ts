@@ -11,8 +11,15 @@ import * as path from 'path';
 
 import { SqlOpsDataClient, ClientOptions } from 'dataprotocol-client';
 import { IConfig, ServerProvider, Events } from '@microsoft/ads-service-downloader';
-import { ServerOptions, TransportKind } from 'vscode-languageclient';
+import { NotificationType, ServerOptions, TransportKind } from 'vscode-languageclient';
+import * as nls from 'vscode-nls';
 
+// this should precede local imports because they can trigger localization calls
+const localize = nls.config({ messageFormat: nls.MessageFormat.file })();
+
+import { CommandObserver } from './commandObserver';
+import registerCommands from './commands';
+import * as Helper from './commonHelper';
 import * as Constants from './constants';
 import ContextProvider from './contextProvider';
 import * as Utils from './utils';
@@ -44,6 +51,8 @@ export async function activate(context: vscode.ExtensionContext) {
 
 	serverdownloader.eventEmitter.onAny(generateHandleServerProviderEvent());
 
+	let packageInfo = Utils.getPackageInfo();
+	let commandObserver = new CommandObserver();
 	let clientOptions: ClientOptions = {
 		providerId: Constants.providerId,
 		errorHandler: new LanguageClientErrorHandler(),
@@ -63,6 +72,9 @@ export async function activate(context: vscode.ExtensionContext) {
 		const installationComplete = Date.now();
 		let serverOptions = generateServerOptions(e);
 		languageClient = new SqlOpsDataClient(Constants.serviceName, serverOptions, clientOptions);
+        for (let command of registerCommands(commandObserver, packageInfo, languageClient)) {
+            context.subscriptions.push(command);
+        }
 		const processStart = Date.now();
 		languageClient.onReady().then(() => {
 			const processEnd = Date.now();
@@ -76,6 +88,7 @@ export async function activate(context: vscode.ExtensionContext) {
 				totalTime: String(processEnd - installationStart),
 				beginningTimestamp: String(installationStart)
 			});
+			addDeployNotificationsHandler(languageClient, commandObserver);
 		});
 		statusView.show();
 		statusView.text = 'Starting ' + Constants.providerId + ' service';
@@ -85,10 +98,45 @@ export async function activate(context: vscode.ExtensionContext) {
 		vscode.window.showErrorMessage('Failed to start ' + Constants.providerId + ' tools service');
 	});
 
+	try {
+		var pgProjects = await vscode.workspace.findFiles('{**/*.pgproj}');
+		if (pgProjects.length > 0) {
+			await Helper.checkProjectVersion(
+				packageInfo.minSupportedPostgreSQLProjectSDK,
+				packageInfo.maxSupportedPostgreSQLProjectSDK,
+				pgProjects.map(p => p.fsPath),
+				commandObserver);
+		}
+	} catch (err) {
+		outputChannel.appendLine(`Failed to verify project SDK, error: ${err}`);
+	}
+
 	let contextProvider = new ContextProvider();
 	context.subscriptions.push(contextProvider);
 	context.subscriptions.push(TelemetryReporter);
 	context.subscriptions.push({ dispose: () => languageClient.stop() });
+}
+
+function addDeployNotificationsHandler(client: SqlOpsDataClient, commandObserver: CommandObserver) {
+    const queryCompleteType: NotificationType<string, any> = new NotificationType('query/deployComplete');
+	client.onNotification(queryCompleteType, (data: any) => {
+        if (!data.batchSummaries.some(s => s.hasError)) {
+            commandObserver.logToOutputChannel(localize('extension.DeployCompleted', 'Deployment completed successfully.'));
+        }
+    });
+
+    const queryMessageType: NotificationType<string, any> = new NotificationType('query/deployMessage');
+    client.onNotification(queryMessageType, (data: any) => {
+        var messageText = data.message.isError ? localize('extension.deployErrorMessage', "Error: {0}", data.message.message) : localize('extension.deployMessage', "{0}", data.message.message);
+        commandObserver.logToOutputChannel(messageText);
+    });
+
+    const queryBatchStartType: NotificationType<string, any> = new NotificationType('query/deployBatchStart');
+    client.onNotification(queryBatchStartType, (data: any) => {
+        if (data.batchSummary.selection) {
+            commandObserver.logToOutputChannel(localize('extension.runQueryBatchStartMessage', "\nStarted executing query at {0}", data.batchSummary.selection.startLine + 1));
+        }
+    });
 }
 
 function generateServerOptions(executablePath: string): ServerOptions {
