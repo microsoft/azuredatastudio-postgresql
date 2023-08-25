@@ -18,6 +18,7 @@ import ContextProvider from './contextProvider';
 import * as Utils from './utils';
 import { TelemetryReporter, LanguageClientErrorHandler } from './telemetry';
 import { TelemetryFeature } from './features/telemetry';
+import { ServerContextualizationServiceFeature } from './features/context';
 
 const baseConfig = require('./config.json');
 const outputChannel = vscode.window.createOutputChannel(Constants.serviceName);
@@ -54,7 +55,8 @@ export async function activate(context: vscode.ExtensionContext) {
 		features: [
 			// we only want to add new features
 			...SqlOpsDataClient.defaultFeatures,
-			TelemetryFeature
+			TelemetryFeature,
+			ServerContextualizationServiceFeature
 		]
 	};
 
