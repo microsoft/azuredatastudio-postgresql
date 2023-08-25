@@ -10,8 +10,6 @@ import * as contracts from './contracts';
 import * as UUID from 'vscode-languageclient/lib/utils/uuid';
 import { Disposable } from 'vscode';
 
-import { ServerContextualizationParams, GetServerContextualizationRequest } from './contracts';
-
 export class ServerContextualizationServiceFeature extends SqlOpsFeature<undefined> {
     constructor(client: SqlOpsDataClient) {
         super(client, [contracts.GenerateServerContextualizationNotification.type]);
@@ -34,7 +32,7 @@ export class ServerContextualizationServiceFeature extends SqlOpsFeature<undefin
             // TODO
         };
 
-        const getServerContextualization = (ownerUri: string): Thenable<contracts.GetServerContextualizationResult> => {
+        const getServerContextualization = (ownerUri: string): Thenable<azdata.contextualization.GetServerContextualizationResult> => {
             const params: contracts.ServerContextualizationParams = {
                 ownerUri: ownerUri
             };
