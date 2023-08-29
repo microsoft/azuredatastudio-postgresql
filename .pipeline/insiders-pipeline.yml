@@ -9,12 +9,14 @@ jobs:
     - template: templates/build.yml
     - template: templates/code-sign.yml
     - task: CopyFiles@2
+      condition: always()
       inputs:
         sourceFolder: '$(Build.SourcesDirectory)'
         contents: '*.vsix'
         targetFolder: '$(Build.ArtifactStagingDirectory)'
       displayName: 'Copy Files'
     - task: PublishBuildArtifacts@1
+      condition: always()
       inputs:
         pathToPublish: '$(Build.ArtifactStagingDirectory)'
         artifactName: build
