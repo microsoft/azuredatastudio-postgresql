@@ -29,4 +29,3 @@ steps:
     SessionTimeout: '60'
     MaxConcurrency: '50'
     MaxRetryAttempts: '5'
-  condition: eq(variables['platform'], 'windows')
