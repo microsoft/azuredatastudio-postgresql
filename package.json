@@ -50,17 +50,17 @@
     ],
     "configuration": {
       "type": "object",
-      "title": "PGSQL configuration",
+      "title": "%postgres.configuration.title%",
       "properties": {
         "pgsql.logDebugInfo": {
           "type": "boolean",
           "default": false,
-          "description": "[Optional] Log debug output to the VS Code console (Help -> Toggle Developer Tools)"
+          "description": "%postgres.logDebugInfo.description%"
         },
         "pgsql.enabled": {
           "type": "boolean",
           "default": true,
-          "description": "[Optional] Enable PostgreSQL support (currently in development)"
+          "description": "%postgres.enabled.description%"
         },
         "pgsql.debugSourcePath": {
           "type": [
@@ -68,34 +68,34 @@
             "null"
           ],
           "default": null,
-          "description": "[Optional] Path to the source directory of the PostgreSQL Tools Service, for debugging"
+          "description": "%postgres.debugSourcePath.description%"
         },
         "pgsql.useDebugSource": {
           "type": "boolean",
           "default": false,
-          "description": "[Optional] Enable running the PGSQL extension via the path set in pgsql.debugSourcePath"
+          "description": "%postgres.useDebugSource.description%"
         },
         "pgsql.enableStartupDebugging": {
           "type": "boolean",
           "default": false,
-          "description": "[Optional] Whether to make the PostgreSQL Tools Service wait for a debugger to attach when starting"
+          "description": "%postgres.enableStartupDebugging.description%"
         },
         "pgsql.debugServerPort": {
           "type": "number",
           "default": 3000,
-          "description": "[Optional] The port to run the PostgreSQL Tools Service remote debugger on (default 3000)"
+          "description": "%postgres.debugServerPort.description%"
         },
         "pgsql.defaultDatabase": {
           "type": "string",
           "default": "postgres",
-          "description": "The default database to use when creating a new PostgreSQL connection"
+          "description": "%postgres.defaultDatabase.description%"
         },
         "pgsql.format.keywordCase": {
           "type": [
             "string",
             "null"
           ],
-          "description": "[Optional] Changes how keywords are formatted. Allowed values are 'upper', 'lower' and 'capitalize'.",
+          "description": "%postgres.format.keywordCase.description%",
           "default": null,
           "enum": [
             null,
@@ -109,7 +109,7 @@
             "string",
             "null"
           ],
-          "description": "[Optional] Changes how identifiers are formatted. Allowed values are 'upper', 'lower' and 'capitalize'.",
+          "description": "%postgres.format.identifierCase.description%",
           "default": null,
           "enum": [
             null,
@@ -121,12 +121,12 @@
         "pgsql.format.stripComments": {
           "type": "boolean",
           "default": false,
-          "description": "[Optional] If true comments are removed from the statements"
+          "description": "%postgres.format.stripComments.description%"
         },
         "pgsql.format.reindent": {
           "type": "boolean",
           "default": true,
-          "description": "[Optional] If true the indentations of the statements are changed."
+          "description": "%postgres.format.reindent.description%"
         }
       }
     },
@@ -141,9 +141,9 @@
           "specialValueType": "connectionName",
           "isIdentity": true,
           "name": "connectionName",
-          "displayName": "Name (optional)",
-          "description": "Custom name of the connection",
-          "groupName": "Source",
+          "displayName": "%postgres.connectionOptions.connectionName.displayName%",
+          "description": "%postgres.connectionOptions.connectionName.description%",
+          "groupName": "%postgres.connectionOptions.groupName.source%",
           "valueType": "string",
           "defaultValue": null,
           "objectType": null,
@@ -153,13 +153,13 @@
         },
         {
           "name": "host",
-          "displayName": "Server name",
-          "description": "Name of the PostgreSQL instance",
+          "displayName": "%postgres.connectionOptions.host.displayName%",
+          "description": "%postgres.connectionOptions.host.description%",
           "valueType": "string",
           "specialValueType": "serverName",
           "isIdentity": true,
           "isRequired": true,
-          "groupName": "Source",
+          "groupName": "%postgres.connectionOptions.groupName.source%",
           "defaultValue": null,
           "objectType": null,
           "categoryValues": null,
@@ -169,19 +169,19 @@
           "specialValueType": "authType",
           "isIdentity": true,
           "name": "authenticationType",
-          "displayName": "Authentication type",
-          "description": "How to authenticate with server",
-          "groupName": "Security",
+          "displayName": "%postgres.connectionOptions.authenticationType.displayName%",
+          "description": "%postgres.connectionOptions.authenticationType.description%",
+          "groupName": "%postgres.connectionOptions.groupName.security%",
           "valueType": "category",
           "defaultValue": "SqlLogin",
           "objectType": null,
           "categoryValues": [
             {
-              "displayName": "Password",
+              "displayName": "%postgres.connectionOptions.user.displayName%",
               "name": "SqlLogin"
             },
             {
-              "displayName": "Azure Active Directory",
+              "displayName": "%postgres.connectionOptions.authenticationType.azuremfaanduser%",
               "name": "AzureMFAAndUser"
             }
           ],
@@ -190,114 +190,114 @@
         },
         {
           "name": "dbname",
-          "displayName": "Database name",
-          "description": "The name of the initial catalog or database int the data source",
+          "displayName": "%postgres.connectionOptions.dbname.displayName%",
+          "description": "%postgres.connectionOptions.dbname.description%",
           "valueType": "string",
           "specialValueType": "databaseName",
           "isIdentity": true,
           "isRequired": false,
-          "groupName": "Source",
+          "groupName": "%postgres.connectionOptions.groupName.source%",
           "defaultValue": "postgres"
         },
         {
           "name": "user",
-          "displayName": "User name",
-          "description": "Indicates the user ID to be used when connecting to the data source",
+          "displayName": "%postgres.connectionOptions.user.displayName%",
+          "description": "%postgres.connectionOptions.user.description%",
           "valueType": "string",
           "specialValueType": "userName",
           "isIdentity": true,
           "isRequired": true,
-          "groupName": "Security"
+          "groupName": "%postgres.connectionOptions.groupName.security%"
         },
         {
           "name": "password",
-          "displayName": "Password",
-          "description": "Indicates the password to be used when connecting to the data source",
+          "displayName": "%postgres.connectionOptions.password.displayName%",
+          "description": "%postgres.connectionOptions.password.description%",
           "valueType": "password",
           "specialValueType": "password",
           "isIdentity": true,
           "isRequired": true,
-          "groupName": "Security"
+          "groupName": "%postgres.connectionOptions.groupName.security%"
         },
         {
           "name": "hostaddr",
-          "displayName": "Host IP address",
-          "description": "IP address of the server",
+          "displayName": "%postgres.connectionOptions.hostIp.displayName%",
+          "description": "%postgres.connectionOptions.hostIp.description%",
           "valueType": "string",
           "isIdentity": true,
-          "groupName": "Server",
+          "groupName": "%postgres.connectionOptions.groupName.server%",
           "defaultValue": null
         },
         {
           "name": "port",
-          "displayName": "Port",
-          "description": "Port number for the server",
+          "displayName": "%postgres.connectionOptions.port.displayName%",
+          "description": "%postgres.connectionOptions.port.description%",
           "valueType": "number",
           "isIdentity": true,
-          "groupName": "Server",
+          "groupName": "%postgres.connectionOptions.groupName.server%",
           "defaultValue": null
         },
         {
           "name": "connectTimeout",
-          "displayName": "Connect timeout",
-          "description": "Seconds to wait before timing out when connecting",
+          "displayName": "%postgres.connectionOptions.connectTimeout.displayName%",
+          "description": "%postgres.connectionOptions.connectTimeout.description%",
           "valueType": "number",
-          "groupName": "Client",
+          "groupName": "%postgres.connectionOptions.groupName.client%",
           "defaultValue": "15"
         },
         {
           "name": "clientEncoding",
-          "displayName": "Client encoding",
-          "description": "The client encoding for the connection",
+          "displayName": "%postgres.connectionOptions.clientEncoding.displayName%",
+          "description": "%postgres.connectionOptions.clientEncoding.description%",
           "valueType": "string",
-          "groupName": "Client",
+          "groupName": "%postgres.connectionOptions.groupName.client%",
           "defaultValue": null
         },
         {
           "name": "options",
-          "displayName": "Command-line options",
-          "description": "Command-line options to send to the server when the connection starts",
+          "displayName": "%postgres.connectionOptions.options.displayName%",
+          "description": "%postgres.connectionOptions.options.description%",
           "valueType": "string",
-          "groupName": "Server",
+          "groupName": "%postgres.connectionOptions.groupName.server%",
           "defaultValue": null
         },
         {
           "name": "applicationName",
-          "displayName": "Application name",
-          "description": "Value for the 'application_name' configuration parameter",
+          "displayName": "%postgres.connectionOptions.applicationName.displayName%",
+          "description": "%postgres.connectionOptions.applicationName.description%",
           "valueType": "string",
-          "groupName": "Client",
+          "groupName": "%postgres.connectionOptions.groupName.client%",
           "specialValueType": "appName"
         },
         {
           "name": "sslmode",
-          "displayName": "SSL mode",
-          "description": "The SSL mode to use when connecting",
+          "displayName": "%postgres.connectionOptions.ssl.displayName%",
+          "description": "%postgres.connectionOptions.ssl.description%",
           "valueType": "category",
-          "groupName": "SSL",
+          "groupName": "%postgres.connectionOptions.groupName.ssl%",
           "categoryValues": [
             {
-              "displayName": "Disable",
+              "displayName": "%postgres.connectionOptions.ssl.mode.disable%",
               "name": "disable"
             },
             {
-              "displayName": "Allow",
+              "displayName": "%postgres.connectionOptions.ssl.mode.allow%",
               "name": "allow"
             },
             {
-              "displayName": "Prefer",
+              "displayName": "%postgres.connectionOptions.ssl.mode.prefer%",
               "name": "prefer"
             },
             {
-              "displayName": "Require",
+              "displayName": "%postgres.connectionOptions.ssl.mode.require%",
               "name": "require"
             },
             {
-              "displayName": "Verify-CA",
-              "name": "verify-ca"
+              "displayName": "%postgres.connectionOptions.ssl.mode.verify_ca%",
+              "name": "verify_ca"
             },
             {
-              "displayName": "Verify-Full",
+              "displayName": "%postgres.connectionOptions.ssl.mode.verify_full%",
               "name": "verify-full"
             }
           ],
@@ -305,57 +305,57 @@
         },
         {
           "name": "sslcompression",
-          "displayName": "Use SSL compression",
-          "description": "Whether to compress SSL connections",
+          "displayName": "%postgres.connectionOptions.ssl.compression.displayName%",
+          "description": "%postgres.connectionOptions.ssl.compression.description%",
           "valueType": "boolean",
           "groupName": "SSL"
         },
         {
           "name": "sslcert",
-          "displayName": "SSL certificate filename",
-          "description": "The filename of the SSL certificate to use",
+          "displayName": "%postgres.connectionOptions.ssl.cert.displayName%",
+          "description": "%postgres.connectionOptions.ssl.cert.description%",
           "valueType": "string",
           "groupName": "SSL",
           "defaultValue": null
         },
         {
           "name": "sslkey",
-          "displayName": "SSL key filename",
-          "description": "The filename of the key to use for the SSL certificate",
+          "displayName": "%postgres.connectionOptions.ssl.key.displayName%",
+          "description": "%postgres.connectionOptions.ssl.key.description%",
           "valueType": "string",
           "groupName": "SSL",
           "defaultValue": null
         },
         {
           "name": "sslrootcert",
-          "displayName": "SSL root certificate filename",
-          "description": "The filename of the SSL root CA certificate to use",
+          "displayName": "%postgres.connectionOptions.ssl.rootcert.displayName%",
+          "description": "%postgres.connectionOptions.ssl.rootcert.description%",
           "valueType": "string",
           "groupName": "SSL",
           "defaultValue": null
         },
         {
           "name": "sslcrl",
-          "displayName": "SSL CRL filename",
-          "description": "The filename of the SSL certificate revocation list to use",
+          "displayName": "%postgres.connectionOptions.ssl.crl.displayName%",
+          "description": "%postgres.connectionOptions.ssl.crl.description%",
           "valueType": "string",
           "groupName": "SSL",
           "defaultValue": null
         },
         {
           "name": "requirepeer",
-          "displayName": "Require peer",
-          "description": "The required username of the server process",
+          "displayName": "%postgres.connectionOptions.requirepeer.displayName%",
+          "description": "%postgres.connectionOptions.requirepeer.description%",
           "valueType": "string",
-          "groupName": "Server",
+          "groupName": "%postgres.connectionOptions.groupName.server%",
           "defaultValue": null
         },
         {
           "name": "service",
-          "displayName": "Service name",
-          "description": "The service name in pg_service.conf to use for connection parameters",
+          "displayName": "%postgres.connectionOptions.service.displayName%",
+          "description": "%postgres.connectionOptions.service.description%",
           "valueType": "string",
-          "groupName": "Client",
+          "groupName": "%postgres.connectionOptions.groupName.client%",
           "defaultValue": null
         }
       ]
@@ -363,22 +363,22 @@
     "commands": [
       {
         "command": "pgproj.build.all",
-        "title": "Build all PostgreSQL projects",
+        "title": "%postgres.command.buildAll%",
         "category": "PostgreSQLProject"
       },
       {
         "command": "pgproj.build.current",
-        "title": "Build PostgreSQL project",
+        "title": "%postgres.command.buildCurrent%",
         "category": "PostgreSQLProject"
       },
       {
         "command": "pgproj.add.new",
-        "title": "New PostgreSQL Project",
+        "title": "%postgres.command.newProject%",
         "category": "PostgreSQLProject"
       },
       {
         "command": "pgproj.deploy.current",
-        "title": "Deploy",
+        "title": "%postgres.command.deploy%",
         "category": "PostgreSQLProject"
       }
     ],
