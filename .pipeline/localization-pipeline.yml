@@ -1,0 +1,39 @@
+trigger:
+  batch: true
+  branches:
+    include:
+    - main
+  paths:
+    include:
+    - src/l10n/l10n.xlf
+    - src/loc
+
+pr: none
+
+resources:
+  repositories:
+  - repository: self
+    type: git
+    ref: refs/heads/main
+
+jobs:
+- job: localization
+  displayName: localization
+  pool:
+    vmImage: windows-latest
+  steps:
+  - checkout: self
+    clean: true
+    fetchTags: true
+  - task: OneLocBuild@2
+    displayName: 'Localization Build: src/LocProject.json'
+    inputs:
+      locProj: src/LocProject.json
+      isCreatePrSelected: true
+      repoType: gitHub
+      gitHubPatVariable: $(githubPatToken)
+      isAutoCompletePrSelected: false
+      packageSourceAuth: patAuth
+      patVariable: $(OneLocBuildPat)
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish Artifact: drop'

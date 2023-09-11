@@ -1,0 +1,14 @@
+{
+    "Projects": [
+      {
+        "LanguageSet": "Azure_LanguagesExt",
+        "LocItems": [
+          {
+            "SourceFile": "src\\Resources\\Resources.xlf",
+            "CopyOption": "LangIDOnName",
+            "OutputPath": "src\\Resources\\transXlf"
+          }
+        ]
+      }
+    ]
+  }
