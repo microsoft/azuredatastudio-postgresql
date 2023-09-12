@@ -6,6 +6,8 @@ pool:
   vmImage: 'windows-latest'
 
 steps:
+- checkout: self
+  persistCredentials: true
 - task: OneLocBuild@2
   env:
     SYSTEM_ACCESSTOKEN: $(System.AccessToken)
@@ -13,7 +15,9 @@ steps:
     locProj: 'src/LocProject.json'
     outDir: '$(Build.ArtifactStagingDirectory)'
     isCreatePrSelected: true
+    repoType: 'gitHub'
     prSourceBranchPrefix: 'locfiles'
+    gitHubPrMergeMethod: 'squash'
     packageSourceAuth: 'patAuth'
     patVariable: '$(OneLocBuildPat)'
 
