@@ -8,14 +8,11 @@ import * as vscode from 'vscode';
 import * as fs from 'fs';
 import * as os from 'os';
 import * as path from 'path';
-
+import * as nls from 'vscode-nls';
+const localize = nls.config({ messageFormat: nls.MessageFormat.file })();
 import { SqlOpsDataClient, ClientOptions } from 'dataprotocol-client';
 import { IConfig, ServerProvider, Events } from '@microsoft/ads-service-downloader';
 import { NotificationType, ServerOptions, TransportKind } from 'vscode-languageclient';
-import * as nls from 'vscode-nls';
-
-// this should precede local imports because they can trigger localization calls
-const localize = nls.config({ messageFormat: nls.MessageFormat.file })();
 
 import { CommandObserver } from './commandObserver';
 import registerCommands from './commands';

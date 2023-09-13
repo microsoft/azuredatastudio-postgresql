@@ -444,6 +444,7 @@
     "@types/vscode": "^1.77.0",
     "@types/azdata": "^1.43.0",
     "del": "^6.1.1",
+    "event-stream": "^4.0.1",
     "gulp": "github:gulpjs/gulp#4.0.2",
     "gulp-istanbul-report": "0.0.1",
     "gulp-json-editor": "^2.5.6",

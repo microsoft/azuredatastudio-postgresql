@@ -6,10 +6,8 @@
 'use strict';
 import * as vscode from 'vscode';
 import * as nls from 'vscode-nls';
+const localize = nls.loadMessageBundle()
 import AdsTelemetryReporter from '@microsoft/ads-extension-telemetry';
-
-// this should precede local imports because they can trigger localization calls
-const localize = nls.config({ messageFormat: nls.MessageFormat.file })();
 import { ErrorAction, ErrorHandler, Message, CloseAction } from 'vscode-languageclient';
 import * as Utils from './utils';
 import * as Constants from './constants';

@@ -9,15 +9,13 @@ var srcmap = require('gulp-sourcemaps');
 var config = require('./tasks/config');
 var cproc = require('child_process');
 var nls = require('vscode-nls-dev');
-
 const path = require('path');
 const es = require('event-stream')
-
 require('./tasks/packagetasks')
 
 const languages = [
-    { id: 'zh-Hant', folderName: 'cht'},
-    { id: 'zh-Hans', folderName: 'chs'},
+    { id: 'zh-tw', folderName: 'cht', localeId: 'zh-Hant'},
+    { id: 'zh-cn', folderName: 'chs', localeId: 'zh-Hans'},
     { id: 'ja', folderName: 'jpn' },
     { id: 'ko', folderName: 'kor' },
     { id: 'de', folderName: 'deu' },
