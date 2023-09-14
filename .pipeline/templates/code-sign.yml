@@ -2,7 +2,7 @@ steps:
 - task: EsrpCodeSigning@3
   displayName: 'Code Signing'
   inputs:
-    ConnectedServiceName: 'Database System ESRP Connector'
+    ConnectedServiceName: 'OrcaSQL ESRP Code Sign'
     FolderPath: '$(Build.SourcesDirectory)'
     Pattern: '*.vsix'
     useMinimatch: true
