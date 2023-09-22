@@ -1,4 +1,5 @@
 pgsqltoolsservice
 node_modules
 out
+*nls.*.json
 *.vsix
