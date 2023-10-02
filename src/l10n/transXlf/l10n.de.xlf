@@ -4,27 +4,27 @@
     <body>
       <trans-unit id="json.schemas.desc">
         <source xml:lang="en">Associate schemas to JSON files in the current project</source>
-        <target state="new">Associate schemas to JSON files in the current project</target>
+        <target state="translated">Hiermit werden Schemas zu JSON-Dateien im aktuellen Projekt zugeordnet.</target>
       </trans-unit>
       <trans-unit id="json.schemas.url.desc">
         <source xml:lang="en">A URL to a schema or a relative path to a schema in the current directory</source>
-        <target state="new">A URL to a schema or a relative path to a schema in the current directory</target>
+        <target state="translated">Eine URL zu einem Schema oder ein relativer Pfad zu einem Schema im aktuellen Verzeichnis</target>
       </trans-unit>
       <trans-unit id="json.schemas.fileMatch.desc">
         <source xml:lang="en">An array of file patterns to match against when resolving JSON files to schemas.</source>
-        <target state="new">An array of file patterns to match against when resolving JSON files to schemas.</target>
+        <target state="translated">Ein Array aus Dateimustern zum Abgleich beim Auflösen von JSON-Dateien in Schemas</target>
       </trans-unit>
       <trans-unit id="json.schemas.fileMatch.item.desc">
         <source xml:lang="en">A file pattern that can contain '*' to match against when resolving JSON files to schemas.</source>
-        <target state="new">A file pattern that can contain '*' to match against when resolving JSON files to schemas.</target>
+        <target state="translated">Ein Dateimuster, das "*" enthalten kann, zum Abgleich beim Auflösen von JSON-Dateien in Schemas</target>
       </trans-unit>
       <trans-unit id="json.schemas.schema.desc">
         <source xml:lang="en">The schema definition for the given URL. The schema only needs to be provided to avoid accesses to the schema URL.</source>
-        <target state="new">The schema definition for the given URL. The schema only needs to be provided to avoid accesses to the schema URL.</target>
+        <target state="translated">Die Schemadefinition für die angegebene URL. Das Schema muss nur angegeben werden, um Zugriffe auf die Schema-URL zu vermeiden.</target>
       </trans-unit>
       <trans-unit id="json.format.enable.desc">
         <source xml:lang="en">Enable/disable default JSON formatter (requires restart)</source>
-        <target state="new">Enable/disable default JSON formatter (requires restart)</target>
+        <target state="translated">Standard-JSON-Formatierer aktivieren/deaktivieren (Neustart erforderlich)</target>
       </trans-unit>
       <trans-unit id="postgres.description">
         <source xml:lang="en">PostgreSQL extension for Azure Data Studio</source>
@@ -32,7 +32,7 @@
       </trans-unit>
       <trans-unit id="postgres.logDebugInfo.description">
         <source xml:lang="en">[Optional] Log debug output to the VS Code console (Help -&gt; Toggle Developer Tools)</source>
-        <target state="new">[Optional] Log debug output to the VS Code console (Help -&gt; Toggle Developer Tools)</target>
+        <target state="translated">[Optional] Protokollieren Sie die Debugausgabe in der VS Code-Konsole (Hilfe &gt; Entwicklertools umschalten).</target>
       </trans-unit>
       <trans-unit id="postgres.configuration.title">
         <source xml:lang="en">PostgreSQL configuration</source>
@@ -64,55 +64,55 @@
       </trans-unit>
       <trans-unit id="postgres.format.keywordCase.description">
         <source xml:lang="en">[Optional] Changes how keywords are formatted. Allowed values are 'upper', 'lower' and 'capitalize'.</source>
-        <target state="new">[Optional] Changes how keywords are formatted. Allowed values are 'upper', 'lower' and 'capitalize'.</target>
+        <target state="translated">[Optional] Ändert, wie Schlüsselwörter formatiert werden. Zulässige Werte sind „upper“, „lower“ und „capitalize“.</target>
       </trans-unit>
       <trans-unit id="postgres.format.identifierCase.description">
         <source xml:lang="en">[Optional] Changes how identifiers are formatted. Allowed values are 'upper', 'lower' and 'capitalize'.</source>
-        <target state="new">[Optional] Changes how identifiers are formatted. Allowed values are 'upper', 'lower' and 'capitalize'.</target>
+        <target state="translated">[Optional] Ändert, wie Bezeichner formatiert werden. Zulässige Werte sind „upper“, „lower“ und „capitalize“.</target>
       </trans-unit>
       <trans-unit id="postgres.format.stripComments.description">
         <source xml:lang="en">[Optional] If true comments are removed from the statements</source>
-        <target state="new">[Optional] If true comments are removed from the statements</target>
+        <target state="translated">[Optional] Bei „wahr“ werden Kommentare aus den Anweisungen entfernt.</target>
       </trans-unit>
       <trans-unit id="postgres.format.reindent.description">
         <source xml:lang="en">[Optional] If true the indentations of the statements are changed.</source>
-        <target state="new">[Optional] If true the indentations of the statements are changed.</target>
+        <target state="translated">[Optional] Bei „wahr“ werden die Einzüge der Anweisungen geändert.</target>
       </trans-unit>
       <trans-unit id="postgres.provider.displayName">
         <source xml:lang="en">PostgreSQL</source>
-        <target state="new">PostgreSQL</target>
+        <target state="translated">PostgreSQL</target>
       </trans-unit>
       <trans-unit id="postgres.connectionOptions.groupName.source">
         <source xml:lang="en">Source</source>
-        <target state="new">Source</target>
+        <target state="translated">Quelle</target>
       </trans-unit>
       <trans-unit id="postgres.connectionOptions.groupName.security">
         <source xml:lang="en">Security</source>
-        <target state="new">Security</target>
+        <target state="translated">Sicherheit</target>
       </trans-unit>
       <trans-unit id="postgres.connectionOptions.groupName.server">
         <source xml:lang="en">Server</source>
-        <target state="new">Server</target>
+        <target state="translated">Server</target>
       </trans-unit>
       <trans-unit id="postgres.connectionOptions.groupName.client">
         <source xml:lang="en">Client</source>
-        <target state="new">Client</target>
+        <target state="translated">Client</target>
       </trans-unit>
       <trans-unit id="postgres.connectionOptions.groupName.ssl">
         <source xml:lang="en">SSL</source>
-        <target state="new">SSL</target>
+        <target state="translated">SSL</target>
       </trans-unit>
       <trans-unit id="postgres.connectionOptions.connectionName.displayName">
         <source xml:lang="en">Name (optional)</source>
-        <target state="new">Name (optional)</target>
+        <target state="translated">Name (optional)</target>
       </trans-unit>
       <trans-unit id="postgres.connectionOptions.connectionName.description">
         <source xml:lang="en">Custom name of the connection</source>
-        <target state="new">Custom name of the connection</target>
+        <target state="translated">Benutzerdefinierter Name der Verbindung</target>
       </trans-unit>
       <trans-unit id="postgres.connectionOptions.host.displayName">
         <source xml:lang="en">Server name</source>
-        <target state="new">Server name</target>
+        <target state="translated">Servername</target>
       </trans-unit>
       <trans-unit id="postgres.connectionOptions.host.description">
         <source xml:lang="en">Name of the PostgreSQL instance</source>
@@ -120,47 +120,47 @@
       </trans-unit>
       <trans-unit id="postgres.connectionOptions.authenticationType.displayName">
         <source xml:lang="en">Authentication type</source>
-        <target state="new">Authentication type</target>
+        <target state="translated">Authentifizierungstyp</target>
       </trans-unit>
       <trans-unit id="postgres.connectionOptions.authenticationType.description">
         <source xml:lang="en">How to authenticate with server</source>
-        <target state="new">How to authenticate with server</target>
+        <target state="translated">So authentifizieren Sie sich beim Server</target>
       </trans-unit>
       <trans-unit id="postgres.connectionOptions.authenticationType.password">
         <source xml:lang="en">Password</source>
-        <target state="new">Password</target>
+        <target state="translated">Kennwort</target>
       </trans-unit>
       <trans-unit id="postgres.connectionOptions.authenticationType.azuremfaanduser">
         <source xml:lang="en">Azure Active Directory</source>
-        <target state="new">Azure Active Directory</target>
+        <target state="translated">Azure Active Directory</target>
       </trans-unit>
       <trans-unit id="postgres.connectionOptions.dbname.displayName">
         <source xml:lang="en">Database name</source>
-        <target state="new">Database name</target>
+        <target state="translated">Datenbankname</target>
       </trans-unit>
       <trans-unit id="postgres.connectionOptions.dbname.description">
         <source xml:lang="en">The name of the initial catalog or database in the data source</source>
-        <target state="new">The name of the initial catalog or database in the data source</target>
+        <target state="translated">Der Name des Anfangskatalogs oder der Anfangsdatenbank in der Datenquelle</target>
       </trans-unit>
       <trans-unit id="postgres.connectionOptions.user.displayName">
         <source xml:lang="en">User name</source>
-        <target state="new">User name</target>
+        <target state="translated">Benutzername</target>
       </trans-unit>
       <trans-unit id="postgres.connectionOptions.user.description">
         <source xml:lang="en">Indicates the user ID to be used when connecting to the data source</source>
-        <target state="new">Indicates the user ID to be used when connecting to the data source</target>
+        <target state="translated">Gibt die Benutzer-ID an, die beim Herstellen einer Verbindung mit der Datenquelle verwendet werden soll.</target>
       </trans-unit>
       <trans-unit id="postgres.connectionOptions.password.displayName">
         <source xml:lang="en">Password</source>
-        <target state="new">Password</target>
+        <target state="translated">Kennwort</target>
       </trans-unit>
       <trans-unit id="postgres.connectionOptions.password.description">
         <source xml:lang="en">Indicates the password to be used when connecting to the data source</source>
-        <target state="new">Indicates the password to be used when connecting to the data source</target>
+        <target state="translated">Gibt das Kennwort an, das beim Herstellen einer Verbindung mit der Datenquelle verwendet werden soll.</target>
       </trans-unit>
       <trans-unit id="postgres.connectionOptions.hostIp.displayName">
         <source xml:lang="en">Host IP address</source>
-        <target state="new">Host IP address</target>
+        <target state="translated">Host-IP-Adresse</target>
       </trans-unit>
       <trans-unit id="postgres.connectionOptions.hostIp.description">
         <source xml:lang="en">IP address of the server</source>
@@ -168,19 +168,19 @@
       </trans-unit>
       <trans-unit id="postgres.connectionOptions.port.displayName">
         <source xml:lang="en">Port</source>
-        <target state="new">Port</target>
+        <target state="translated">Port</target>
       </trans-unit>
       <trans-unit id="postgres.connectionOptions.port.description">
         <source xml:lang="en">Port number for the server</source>
-        <target state="new">Port number for the server</target>
+        <target state="translated">Portnummer für den Server</target>
       </trans-unit>
       <trans-unit id="postgres.connectionOptions.connectTimeout.displayName">
         <source xml:lang="en">Connect timeout</source>
-        <target state="new">Connect timeout</target>
+        <target state="translated">Verbindungstimeout</target>
       </trans-unit>
       <trans-unit id="postgres.connectionOptions.connectTimeout.description">
         <source xml:lang="en">Seconds to wait before timing out when connecting</source>
-        <target state="new">Seconds to wait before timing out when connecting</target>
+        <target state="translated">Sekunden, die gewartet werden müssen, bevor beim Herstellen der Verbindung ein Timeout auftritt</target>
       </trans-unit>
       <trans-unit id="postgres.connectionOptions.clientEncoding.displayName">
         <source xml:lang="en">Client encoding</source>
@@ -200,7 +200,7 @@
       </trans-unit>
       <trans-unit id="postgres.connectionOptions.applicationName.displayName">
         <source xml:lang="en">Application name</source>
-        <target state="new">Application name</target>
+        <target state="translated">Anwendungsname</target>
       </trans-unit>
       <trans-unit id="postgres.connectionOptions.applicationName.description">
         <source xml:lang="en">Value for the 'application_name' configuration parameter</source>
@@ -208,31 +208,31 @@
       </trans-unit>
       <trans-unit id="postgres.connectionOptions.ssl.displayName">
         <source xml:lang="en">SSL mode</source>
-        <target state="new">SSL mode</target>
+        <target state="translated">SSL-Modus</target>
       </trans-unit>
       <trans-unit id="postgres.connectionOptions.ssl.description">
         <source xml:lang="en">The SSL mode to use when connecting</source>
-        <target state="new">The SSL mode to use when connecting</target>
+        <target state="translated">Der SSL-Modus, der beim Herstellen einer Verbindung verwendet werden soll</target>
       </trans-unit>
       <trans-unit id="postgres.connectionOptions.ssl.mode.disable">
         <source xml:lang="en">Disable</source>
-        <target state="new">Disable</target>
+        <target state="translated">Deaktivieren</target>
       </trans-unit>
       <trans-unit id="postgres.connectionOptions.ssl.mode.require">
         <source xml:lang="en">Require</source>
-        <target state="new">Require</target>
+        <target state="translated">Anfordern</target>
       </trans-unit>
       <trans-unit id="postgres.connectionOptions.ssl.mode.allow">
         <source xml:lang="en">Allow</source>
-        <target state="new">Allow</target>
+        <target state="translated">Zulassen</target>
       </trans-unit>
       <trans-unit id="postgres.connectionOptions.ssl.mode.prefer">
         <source xml:lang="en">Prefer</source>
-        <target state="new">Prefer</target>
+        <target state="translated">Bevorzugen</target>
       </trans-unit>
       <trans-unit id="postgres.connectionOptions.ssl.mode.verify_ca">
         <source xml:lang="en">Verify-CA</source>
-        <target state="new">Verify-CA</target>
+        <target state="translated">Verify-CA</target>
       </trans-unit>
       <trans-unit id="postgres.connectionOptions.ssl.mode.verify_full">
         <source xml:lang="en">Verify-Full</source>
@@ -288,7 +288,7 @@
       </trans-unit>
       <trans-unit id="postgres.connectionOptions.service.displayName">
         <source xml:lang="en">Service name</source>
-        <target state="new">Service name</target>
+        <target state="translated">Dienstname</target>
       </trans-unit>
       <trans-unit id="postgres.connectionOptions.service.description">
         <source xml:lang="en">The service name in pg_service.conf to use for connection parameters</source>
@@ -296,7 +296,7 @@
       </trans-unit>
       <trans-unit id="postgres.resourceDeployment.displayName">
         <source xml:lang="en">Azure Database for PostgreSQL</source>
-        <target state="new">Azure Database for PostgreSQL</target>
+        <target state="translated">Azure Database for PostgreSQL</target>
       </trans-unit>
       <trans-unit id="postgres.resourceDeployment.description">
         <source xml:lang="en">Create an Azure Database for PostgreSQL flexible server - a fully managed PostgreSQL database as a service on Azure.</source>
@@ -304,11 +304,11 @@
       </trans-unit>
       <trans-unit id="postgres.resourceDeployment.okButtonText">
         <source xml:lang="en">Create in Azure portal</source>
-        <target state="new">Create in Azure portal</target>
+        <target state="translated">Im Azure-Portal erstellen</target>
       </trans-unit>
       <trans-unit id="postgres.resourceDeployment.agreements.template">
         <source xml:lang="en">I accept the {0} and {1}.</source>
-        <target state="new">I accept the {0} and {1}.</target>
+        <target state="translated">Ich akzeptiere die {0} und {1}.</target>
       </trans-unit>
       <trans-unit id="postgres.resourceDeployment.helpTexts.template">
         <source xml:lang="en">Azure Database for PostgreSQL Flexible Server is a relational database service powered by the PostgreSQL community edition. It's a fully managed database as a service offering that can handle mission-critical workloads with predictable performance and dynamic scalability. Additionally, it is designed for more granular control and flexibility over database management functions and configuration settings. {0}</source>
@@ -316,15 +316,15 @@
       </trans-unit>
       <trans-unit id="microsoft.azure.termsOfUse">
         <source xml:lang="en">Microsoft Azure terms of use</source>
-        <target state="new">Microsoft Azure terms of use</target>
+        <target state="translated">Microsoft Azure-Nutzungsbedingungen</target>
       </trans-unit>
       <trans-unit id="microsoft.privacy.statement">
         <source xml:lang="en">Microsoft Privacy Statement</source>
-        <target state="new">Microsoft Privacy Statement</target>
+        <target state="translated">Microsoft-Datenschutzbestimmungen</target>
       </trans-unit>
       <trans-unit id="learnMore">
         <source xml:lang="en">Learn More.</source>
-        <target state="new">Learn More.</target>
+        <target state="translated">Weitere Informationen.</target>
       </trans-unit>
       <trans-unit id="postgres.command.buildAll">
         <source xml:lang="en">Build all PostgreSQL projects</source>
@@ -340,7 +340,7 @@
       </trans-unit>
       <trans-unit id="postgres.command.deploy">
         <source xml:lang="en">Deploy</source>
-        <target state="new">Deploy</target>
+        <target state="translated">Bereitstellen</target>
       </trans-unit>
     </body>
   </file>
@@ -370,7 +370,7 @@ Deployment started {0}.</target>
       </trans-unit>
       <trans-unit id="extension.projectNamePrompt">
         <source xml:lang="en">Project Name</source>
-        <target state="new">Project Name</target>
+        <target state="translated">Projektname</target>
       </trans-unit>
       <trans-unit id="extension.projectNameEmptyErrorMessage">
         <source xml:lang="en">Project names cannot be empty</source>
@@ -438,19 +438,19 @@ Deployment started {0}.</target>
     <body>
       <trans-unit id="unsupportedPlatformMsg">
         <source xml:lang="en">Unsupported platform</source>
-        <target state="new">Unsupported platform</target>
+        <target state="translated">Nicht unterstützte Plattform</target>
       </trans-unit>
       <trans-unit id="serviceStartedStatusMsg">
         <source xml:lang="en">{0} service started</source>
-        <target state="new">{0} service started</target>
+        <target state="translated">{0} wurde gestartet.</target>
       </trans-unit>
       <trans-unit id="startingServiceStatusMsg">
         <source xml:lang="en">Starting {0} service</source>
-        <target state="new">Starting {0} service</target>
+        <target state="translated">{0} wird gestartet.</target>
       </trans-unit>
       <trans-unit id="failedToStartServiceErrorMsg">
         <source xml:lang="en">Failed to start {0} tools service</source>
-        <target state="new">Failed to start {0} tools service</target>
+        <target state="translated">Fehler beim Starten von {0} Toolsdiensts.</target>
       </trans-unit>
       <trans-unit id="failedToVerifyProjectSDKErrorMsg">
         <source xml:lang="en">Failed to verify project SDK, error: {0}</source>
@@ -462,11 +462,11 @@ Deployment started {0}.</target>
       </trans-unit>
       <trans-unit id="extension.deployErrorMessage">
         <source xml:lang="en">Error: {0}</source>
-        <target state="new">Error: {0}</target>
+        <target state="translated">Fehler: {0}</target>
       </trans-unit>
       <trans-unit id="extension.deployMessage">
         <source xml:lang="en">{0}</source>
-        <target state="new">{0}</target>
+        <target state="translated">{0}</target>
       </trans-unit>
       <trans-unit id="extension.runQueryBatchStartMessage">
         <source xml:lang="en">
@@ -476,31 +476,31 @@ Started executing query at {0}</target>
       </trans-unit>
       <trans-unit id="installingServiceChannelMsg">
         <source xml:lang="en">Installing {0} to {1}</source>
-        <target state="new">Installing {0} to {1}</target>
+        <target state="translated">"{0}" wird in "{1}" installiert.</target>
       </trans-unit>
       <trans-unit id="installingServiceStatusMsg">
         <source xml:lang="en">Installing {0}</source>
-        <target state="new">Installing {0}</target>
+        <target state="translated">{0} wird installiert.</target>
       </trans-unit>
       <trans-unit id="installedServiceChannelMsg">
         <source xml:lang="en">Installed {0}</source>
-        <target state="new">Installed {0}</target>
+        <target state="translated">{0} wurde installiert.</target>
       </trans-unit>
       <trans-unit id="downloadingServiceChannelMsg">
         <source xml:lang="en">Downloading {0}</source>
-        <target state="new">Downloading {0}</target>
+        <target state="translated">{0} wird heruntergeladen.</target>
       </trans-unit>
       <trans-unit id="downloadingServiceSizeChannelMsg">
         <source xml:lang="en">({0} KB)</source>
-        <target state="new">({0} KB)</target>
+        <target state="translated">({0} KB)</target>
       </trans-unit>
       <trans-unit id="downloadingServiceStatusMsg">
         <source xml:lang="en">Downloading {0}</source>
-        <target state="new">Downloading {0}</target>
+        <target state="translated">{0} wird heruntergeladen.</target>
       </trans-unit>
       <trans-unit id="downloadServiceDoneChannelMsg">
         <source xml:lang="en">Done!</source>
-        <target state="new">Done!</target>
+        <target state="translated">Fertig!</target>
       </trans-unit>
     </body>
   </file>
@@ -532,7 +532,7 @@ Installed PostgreSQL extension only supports SDK version between {2} and {3}.
     <body>
       <trans-unit id="serviceCrashMessage">
         <source xml:lang="en">{0}</source>
-        <target state="new">{0}</target>
+        <target state="translated">{0}</target>
       </trans-unit>
     </body>
   </file>
