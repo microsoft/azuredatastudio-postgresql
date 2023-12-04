@@ -1,13 +1,12 @@
 trigger: none
-pr:
-  - release
+pr: none
 jobs:
   - job: build_artifacts
     displayName: Build and Publish Artifacts
     pool:
       vmImage: 'windows-latest'
     steps:
-    - template: templates/build-snap.yml
+    - template: templates/build.yml
     - template: templates/code-sign.yml
     - task: CopyFiles@2
       condition: always()
