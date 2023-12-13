@@ -1,5 +1,4 @@
-trigger:
-  - release
+trigger: none
 pr: none
 jobs:
   - job: build_artifacts
