@@ -5,6 +5,8 @@
 
 'use strict';
 import * as vscode from 'vscode';
+import * as nls from 'vscode-nls';
+const localize = nls.loadMessageBundle()
 import AdsTelemetryReporter from '@microsoft/ads-extension-telemetry';
 import { ErrorAction, ErrorHandler, Message, CloseAction } from 'vscode-languageclient';
 import * as Utils from './utils';
@@ -27,7 +29,7 @@ export class LanguageClientErrorHandler implements ErrorHandler {
 	showOnErrorPrompt(): void {
 		TelemetryReporter.sendTelemetryEvent(Constants.serviceName + 'Crash');
 		void vscode.window.showErrorMessage(
-			Constants.serviceCrashMessage,
+			localize('serviceCrashMessage', "{0}", Constants.serviceCrashMessage),
 			Constants.serviceCrashButton).then(action => {
 				if (action && action === Constants.serviceCrashButton) {
 					void vscode.env.openExternal(vscode.Uri.parse(Constants.serviceCrashLink));
