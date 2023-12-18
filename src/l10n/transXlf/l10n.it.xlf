@@ -28,7 +28,7 @@
       </trans-unit>
       <trans-unit id="postgres.description">
         <source xml:lang="en">PostgreSQL extension for Azure Data Studio</source>
-        <target state="new">PostgreSQL extension for Azure Data Studio</target>
+        <target state="translated">Estensione PostgreSQL per Azure Data Studio</target>
       </trans-unit>
       <trans-unit id="postgres.logDebugInfo.description">
         <source xml:lang="en">[Optional] Log debug output to the VS Code console (Help -&gt; Toggle Developer Tools)</source>
@@ -36,31 +36,31 @@
       </trans-unit>
       <trans-unit id="postgres.configuration.title">
         <source xml:lang="en">PostgreSQL configuration</source>
-        <target state="new">PostgreSQL configuration</target>
+        <target state="translated">Configurazione di PostgreSQL</target>
       </trans-unit>
       <trans-unit id="postgres.enabled.description">
         <source xml:lang="en">[Optional] Enable PostgreSQL support (currently in development)</source>
-        <target state="new">[Optional] Enable PostgreSQL support (currently in development)</target>
+        <target state="translated">[Facoltativo] Abilitare il supporto di PostgreSQL (attualmente in fase di sviluppo)</target>
       </trans-unit>
       <trans-unit id="postgres.debugSourcePath.description">
         <source xml:lang="en">[Optional] Path to the source directory of the PG SQL Tools Service, for debugging</source>
-        <target state="new">[Optional] Path to the source directory of the PG SQL Tools Service, for debugging</target>
+        <target state="translated">[Facoltativo] Percorso della directory di origine del servizio strumenti PG SQL per il debug</target>
       </trans-unit>
       <trans-unit id="postgres.useDebugSource.description">
         <source xml:lang="en">[Optional] Enable running the PostgreSQL extension via the path set in pgsql.debugSourcePath</source>
-        <target state="new">[Optional] Enable running the PostgreSQL extension via the path set in pgsql.debugSourcePath</target>
+        <target state="translated">[Facoltativo] Abilitare l'esecuzione dell'estensione PostgreSQL tramite il percorso impostato in pgsql.debugSourcePath</target>
       </trans-unit>
       <trans-unit id="postgres.enableStartupDebugging.description">
         <source xml:lang="en">[Optional] Whether to make the PG SQL Tools Service wait for a debugger to attach when starting</source>
-        <target state="new">[Optional] Whether to make the PG SQL Tools Service wait for a debugger to attach when starting</target>
+        <target state="translated">[Facoltativo] Indica se fare in modo che il servizio strumenti PG SQL attenda il collegamento di un debugger all'avvio</target>
       </trans-unit>
       <trans-unit id="postgres.debugServerPort.description">
         <source xml:lang="en">[Optional] The port to run the PG SQL Tools Service remote debugger on (default 3000)</source>
-        <target state="new">[Optional] The port to run the PG SQL Tools Service remote debugger on (default 3000)</target>
+        <target state="translated">[Facoltativo] Porta su cui eseguire il debugger remoto del servizio strumenti PG SQL (valore predefinito 3000)</target>
       </trans-unit>
       <trans-unit id="postgres.defaultDatabase.description">
         <source xml:lang="en">The default database to use when creating a new PostgreSQL connection</source>
-        <target state="new">The default database to use when creating a new PostgreSQL connection</target>
+        <target state="translated">Database predefinito da usare per la creazione di una nuova connessione PostgreSQL</target>
       </trans-unit>
       <trans-unit id="postgres.format.keywordCase.description">
         <source xml:lang="en">[Optional] Changes how keywords are formatted. Allowed values are 'upper', 'lower' and 'capitalize'.</source>
@@ -116,7 +116,7 @@
       </trans-unit>
       <trans-unit id="postgres.connectionOptions.host.description">
         <source xml:lang="en">Name of the PostgreSQL instance</source>
-        <target state="new">Name of the PostgreSQL instance</target>
+        <target state="translated">Nome dell'istanza di PostgreSQL</target>
       </trans-unit>
       <trans-unit id="postgres.connectionOptions.authenticationType.displayName">
         <source xml:lang="en">Authentication type</source>
@@ -136,7 +136,7 @@
       </trans-unit>
       <trans-unit id="postgres.connectionOptions.dbname.displayName">
         <source xml:lang="en">Database name</source>
-        <target state="translated">Nome database</target>
+        <target state="translated">Nome del database</target>
       </trans-unit>
       <trans-unit id="postgres.connectionOptions.dbname.description">
         <source xml:lang="en">The name of the initial catalog or database in the data source</source>
@@ -164,7 +164,7 @@
       </trans-unit>
       <trans-unit id="postgres.connectionOptions.hostIp.description">
         <source xml:lang="en">IP address of the server</source>
-        <target state="new">IP address of the server</target>
+        <target state="translated">Indirizzo IP del server</target>
       </trans-unit>
       <trans-unit id="postgres.connectionOptions.port.displayName">
         <source xml:lang="en">Port</source>
@@ -184,19 +184,19 @@
       </trans-unit>
       <trans-unit id="postgres.connectionOptions.clientEncoding.displayName">
         <source xml:lang="en">Client encoding</source>
-        <target state="new">Client encoding</target>
+        <target state="translated">Codifica client</target>
       </trans-unit>
       <trans-unit id="postgres.connectionOptions.clientEncoding.description">
         <source xml:lang="en">The client encoding for the connection</source>
-        <target state="new">The client encoding for the connection</target>
+        <target state="translated">Codifica client per la connessione</target>
       </trans-unit>
       <trans-unit id="postgres.connectionOptions.options.displayName">
         <source xml:lang="en">Command-line options</source>
-        <target state="new">Command-line options</target>
+        <target state="translated">Opzioni della riga di comando</target>
       </trans-unit>
       <trans-unit id="postgres.connectionOptions.options.description">
         <source xml:lang="en">Command-line options to send to the server when the connection starts</source>
-        <target state="new">Command-line options to send to the server when the connection starts</target>
+        <target state="translated">Opzioni della riga di comando da inviare al server all'avvio della connessione</target>
       </trans-unit>
       <trans-unit id="postgres.connectionOptions.applicationName.displayName">
         <source xml:lang="en">Application name</source>
@@ -204,7 +204,7 @@
       </trans-unit>
       <trans-unit id="postgres.connectionOptions.applicationName.description">
         <source xml:lang="en">Value for the 'application_name' configuration parameter</source>
-        <target state="new">Value for the 'application_name' configuration parameter</target>
+        <target state="translated">Valore per il parametro di configurazione 'application_name'</target>
       </trans-unit>
       <trans-unit id="postgres.connectionOptions.ssl.displayName">
         <source xml:lang="en">SSL mode</source>
@@ -236,55 +236,55 @@
       </trans-unit>
       <trans-unit id="postgres.connectionOptions.ssl.mode.verify_full">
         <source xml:lang="en">Verify-Full</source>
-        <target state="new">Verify-Full</target>
+        <target state="translated">Verify-Full</target>
       </trans-unit>
       <trans-unit id="postgres.connectionOptions.ssl.compression.displayName">
         <source xml:lang="en">Use SSL compression</source>
-        <target state="new">Use SSL compression</target>
+        <target state="translated">Usa compressione SSL</target>
       </trans-unit>
       <trans-unit id="postgres.connectionOptions.ssl.compression.description">
         <source xml:lang="en">Whether to compress SSL connections</source>
-        <target state="new">Whether to compress SSL connections</target>
+        <target state="translated">Indica se comprimere le connessioni SSL</target>
       </trans-unit>
       <trans-unit id="postgres.connectionOptions.ssl.rootcert.displayName">
         <source xml:lang="en">SSL root certificate filename</source>
-        <target state="new">SSL root certificate filename</target>
+        <target state="translated">File di certificato radice SSL</target>
       </trans-unit>
       <trans-unit id="postgres.connectionOptions.ssl.rootcert.description">
         <source xml:lang="en">The filename of the SSL root CA certificate to use</source>
-        <target state="new">The filename of the SSL root CA certificate to use</target>
+        <target state="translated">Nome file del certificato della CA radice SSL da utilizzare</target>
       </trans-unit>
       <trans-unit id="postgres.connectionOptions.ssl.key.displayName">
         <source xml:lang="en">SSL key filename</source>
-        <target state="new">SSL key filename</target>
+        <target state="translated">Nome file della chiave SSL</target>
       </trans-unit>
       <trans-unit id="postgres.connectionOptions.ssl.key.description">
         <source xml:lang="en">The filename of the key to use for the SSL certificate</source>
-        <target state="new">The filename of the key to use for the SSL certificate</target>
+        <target state="translated">Il nome file della chiave da utilizzare per il certificato SSL</target>
       </trans-unit>
       <trans-unit id="postgres.connectionOptions.ssl.cert.displayName">
         <source xml:lang="en">SSL certificate filename</source>
-        <target state="new">SSL certificate filename</target>
+        <target state="translated">Nome file certificato SSL</target>
       </trans-unit>
       <trans-unit id="postgres.connectionOptions.ssl.cert.description">
         <source xml:lang="en">The filename of the SSL certificate to use</source>
-        <target state="new">The filename of the SSL certificate to use</target>
+        <target state="translated">Nome file del certificato SSL da utilizzare</target>
       </trans-unit>
       <trans-unit id="postgres.connectionOptions.ssl.crl.displayName">
         <source xml:lang="en">SSL CRL filename</source>
-        <target state="new">SSL CRL filename</target>
+        <target state="translated">Nome file CRL SSL</target>
       </trans-unit>
       <trans-unit id="postgres.connectionOptions.ssl.crl.description">
         <source xml:lang="en">The filename of the SSL certificate revocation list to use</source>
-        <target state="new">The filename of the SSL certificate revocation list to use</target>
+        <target state="translated">Il nome file dell'elenco di revoche di certificati SSL da utilizzare</target>
       </trans-unit>
       <trans-unit id="postgres.connectionOptions.requirepeer.displayName">
         <source xml:lang="en">Require peer</source>
-        <target state="new">Require peer</target>
+        <target state="translated">Richiedi peer</target>
       </trans-unit>
       <trans-unit id="postgres.connectionOptions.requirepeer.description">
         <source xml:lang="en">The required username of the server process</source>
-        <target state="new">The required username of the server process</target>
+        <target state="translated">Nome utente richiesto del processo server</target>
       </trans-unit>
       <trans-unit id="postgres.connectionOptions.service.displayName">
         <source xml:lang="en">Service name</source>
@@ -292,7 +292,7 @@
       </trans-unit>
       <trans-unit id="postgres.connectionOptions.service.description">
         <source xml:lang="en">The service name in pg_service.conf to use for connection parameters</source>
-        <target state="new">The service name in pg_service.conf to use for connection parameters</target>
+        <target state="translated">Il nome del servizio in pg_service.conf da utilizzare per i parametri di connessione</target>
       </trans-unit>
       <trans-unit id="postgres.resourceDeployment.displayName">
         <source xml:lang="en">Azure Database for PostgreSQL</source>
@@ -300,7 +300,7 @@
       </trans-unit>
       <trans-unit id="postgres.resourceDeployment.description">
         <source xml:lang="en">Create an Azure Database for PostgreSQL flexible server - a fully managed PostgreSQL database as a service on Azure.</source>
-        <target state="new">Create an Azure Database for PostgreSQL flexible server - a fully managed PostgreSQL database as a service on Azure.</target>
+        <target state="translated">Creare un server flessibile di Database di Azure per PostgreSQL, un database PostgreSQL completamente gestito come servizio in Azure.</target>
       </trans-unit>
       <trans-unit id="postgres.resourceDeployment.okButtonText">
         <source xml:lang="en">Create in Azure portal</source>
@@ -312,7 +312,7 @@
       </trans-unit>
       <trans-unit id="postgres.resourceDeployment.helpTexts.template">
         <source xml:lang="en">Azure Database for PostgreSQL Flexible Server is a relational database service powered by the PostgreSQL community edition. It's a fully managed database as a service offering that can handle mission-critical workloads with predictable performance and dynamic scalability. Additionally, it is designed for more granular control and flexibility over database management functions and configuration settings. {0}</source>
-        <target state="new">Azure Database for PostgreSQL Flexible Server is a relational database service powered by the PostgreSQL community edition. It's a fully managed database as a service offering that can handle mission-critical workloads with predictable performance and dynamic scalability. Additionally, it is designed for more granular control and flexibility over database management functions and configuration settings. {0}</target>
+        <target state="translated">Il Server flessibile di Database di Azure per PostgreSQL è un servizio di database relazionale basato su PostgreSQL Community Edition. Si tratta di un'offerta di database distribuita come servizio completamente gestito, in grado di gestire carichi di lavoro cruciali con prestazioni prevedibili e scalabilità dinamica. Inoltre, è progettato per garantire un controllo più granulare e una maggiore flessibilità sulle funzioni di gestione del database e sulle impostazioni di configurazione. {0}</target>
       </trans-unit>
       <trans-unit id="microsoft.azure.termsOfUse">
         <source xml:lang="en">Microsoft Azure terms of use</source>
@@ -328,19 +328,19 @@
       </trans-unit>
       <trans-unit id="postgres.command.buildAll">
         <source xml:lang="en">Build all PostgreSQL projects</source>
-        <target state="new">Build all PostgreSQL projects</target>
+        <target state="translated">Compila tutti i progetti PostgreSQL</target>
       </trans-unit>
       <trans-unit id="postgres.command.buildCurrent">
         <source xml:lang="en">Build PostgreSQL project</source>
-        <target state="new">Build PostgreSQL project</target>
+        <target state="translated">Compila progetto PostgreSQL</target>
       </trans-unit>
       <trans-unit id="postgres.command.newProject">
         <source xml:lang="en">New PostgreSQL Project</source>
-        <target state="new">New PostgreSQL Project</target>
+        <target state="translated">Nuovo progetto PostgreSQL</target>
       </trans-unit>
       <trans-unit id="postgres.command.deploy">
         <source xml:lang="en">Deploy</source>
-        <target state="translated">Distribuire</target>
+        <target state="translated">Distribuisci</target>
       </trans-unit>
     </body>
   </file>
@@ -348,25 +348,25 @@
     <body>
       <trans-unit id="extension.buildProgressTitle">
         <source xml:lang="en">Building projects</source>
-        <target state="new">Building projects</target>
+        <target state="translated">Compilazione dei progetti</target>
       </trans-unit>
       <trans-unit id="extension.deploymentStartedMessage">
         <source xml:lang="en">
 Deployment started {0}.</source>
-        <target state="new">
-Deployment started {0}.</target>
+        <target state="translated">
+Distribuzione avviata {0}.</target>
       </trans-unit>
       <trans-unit id="extension.FailedDeploy">
         <source xml:lang="en">Deployment failed with error: {0}</source>
-        <target state="new">Deployment failed with error: {0}</target>
+        <target state="translated">Distribuzione non riuscita con errore {0}</target>
       </trans-unit>
       <trans-unit id="extension.GetOutputPathFailed">
         <source xml:lang="en">Unable to find output file path to deploy.</source>
-        <target state="new">Unable to find output file path to deploy.</target>
+        <target state="translated">Impossibile trovare il percorso del file di output da distribuire.</target>
       </trans-unit>
       <trans-unit id="extension.deployBeginFailed">
         <source xml:lang="en">Deploy cannot begin until your project builds successfully.</source>
-        <target state="new">Deploy cannot begin until your project builds successfully.</target>
+        <target state="translated">La distribuzione non può iniziare finché il progetto non viene creato correttamente.</target>
       </trans-unit>
       <trans-unit id="extension.projectNamePrompt">
         <source xml:lang="en">Project Name</source>
@@ -374,23 +374,23 @@ Deployment started {0}.</target>
       </trans-unit>
       <trans-unit id="extension.projectNameEmptyErrorMessage">
         <source xml:lang="en">Project names cannot be empty</source>
-        <target state="new">Project names cannot be empty</target>
+        <target state="translated">I nomi di progetti non possono essere vuoti</target>
       </trans-unit>
       <trans-unit id="extension.projectNameSpecialCharsErrorMessage">
         <source xml:lang="en">Project names cannot contain any of the following characters: /?:&amp;\*"&lt;&gt;|#%;</source>
-        <target state="new">Project names cannot contain any of the following characters: /?:&amp;\*"&lt;&gt;|#%;</target>
+        <target state="translated">I nomi di progetto non possono contenere i caratteri seguenti:/?:&amp;\*"&lt;&gt;|#%;</target>
       </trans-unit>
       <trans-unit id="extension.projectNameInvalidErrorMessage">
         <source xml:lang="en">Project names cannot be '.' or '..'</source>
-        <target state="new">Project names cannot be '.' or '..'</target>
+        <target state="translated">I nomi di progetto non possono essere "." o ".."</target>
       </trans-unit>
       <trans-unit id="extension.projectNameInvalidCharErrorMessage">
         <source xml:lang="en">Project names cannot contain '..'</source>
-        <target state="new">Project names cannot contain '..'</target>
+        <target state="translated">Il nome del progetto non può contenere ".."</target>
       </trans-unit>
       <trans-unit id="extension.projectNameAlreadyExists">
         <source xml:lang="en">Project with same name already exists</source>
-        <target state="new">Project with same name already exists</target>
+        <target state="translated">Esiste già un progetto con lo stesso nome.</target>
       </trans-unit>
     </body>
   </file>
@@ -398,23 +398,23 @@ Deployment started {0}.</target>
     <body>
       <trans-unit id="extension.unsupportedPostgreSQLSdkMessage">
         <source xml:lang="en">There are some projects that use unsupported version of PostgreSQL SDK.</source>
-        <target state="new">There are some projects that use unsupported version of PostgreSQL SDK.</target>
+        <target state="translated">Esistono alcuni progetti che utilizzano versioni non supportate di PostgreSQL SDK.</target>
       </trans-unit>
       <trans-unit id="extension.updateProjectButtonText">
         <source xml:lang="en">Update Projects</source>
-        <target state="new">Update Projects</target>
+        <target state="translated">Aggiorna progetti</target>
       </trans-unit>
       <trans-unit id="extension.updatingSdkMessage">
         <source xml:lang="en">Updating PostgreSQL SDK version for file {0}.</source>
-        <target state="new">Updating PostgreSQL SDK version for file {0}.</target>
+        <target state="translated">Aggiornamento della versione di PostgreSQL SDK per il file {0}.</target>
       </trans-unit>
       <trans-unit id="extension.updatingSdkErrorMessage">
         <source xml:lang="en">Error updating SDK version for file {0}.</source>
-        <target state="new">Error updating SDK version for file {0}.</target>
+        <target state="translated">Errore durante l'aggiornamento della versione dell'SDK per il file {0}.</target>
       </trans-unit>
       <trans-unit id="extension.sdkUpdateCompleteMessage">
         <source xml:lang="en">Project file {0} has been updated.</source>
-        <target state="new">Project file {0} has been updated.</target>
+        <target state="translated">Il file di progetto {0} è stato aggiornato.</target>
       </trans-unit>
     </body>
   </file>
@@ -422,15 +422,15 @@ Deployment started {0}.</target>
     <body>
       <trans-unit id="extension.installDotNetCoreButtonText">
         <source xml:lang="en">Install .NET Core SDK...</source>
-        <target state="new">Install .NET Core SDK...</target>
+        <target state="translated">Installa .NET Core SDK...</target>
       </trans-unit>
       <trans-unit id="extension.dotNetCoreNotFoundMessage">
         <source xml:lang="en">The .NET Core SDK was not found.</source>
-        <target state="new">The .NET Core SDK was not found.</target>
+        <target state="translated">.NET Core SDK non è stato trovato.</target>
       </trans-unit>
       <trans-unit id="extension.dotNetCoreMessage">
         <source xml:lang="en">The PostgreSQL extension requires .NET Core SDK version {0} or later, but {1} was found.</source>
-        <target state="new">The PostgreSQL extension requires .NET Core SDK version {0} or later, but {1} was found.</target>
+        <target state="translated">L'estensione PostgreSQL richiede la versione .NET Core SDK {0} o successiva, ma è stato trovato {1}.</target>
       </trans-unit>
     </body>
   </file>
@@ -454,11 +454,11 @@ Deployment started {0}.</target>
       </trans-unit>
       <trans-unit id="failedToVerifyProjectSDKErrorMsg">
         <source xml:lang="en">Failed to verify project SDK, error: {0}</source>
-        <target state="new">Failed to verify project SDK, error: {0}</target>
+        <target state="translated">Non è stato possibile verificare project SDK. Errore: {0}</target>
       </trans-unit>
       <trans-unit id="extension.DeployCompleted">
         <source xml:lang="en">Deployment completed successfully.</source>
-        <target state="new">Deployment completed successfully.</target>
+        <target state="translated">Distribuzione completata.</target>
       </trans-unit>
       <trans-unit id="extension.deployErrorMessage">
         <source xml:lang="en">Error: {0}</source>
@@ -471,8 +471,8 @@ Deployment started {0}.</target>
       <trans-unit id="extension.runQueryBatchStartMessage">
         <source xml:lang="en">
 Started executing query at {0}</source>
-        <target state="new">
-Started executing query at {0}</target>
+        <target state="translated">
+Esecuzione della query iniziata alle {0}</target>
       </trans-unit>
       <trans-unit id="installingServiceChannelMsg">
         <source xml:lang="en">Installing {0} to {1}</source>
@@ -484,7 +484,7 @@ Started executing query at {0}</target>
       </trans-unit>
       <trans-unit id="installedServiceChannelMsg">
         <source xml:lang="en">Installed {0}</source>
-        <target state="translated">{0}installato</target>
+        <target state="translated">{0} installato</target>
       </trans-unit>
       <trans-unit id="downloadingServiceChannelMsg">
         <source xml:lang="en">Downloading {0}</source>
@@ -508,23 +508,23 @@ Started executing query at {0}</target>
     <body>
       <trans-unit id="extension.existingBuildInProgressMessage">
         <source xml:lang="en">There is a build already running, please cancel the build before starting a new one</source>
-        <target state="new">There is a build already running, please cancel the build before starting a new one</target>
+        <target state="translated">C'è una build già in esecuzione, annullala prima di iniziarne una nuova</target>
       </trans-unit>
       <trans-unit id="extension.buildSummaryMessage">
         <source xml:lang="en">======== Build: {0} succeeses or up-to-date, {1} failed, {2} skipped ========</source>
-        <target state="new">======== Build: {0} succeeses or up-to-date, {1} failed, {2} skipped ========</target>
+        <target state="translated">======== Compilazione: {0} riuscita o aggiornata, {1} non riuscita, {2} ignorata ========</target>
       </trans-unit>
       <trans-unit id="extension.projectUpdateFailedMessage">
         <source xml:lang="en">Failed to build project {0} with SDK Version {1}.
 Installed PostgreSQL extension only supports SDK version between {2} and {3}.
 </source>
-        <target state="new">Failed to build project {0} with SDK Version {1}.
-Installed PostgreSQL extension only supports SDK version between {2} and {3}.
+        <target state="translated">Non è stato possibile creare il progetto {0} con la versione SDK {1}.
+L'estensione PostgreSQL installata supporta solo la versione dell'SDK compresa tra {2} e {3}.
 </target>
       </trans-unit>
       <trans-unit id="extension.buildCancelMessage">
         <source xml:lang="en">Build has been cancelled</source>
-        <target state="new">Build has been cancelled</target>
+        <target state="translated">Compilazione annullata</target>
       </trans-unit>
     </body>
   </file>
