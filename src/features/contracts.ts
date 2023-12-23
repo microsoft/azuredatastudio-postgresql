@@ -3,9 +3,9 @@
  *  Licensed under the Source EULA. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
-import { NotificationType } from "vscode-languageclient";
+import { RequestType, NotificationType } from "vscode-languageclient";
+import * as azdata from 'azdata';
 import * as telemetry from '@microsoft/ads-extension-telemetry';
-
 
 // ------------------------------- < Telemetry Sent Event > ------------------------------------
 
@@ -29,3 +29,26 @@ export class TelemetryParams {
     }
 }
 // ------------------------------- </ Telemetry Sent Event > ------------------------------------
+
+// ------------------------------- < Server Contextualization API > ------------------------------------
+
+export interface ServerContextualizationParams {
+    ownerUri: string;
+}
+
+export namespace GenerateServerContextualizationNotification {
+    export const type = new NotificationType<
+            ServerContextualizationParams, void
+        >('metadata/generateServerContext');
+}
+
+export namespace GetServerContextualizationRequest {
+    export const type =
+        new RequestType<
+            ServerContextualizationParams,
+            azdata.contextualization.GetServerContextualizationResult,
+            void, void
+        >('metadata/getServerContext');
+}
+
+// ------------------------------- </ Server Contextualization API > ------------------------------------
