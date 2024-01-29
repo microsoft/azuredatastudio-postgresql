@@ -8,14 +8,11 @@ import * as vscode from 'vscode';
 import * as fs from 'fs';
 import * as os from 'os';
 import * as path from 'path';
-
+import * as nls from 'vscode-nls';
+const localize = nls.config({ messageFormat: nls.MessageFormat.file })();
 import { SqlOpsDataClient, ClientOptions } from 'dataprotocol-client';
 import { IConfig, ServerProvider, Events } from '@microsoft/ads-service-downloader';
 import { NotificationType, ServerOptions, TransportKind } from 'vscode-languageclient';
-import * as nls from 'vscode-nls';
-
-// this should precede local imports because they can trigger localization calls
-const localize = nls.config({ messageFormat: nls.MessageFormat.file })();
 
 import { CommandObserver } from './commandObserver';
 import registerCommands from './commands';
@@ -36,7 +33,7 @@ export async function activate(context: vscode.ExtensionContext) {
 	let supported = await Utils.verifyPlatform();
 
 	if (!supported) {
-		vscode.window.showErrorMessage('Unsupported platform');
+		vscode.window.showErrorMessage(localize('unsupportedPlatformMsg', "Unsupported platform"));
 		return;
 	}
 
@@ -78,7 +75,7 @@ export async function activate(context: vscode.ExtensionContext) {
 		const processStart = Date.now();
 		languageClient.onReady().then(() => {
 			const processEnd = Date.now();
-			statusView.text = Constants.providerId + ' service started';
+			statusView.text = localize('serviceStartedStatusMsg', "{0} service started", Constants.providerId);
 			setTimeout(() => {
 				statusView.hide();
 			}, 1500);
@@ -91,11 +88,11 @@ export async function activate(context: vscode.ExtensionContext) {
 			addDeployNotificationsHandler(languageClient, commandObserver);
 		});
 		statusView.show();
-		statusView.text = 'Starting ' + Constants.providerId + ' service';
+		statusView.text = localize('startingServiceStatusMsg', "Starting {0} service", Constants.providerId);
 		languageClient.start();
 	}, e => {
 		TelemetryReporter.sendTelemetryEvent('ServiceInitializingFailed');
-		vscode.window.showErrorMessage('Failed to start ' + Constants.providerId + ' tools service');
+		vscode.window.showErrorMessage(localize('failedToStartServiceErrorMsg', "Failed to start {0} tools service", Constants.providerId));
 	});
 
 	try {
@@ -108,7 +105,7 @@ export async function activate(context: vscode.ExtensionContext) {
 				commandObserver);
 		}
 	} catch (err) {
-		outputChannel.appendLine(`Failed to verify project SDK, error: ${err}`);
+		outputChannel.appendLine(localize('failedToVerifyProjectSDKErrorMsg', "Failed to verify project SDK, error: {0}", err));
 	}
 
 	let contextProvider = new ContextProvider();
@@ -185,16 +182,16 @@ function generateHandleServerProviderEvent() {
 		statusView.show();
 		switch (e) {
 			case Events.INSTALL_START:
-				outputChannel.appendLine(`Installing ${Constants.serviceName} to ${args[0]}`);
-				statusView.text = 'Installing Service';
+				outputChannel.appendLine(localize('installingServiceChannelMsg', "Installing {0} to {1}", Constants.serviceName, args[0]));
+				statusView.text = localize('installingServiceStatusMsg', "Installing {0}", Constants.serviceName);
 				break;
 			case Events.INSTALL_END:
-				outputChannel.appendLine('Installed');
+				outputChannel.appendLine(localize('installedServiceChannelMsg', "Installed {0}", Constants.serviceName));
 				break;
 			case Events.DOWNLOAD_START:
-				outputChannel.appendLine(`Downloading ${args[0]}`);
-				outputChannel.append(`(${Math.ceil(args[1] / 1024)} KB)`);
-				statusView.text = 'Downloading Service';
+				outputChannel.appendLine(localize('downloadingServiceChannelMsg', "Downloading {0}", args[0]));
+				outputChannel.append(localize('downloadingServiceSizeChannelMsg', "({0} KB)", Math.ceil(args[1] / 1024).toLocaleString(vscode.env.language)));
+				statusView.text = localize('downloadingServiceStatusMsg', "Downloading {0}", Constants.serviceName);
 				break;
 			case Events.DOWNLOAD_PROGRESS:
 				let newDots = Math.ceil(args[0] / 5);
@@ -204,7 +201,7 @@ function generateHandleServerProviderEvent() {
 				}
 				break;
 			case Events.DOWNLOAD_END:
-				outputChannel.appendLine('Done!');
+				outputChannel.appendLine(localize('downloadServiceDoneChannelMsg', "Done!"));
 				break;
 		}
 	};

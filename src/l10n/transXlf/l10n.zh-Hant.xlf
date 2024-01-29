@@ -1,0 +1,539 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file original="package" source-language="en" datatype="plaintext" target-language="zh-Hant">
+    <body>
+      <trans-unit id="json.schemas.desc">
+        <source xml:lang="en">Associate schemas to JSON files in the current project</source>
+        <target state="translated">在結構描述與目前專案的 JSON 檔案之間建立關聯</target>
+      </trans-unit>
+      <trans-unit id="json.schemas.url.desc">
+        <source xml:lang="en">A URL to a schema or a relative path to a schema in the current directory</source>
+        <target state="translated">目前目錄中的結構描述 URL 或結構描述相對路徑</target>
+      </trans-unit>
+      <trans-unit id="json.schemas.fileMatch.desc">
+        <source xml:lang="en">An array of file patterns to match against when resolving JSON files to schemas.</source>
+        <target state="translated">檔案模式陣列，在將 JSON 檔案解析成結構描述時的比對對象。</target>
+      </trans-unit>
+      <trans-unit id="json.schemas.fileMatch.item.desc">
+        <source xml:lang="en">A file pattern that can contain '*' to match against when resolving JSON files to schemas.</source>
+        <target state="translated">可包含 '*' 的檔案模式，在將 JSON 檔案解析成結構描述時的比對對象。</target>
+      </trans-unit>
+      <trans-unit id="json.schemas.schema.desc">
+        <source xml:lang="en">The schema definition for the given URL. The schema only needs to be provided to avoid accesses to the schema URL.</source>
+        <target state="translated">指定 URL 的結構描述定義。只須提供結構描述以避免存取結構描述 URL。</target>
+      </trans-unit>
+      <trans-unit id="json.format.enable.desc">
+        <source xml:lang="en">Enable/disable default JSON formatter (requires restart)</source>
+        <target state="translated">啟用/停用預設 JSON 格式器 (需要重新啟動)</target>
+      </trans-unit>
+      <trans-unit id="postgres.description">
+        <source xml:lang="en">PostgreSQL extension for Azure Data Studio</source>
+        <target state="translated">Azure Data Studio 的 PostgreSQL 延伸模組</target>
+      </trans-unit>
+      <trans-unit id="postgres.logDebugInfo.description">
+        <source xml:lang="en">[Optional] Log debug output to the VS Code console (Help -&gt; Toggle Developer Tools)</source>
+        <target state="translated">[Optional] 在 VS Code 主控台中記錄偵錯輸出 (說明 -&gt; 切換開發人員工具)</target>
+      </trans-unit>
+      <trans-unit id="postgres.configuration.title">
+        <source xml:lang="en">PostgreSQL configuration</source>
+        <target state="translated">PostgreSQL 設定</target>
+      </trans-unit>
+      <trans-unit id="postgres.enabled.description">
+        <source xml:lang="en">[Optional] Enable PostgreSQL support (currently in development)</source>
+        <target state="translated">[選擇性] 啟用 PostgreSQL 支援 (目前正在開發中)</target>
+      </trans-unit>
+      <trans-unit id="postgres.debugSourcePath.description">
+        <source xml:lang="en">[Optional] Path to the source directory of the PG SQL Tools Service, for debugging</source>
+        <target state="translated">[選擇性] PG SQL 工具服務的來源目錄路徑，用於進行偵錯</target>
+      </trans-unit>
+      <trans-unit id="postgres.useDebugSource.description">
+        <source xml:lang="en">[Optional] Enable running the PostgreSQL extension via the path set in pgsql.debugSourcePath</source>
+        <target state="translated">[選擇性] 透過 pgsql.debugSourcePath 中設定的路徑，啟用 PostgreSQL 延伸模組的執行</target>
+      </trans-unit>
+      <trans-unit id="postgres.enableStartupDebugging.description">
+        <source xml:lang="en">[Optional] Whether to make the PG SQL Tools Service wait for a debugger to attach when starting</source>
+        <target state="translated">[選擇性] 是否要讓 PG SQL 工具服務在啟動時等候偵錯工具連結</target>
+      </trans-unit>
+      <trans-unit id="postgres.debugServerPort.description">
+        <source xml:lang="en">[Optional] The port to run the PG SQL Tools Service remote debugger on (default 3000)</source>
+        <target state="translated">[選擇性] 要在其上執行 PG SQL 工具服務遠端偵錯程式的連接埠 (預設為 3000)</target>
+      </trans-unit>
+      <trans-unit id="postgres.defaultDatabase.description">
+        <source xml:lang="en">The default database to use when creating a new PostgreSQL connection</source>
+        <target state="translated">建立新的 PostgreSQL 連線時要使用的預設資料庫</target>
+      </trans-unit>
+      <trans-unit id="postgres.format.keywordCase.description">
+        <source xml:lang="en">[Optional] Changes how keywords are formatted. Allowed values are 'upper', 'lower' and 'capitalize'.</source>
+        <target state="translated">[選擇性] 變更關鍵字的格式。允許的值為 'upper', 'lower' 和 'capitalize'。</target>
+      </trans-unit>
+      <trans-unit id="postgres.format.identifierCase.description">
+        <source xml:lang="en">[Optional] Changes how identifiers are formatted. Allowed values are 'upper', 'lower' and 'capitalize'.</source>
+        <target state="translated">[選擇性] 變更識別碼的格式。允許的值為 'upper', 'lower' 和 'capitalize'。</target>
+      </trans-unit>
+      <trans-unit id="postgres.format.stripComments.description">
+        <source xml:lang="en">[Optional] If true comments are removed from the statements</source>
+        <target state="translated">[選擇性] 如果為 True，則會從陳述式中移除註解</target>
+      </trans-unit>
+      <trans-unit id="postgres.format.reindent.description">
+        <source xml:lang="en">[Optional] If true the indentations of the statements are changed.</source>
+        <target state="translated">[選擇性] 如果為 True，則會變更陳述式的縮排。</target>
+      </trans-unit>
+      <trans-unit id="postgres.provider.displayName">
+        <source xml:lang="en">PostgreSQL</source>
+        <target state="translated">PostgreSQL</target>
+      </trans-unit>
+      <trans-unit id="postgres.connectionOptions.groupName.source">
+        <source xml:lang="en">Source</source>
+        <target state="translated">來源</target>
+      </trans-unit>
+      <trans-unit id="postgres.connectionOptions.groupName.security">
+        <source xml:lang="en">Security</source>
+        <target state="translated">安全性</target>
+      </trans-unit>
+      <trans-unit id="postgres.connectionOptions.groupName.server">
+        <source xml:lang="en">Server</source>
+        <target state="translated">伺服器</target>
+      </trans-unit>
+      <trans-unit id="postgres.connectionOptions.groupName.client">
+        <source xml:lang="en">Client</source>
+        <target state="translated">用戶端</target>
+      </trans-unit>
+      <trans-unit id="postgres.connectionOptions.groupName.ssl">
+        <source xml:lang="en">SSL</source>
+        <target state="translated">SSL</target>
+      </trans-unit>
+      <trans-unit id="postgres.connectionOptions.connectionName.displayName">
+        <source xml:lang="en">Name (optional)</source>
+        <target state="translated">名稱 (選用)</target>
+      </trans-unit>
+      <trans-unit id="postgres.connectionOptions.connectionName.description">
+        <source xml:lang="en">Custom name of the connection</source>
+        <target state="translated">連線的自訂名稱</target>
+      </trans-unit>
+      <trans-unit id="postgres.connectionOptions.host.displayName">
+        <source xml:lang="en">Server name</source>
+        <target state="translated">伺服器名稱</target>
+      </trans-unit>
+      <trans-unit id="postgres.connectionOptions.host.description">
+        <source xml:lang="en">Name of the PostgreSQL instance</source>
+        <target state="translated">PostgreSQL 執行個體的名稱</target>
+      </trans-unit>
+      <trans-unit id="postgres.connectionOptions.authenticationType.displayName">
+        <source xml:lang="en">Authentication type</source>
+        <target state="translated">驗證類型</target>
+      </trans-unit>
+      <trans-unit id="postgres.connectionOptions.authenticationType.description">
+        <source xml:lang="en">How to authenticate with server</source>
+        <target state="translated">如何向伺服器驗證</target>
+      </trans-unit>
+      <trans-unit id="postgres.connectionOptions.authenticationType.password">
+        <source xml:lang="en">Password</source>
+        <target state="translated">密碼</target>
+      </trans-unit>
+      <trans-unit id="postgres.connectionOptions.authenticationType.azuremfaanduser">
+        <source xml:lang="en">Azure Active Directory</source>
+        <target state="translated">Azure Active Directory</target>
+      </trans-unit>
+      <trans-unit id="postgres.connectionOptions.dbname.displayName">
+        <source xml:lang="en">Database name</source>
+        <target state="translated">資料庫名稱</target>
+      </trans-unit>
+      <trans-unit id="postgres.connectionOptions.dbname.description">
+        <source xml:lang="en">The name of the initial catalog or database in the data source</source>
+        <target state="translated">資料來源中初始目錄或資料庫的名稱。</target>
+      </trans-unit>
+      <trans-unit id="postgres.connectionOptions.user.displayName">
+        <source xml:lang="en">User name</source>
+        <target state="translated">使用者名稱</target>
+      </trans-unit>
+      <trans-unit id="postgres.connectionOptions.user.description">
+        <source xml:lang="en">Indicates the user ID to be used when connecting to the data source</source>
+        <target state="translated">代表要在連線至資料來源時使用的使用者識別碼</target>
+      </trans-unit>
+      <trans-unit id="postgres.connectionOptions.password.displayName">
+        <source xml:lang="en">Password</source>
+        <target state="translated">密碼</target>
+      </trans-unit>
+      <trans-unit id="postgres.connectionOptions.password.description">
+        <source xml:lang="en">Indicates the password to be used when connecting to the data source</source>
+        <target state="translated">代表要在連線至資料來源時使用的密碼</target>
+      </trans-unit>
+      <trans-unit id="postgres.connectionOptions.hostIp.displayName">
+        <source xml:lang="en">Host IP address</source>
+        <target state="translated">主機 IP 位址</target>
+      </trans-unit>
+      <trans-unit id="postgres.connectionOptions.hostIp.description">
+        <source xml:lang="en">IP address of the server</source>
+        <target state="translated">伺服器的 IP 位址</target>
+      </trans-unit>
+      <trans-unit id="postgres.connectionOptions.port.displayName">
+        <source xml:lang="en">Port</source>
+        <target state="translated">連接埠</target>
+      </trans-unit>
+      <trans-unit id="postgres.connectionOptions.port.description">
+        <source xml:lang="en">Port number for the server</source>
+        <target state="translated">伺服器的連接埠號碼</target>
+      </trans-unit>
+      <trans-unit id="postgres.connectionOptions.connectTimeout.displayName">
+        <source xml:lang="en">Connect timeout</source>
+        <target state="translated">連線逾時</target>
+      </trans-unit>
+      <trans-unit id="postgres.connectionOptions.connectTimeout.description">
+        <source xml:lang="en">Seconds to wait before timing out when connecting</source>
+        <target state="translated">連線逾時前要等待的秒數</target>
+      </trans-unit>
+      <trans-unit id="postgres.connectionOptions.clientEncoding.displayName">
+        <source xml:lang="en">Client encoding</source>
+        <target state="translated">用戶端編碼</target>
+      </trans-unit>
+      <trans-unit id="postgres.connectionOptions.clientEncoding.description">
+        <source xml:lang="en">The client encoding for the connection</source>
+        <target state="translated">連線的用戶端編碼</target>
+      </trans-unit>
+      <trans-unit id="postgres.connectionOptions.options.displayName">
+        <source xml:lang="en">Command-line options</source>
+        <target state="translated">命令列選項</target>
+      </trans-unit>
+      <trans-unit id="postgres.connectionOptions.options.description">
+        <source xml:lang="en">Command-line options to send to the server when the connection starts</source>
+        <target state="translated">連線啟動時要傳送到伺服器的命令列選項</target>
+      </trans-unit>
+      <trans-unit id="postgres.connectionOptions.applicationName.displayName">
+        <source xml:lang="en">Application name</source>
+        <target state="translated">應用程式名稱</target>
+      </trans-unit>
+      <trans-unit id="postgres.connectionOptions.applicationName.description">
+        <source xml:lang="en">Value for the 'application_name' configuration parameter</source>
+        <target state="translated">'application_name' 設定參數的值</target>
+      </trans-unit>
+      <trans-unit id="postgres.connectionOptions.ssl.displayName">
+        <source xml:lang="en">SSL mode</source>
+        <target state="translated">SSL 模式</target>
+      </trans-unit>
+      <trans-unit id="postgres.connectionOptions.ssl.description">
+        <source xml:lang="en">The SSL mode to use when connecting</source>
+        <target state="translated">連線時要使用的 SSL 模式</target>
+      </trans-unit>
+      <trans-unit id="postgres.connectionOptions.ssl.mode.disable">
+        <source xml:lang="en">Disable</source>
+        <target state="translated">停用</target>
+      </trans-unit>
+      <trans-unit id="postgres.connectionOptions.ssl.mode.require">
+        <source xml:lang="en">Require</source>
+        <target state="translated">必要</target>
+      </trans-unit>
+      <trans-unit id="postgres.connectionOptions.ssl.mode.allow">
+        <source xml:lang="en">Allow</source>
+        <target state="translated">允許</target>
+      </trans-unit>
+      <trans-unit id="postgres.connectionOptions.ssl.mode.prefer">
+        <source xml:lang="en">Prefer</source>
+        <target state="translated">建議使用</target>
+      </trans-unit>
+      <trans-unit id="postgres.connectionOptions.ssl.mode.verify_ca">
+        <source xml:lang="en">Verify-CA</source>
+        <target state="translated">Verify-CA</target>
+      </trans-unit>
+      <trans-unit id="postgres.connectionOptions.ssl.mode.verify_full">
+        <source xml:lang="en">Verify-Full</source>
+        <target state="translated">Verify-Full</target>
+      </trans-unit>
+      <trans-unit id="postgres.connectionOptions.ssl.compression.displayName">
+        <source xml:lang="en">Use SSL compression</source>
+        <target state="translated">使用 SSL 壓縮</target>
+      </trans-unit>
+      <trans-unit id="postgres.connectionOptions.ssl.compression.description">
+        <source xml:lang="en">Whether to compress SSL connections</source>
+        <target state="translated">是否要壓縮 SSL 連線</target>
+      </trans-unit>
+      <trans-unit id="postgres.connectionOptions.ssl.rootcert.displayName">
+        <source xml:lang="en">SSL root certificate filename</source>
+        <target state="translated">SSL 根憑證檔案名稱</target>
+      </trans-unit>
+      <trans-unit id="postgres.connectionOptions.ssl.rootcert.description">
+        <source xml:lang="en">The filename of the SSL root CA certificate to use</source>
+        <target state="translated">要使用的 SSL 憑證檔案名稱</target>
+      </trans-unit>
+      <trans-unit id="postgres.connectionOptions.ssl.key.displayName">
+        <source xml:lang="en">SSL key filename</source>
+        <target state="translated">SSL 金鑰檔案名稱</target>
+      </trans-unit>
+      <trans-unit id="postgres.connectionOptions.ssl.key.description">
+        <source xml:lang="en">The filename of the key to use for the SSL certificate</source>
+        <target state="translated">要用於 SSL 憑證之金鑰的檔案名</target>
+      </trans-unit>
+      <trans-unit id="postgres.connectionOptions.ssl.cert.displayName">
+        <source xml:lang="en">SSL certificate filename</source>
+        <target state="translated">SSL 憑證檔案名稱</target>
+      </trans-unit>
+      <trans-unit id="postgres.connectionOptions.ssl.cert.description">
+        <source xml:lang="en">The filename of the SSL certificate to use</source>
+        <target state="translated">要使用的 SSL 憑證檔案名稱</target>
+      </trans-unit>
+      <trans-unit id="postgres.connectionOptions.ssl.crl.displayName">
+        <source xml:lang="en">SSL CRL filename</source>
+        <target state="translated">SSL CRL 檔案名稱</target>
+      </trans-unit>
+      <trans-unit id="postgres.connectionOptions.ssl.crl.description">
+        <source xml:lang="en">The filename of the SSL certificate revocation list to use</source>
+        <target state="translated">要使用之 SSL 憑證吊銷清單的檔案名稱</target>
+      </trans-unit>
+      <trans-unit id="postgres.connectionOptions.requirepeer.displayName">
+        <source xml:lang="en">Require peer</source>
+        <target state="translated">需要同儕節點</target>
+      </trans-unit>
+      <trans-unit id="postgres.connectionOptions.requirepeer.description">
+        <source xml:lang="en">The required username of the server process</source>
+        <target state="translated">伺服器流程的必要使用者名稱</target>
+      </trans-unit>
+      <trans-unit id="postgres.connectionOptions.service.displayName">
+        <source xml:lang="en">Service name</source>
+        <target state="translated">服務名稱</target>
+      </trans-unit>
+      <trans-unit id="postgres.connectionOptions.service.description">
+        <source xml:lang="en">The service name in pg_service.conf to use for connection parameters</source>
+        <target state="translated">要用於連線參數之 pg_service.conf 中的服務名稱</target>
+      </trans-unit>
+      <trans-unit id="postgres.resourceDeployment.displayName">
+        <source xml:lang="en">Azure Database for PostgreSQL</source>
+        <target state="translated">適用於 PostgreSQL 的 Azure 資料庫</target>
+      </trans-unit>
+      <trans-unit id="postgres.resourceDeployment.description">
+        <source xml:lang="en">Create an Azure Database for PostgreSQL flexible server - a fully managed PostgreSQL database as a service on Azure.</source>
+        <target state="translated">建立適用於 PostgreSQL 的 Azure 資料庫彈性伺服器 - 完全受控的 PostgreSQL 資料庫，作為 Azure 上的服務。</target>
+      </trans-unit>
+      <trans-unit id="postgres.resourceDeployment.okButtonText">
+        <source xml:lang="en">Create in Azure portal</source>
+        <target state="translated">在 Azure 入口網站中建立</target>
+      </trans-unit>
+      <trans-unit id="postgres.resourceDeployment.agreements.template">
+        <source xml:lang="en">I accept the {0} and {1}.</source>
+        <target state="translated">我接受{0}和{1}。</target>
+      </trans-unit>
+      <trans-unit id="postgres.resourceDeployment.helpTexts.template">
+        <source xml:lang="en">Azure Database for PostgreSQL Flexible Server is a relational database service powered by the PostgreSQL community edition. It's a fully managed database as a service offering that can handle mission-critical workloads with predictable performance and dynamic scalability. Additionally, it is designed for more granular control and flexibility over database management functions and configuration settings. {0}</source>
+        <target state="translated">適用於 PostgreSQL 的 Azure 資料庫彈性伺服器是由 PostgreSQL 社群版本所提供的關聯式資料庫服務。這是完全受控的資料庫，作為服務供應項目，可處理具有可預測效能和動態可擴縮性的任務關鍵工作負載。此外，它的設計目的是針對資料庫管理功能和組態設定進行更細微的控制與彈性。{0}</target>
+      </trans-unit>
+      <trans-unit id="microsoft.azure.termsOfUse">
+        <source xml:lang="en">Microsoft Azure terms of use</source>
+        <target state="translated">Microsoft Azure 使用規定</target>
+      </trans-unit>
+      <trans-unit id="microsoft.privacy.statement">
+        <source xml:lang="en">Microsoft Privacy Statement</source>
+        <target state="translated">Microsoft 隱私權聲明</target>
+      </trans-unit>
+      <trans-unit id="learnMore">
+        <source xml:lang="en">Learn More.</source>
+        <target state="translated">深入了解。</target>
+      </trans-unit>
+      <trans-unit id="postgres.command.buildAll">
+        <source xml:lang="en">Build all PostgreSQL projects</source>
+        <target state="translated">建置所有 PostgreSQL 專案</target>
+      </trans-unit>
+      <trans-unit id="postgres.command.buildCurrent">
+        <source xml:lang="en">Build PostgreSQL project</source>
+        <target state="translated">建置 PostgreSQL 專案</target>
+      </trans-unit>
+      <trans-unit id="postgres.command.newProject">
+        <source xml:lang="en">New PostgreSQL Project</source>
+        <target state="translated">新增 PostgreSQL 專案</target>
+      </trans-unit>
+      <trans-unit id="postgres.command.deploy">
+        <source xml:lang="en">Deploy</source>
+        <target state="translated">部署</target>
+      </trans-unit>
+    </body>
+  </file>
+  <file original="out/commands" source-language="en" datatype="plaintext" target-language="zh-Hant">
+    <body>
+      <trans-unit id="extension.buildProgressTitle">
+        <source xml:lang="en">Building projects</source>
+        <target state="translated">正在建置專案</target>
+      </trans-unit>
+      <trans-unit id="extension.deploymentStartedMessage">
+        <source xml:lang="en">
+Deployment started {0}.</source>
+        <target state="translated">
+部署已開始 {0}。</target>
+      </trans-unit>
+      <trans-unit id="extension.FailedDeploy">
+        <source xml:lang="en">Deployment failed with error: {0}</source>
+        <target state="translated">部署失敗，錯誤為: {0}</target>
+      </trans-unit>
+      <trans-unit id="extension.GetOutputPathFailed">
+        <source xml:lang="en">Unable to find output file path to deploy.</source>
+        <target state="translated">找不到要部署的輸出檔案路徑。</target>
+      </trans-unit>
+      <trans-unit id="extension.deployBeginFailed">
+        <source xml:lang="en">Deploy cannot begin until your project builds successfully.</source>
+        <target state="translated">必須等到專案建置成功後，才能開始部署。</target>
+      </trans-unit>
+      <trans-unit id="extension.projectNamePrompt">
+        <source xml:lang="en">Project Name</source>
+        <target state="translated">專案名稱</target>
+      </trans-unit>
+      <trans-unit id="extension.projectNameEmptyErrorMessage">
+        <source xml:lang="en">Project names cannot be empty</source>
+        <target state="translated">專案名稱不可為空白</target>
+      </trans-unit>
+      <trans-unit id="extension.projectNameSpecialCharsErrorMessage">
+        <source xml:lang="en">Project names cannot contain any of the following characters: /?:&amp;\*"&lt;&gt;|#%;</source>
+        <target state="translated">專案名稱不能包含下列任何字元: /?:&amp;\*"&lt;&gt;|#%;</target>
+      </trans-unit>
+      <trans-unit id="extension.projectNameInvalidErrorMessage">
+        <source xml:lang="en">Project names cannot be '.' or '..'</source>
+        <target state="translated">專案名稱不能是 '.' 或 '..'</target>
+      </trans-unit>
+      <trans-unit id="extension.projectNameInvalidCharErrorMessage">
+        <source xml:lang="en">Project names cannot contain '..'</source>
+        <target state="translated">專案名稱不能包含 '..'</target>
+      </trans-unit>
+      <trans-unit id="extension.projectNameAlreadyExists">
+        <source xml:lang="en">Project with same name already exists</source>
+        <target state="translated">已存在相同名稱的專案</target>
+      </trans-unit>
+    </body>
+  </file>
+  <file original="out/commonHelper" source-language="en" datatype="plaintext" target-language="zh-Hant">
+    <body>
+      <trans-unit id="extension.unsupportedPostgreSQLSdkMessage">
+        <source xml:lang="en">There are some projects that use unsupported version of PostgreSQL SDK.</source>
+        <target state="translated">有些專案使用不支援的 PostgreSQL SDK 版本。</target>
+      </trans-unit>
+      <trans-unit id="extension.updateProjectButtonText">
+        <source xml:lang="en">Update Projects</source>
+        <target state="translated">更新專案</target>
+      </trans-unit>
+      <trans-unit id="extension.updatingSdkMessage">
+        <source xml:lang="en">Updating PostgreSQL SDK version for file {0}.</source>
+        <target state="translated">正在更新檔案 {0} 的 PostgreSQL SDK 版本。</target>
+      </trans-unit>
+      <trans-unit id="extension.updatingSdkErrorMessage">
+        <source xml:lang="en">Error updating SDK version for file {0}.</source>
+        <target state="translated">更新檔案 {0} 的 SDK 版本時發生錯誤。</target>
+      </trans-unit>
+      <trans-unit id="extension.sdkUpdateCompleteMessage">
+        <source xml:lang="en">Project file {0} has been updated.</source>
+        <target state="translated">專案檔案 {0} 已更新。</target>
+      </trans-unit>
+    </body>
+  </file>
+  <file original="out/dotnet" source-language="en" datatype="plaintext" target-language="zh-Hant">
+    <body>
+      <trans-unit id="extension.installDotNetCoreButtonText">
+        <source xml:lang="en">Install .NET Core SDK...</source>
+        <target state="translated">安裝 .NET Core SDK...</target>
+      </trans-unit>
+      <trans-unit id="extension.dotNetCoreNotFoundMessage">
+        <source xml:lang="en">The .NET Core SDK was not found.</source>
+        <target state="translated">找不到 .NET Core SDK。</target>
+      </trans-unit>
+      <trans-unit id="extension.dotNetCoreMessage">
+        <source xml:lang="en">The PostgreSQL extension requires .NET Core SDK version {0} or later, but {1} was found.</source>
+        <target state="translated">PostgreSQL 延伸模組需要 .NET Core SDK版本 {0} 或更新版本，但找到 {1}。</target>
+      </trans-unit>
+    </body>
+  </file>
+  <file original="out/main" source-language="en" datatype="plaintext" target-language="zh-Hant">
+    <body>
+      <trans-unit id="unsupportedPlatformMsg">
+        <source xml:lang="en">Unsupported platform</source>
+        <target state="translated">不支援的平台</target>
+      </trans-unit>
+      <trans-unit id="serviceStartedStatusMsg">
+        <source xml:lang="en">{0} service started</source>
+        <target state="translated">{0} 服務已啟動</target>
+      </trans-unit>
+      <trans-unit id="startingServiceStatusMsg">
+        <source xml:lang="en">Starting {0} service</source>
+        <target state="translated">正在啟動 {0} 服務</target>
+      </trans-unit>
+      <trans-unit id="failedToStartServiceErrorMsg">
+        <source xml:lang="en">Failed to start {0} tools service</source>
+        <target state="translated">無法啟動 {0} 工具服務</target>
+      </trans-unit>
+      <trans-unit id="failedToVerifyProjectSDKErrorMsg">
+        <source xml:lang="en">Failed to verify project SDK, error: {0}</source>
+        <target state="translated">無法驗證專案 SDK，錯誤: {0}</target>
+      </trans-unit>
+      <trans-unit id="extension.DeployCompleted">
+        <source xml:lang="en">Deployment completed successfully.</source>
+        <target state="translated">已成功地完成部署。</target>
+      </trans-unit>
+      <trans-unit id="extension.deployErrorMessage">
+        <source xml:lang="en">Error: {0}</source>
+        <target state="translated">錯誤: {0}</target>
+      </trans-unit>
+      <trans-unit id="extension.deployMessage">
+        <source xml:lang="en">{0}</source>
+        <target state="translated">{0}</target>
+      </trans-unit>
+      <trans-unit id="extension.runQueryBatchStartMessage">
+        <source xml:lang="en">
+Started executing query at {0}</source>
+        <target state="translated">
+已開始執行以下查詢: {0}</target>
+      </trans-unit>
+      <trans-unit id="installingServiceChannelMsg">
+        <source xml:lang="en">Installing {0} to {1}</source>
+        <target state="translated">正在將 {0} 安裝到 {1}</target>
+      </trans-unit>
+      <trans-unit id="installingServiceStatusMsg">
+        <source xml:lang="en">Installing {0}</source>
+        <target state="translated">正在安裝 {0}</target>
+      </trans-unit>
+      <trans-unit id="installedServiceChannelMsg">
+        <source xml:lang="en">Installed {0}</source>
+        <target state="translated">已安裝 {0}</target>
+      </trans-unit>
+      <trans-unit id="downloadingServiceChannelMsg">
+        <source xml:lang="en">Downloading {0}</source>
+        <target state="translated">正在下載 {0}</target>
+      </trans-unit>
+      <trans-unit id="downloadingServiceSizeChannelMsg">
+        <source xml:lang="en">({0} KB)</source>
+        <target state="translated">({0} KB)</target>
+      </trans-unit>
+      <trans-unit id="downloadingServiceStatusMsg">
+        <source xml:lang="en">Downloading {0}</source>
+        <target state="translated">正在下載 {0}</target>
+      </trans-unit>
+      <trans-unit id="downloadServiceDoneChannelMsg">
+        <source xml:lang="en">Done!</source>
+        <target state="translated">完成!</target>
+      </trans-unit>
+    </body>
+  </file>
+  <file original="out/projectHelper" source-language="en" datatype="plaintext" target-language="zh-Hant">
+    <body>
+      <trans-unit id="extension.existingBuildInProgressMessage">
+        <source xml:lang="en">There is a build already running, please cancel the build before starting a new one</source>
+        <target state="translated">已有組建正在執行，請先取消組建，再開始新的組建</target>
+      </trans-unit>
+      <trans-unit id="extension.buildSummaryMessage">
+        <source xml:lang="en">======== Build: {0} succeeses or up-to-date, {1} failed, {2} skipped ========</source>
+        <target state="translated">======= 組建: {0} 成功或是最新狀態，{1} 失敗，{2} 略過 =======</target>
+      </trans-unit>
+      <trans-unit id="extension.projectUpdateFailedMessage">
+        <source xml:lang="en">Failed to build project {0} with SDK Version {1}.
+Installed PostgreSQL extension only supports SDK version between {2} and {3}.
+</source>
+        <target state="translated">無法使用 SDK 版本 {0} 建置專案 {1}。
+已安裝的 PostgreSQL 延伸模組只支援 {2} 與 {3} 之間的 SDK 版本。
+</target>
+      </trans-unit>
+      <trans-unit id="extension.buildCancelMessage">
+        <source xml:lang="en">Build has been cancelled</source>
+        <target state="translated">已取消建置</target>
+      </trans-unit>
+    </body>
+  </file>
+  <file original="out/telemetry" source-language="en" datatype="plaintext" target-language="zh-Hant">
+    <body>
+      <trans-unit id="serviceCrashMessage">
+        <source xml:lang="en">{0}</source>
+        <target state="translated">{0}</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
